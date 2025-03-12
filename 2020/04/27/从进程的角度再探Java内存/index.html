@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="hao">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2020/04/27/从进程的角度再探java内存/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从进程的角度再探Java内存">
+<meta property="og:url" content="http://example.com/2020/04/27/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E5%86%8D%E6%8E%A2Java%E5%86%85%E5%AD%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2020-04-27T06:00:13.000Z">
+<meta property="article:modified_time" content="2025-03-12T05:06:53.752Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            从进程的角度再探Java内存 | haozz
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/haozz1","instagram":"https://www.instagram.com/haozi_3/","weibo":"https://www.weibo.com/u/2164511885"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"AI":{"icon":"fa-regular fa-link","submenus":{"chatGPT":"https://chatgpt.com/","deepseek":"https://chat.deepseek.com/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"记录","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/img/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                haozz
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    AI
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chatgpt.com/">
+                                                    CHATGPT
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">
+                                                    DEEPSEEK
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-AI"
+                        >
+                            <span>
+                                AI
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-AI">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chatgpt.com/">CHATGPT</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chat.deepseek.com/">DEEPSEEK</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">从进程的角度再探Java内存</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/img/myname.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">hao</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2020-04-27 14:13</span>
+        <span class="mobile">2020-04-27 14:13</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-03-12 13:06:53</span>
+            <span class="mobile">2025-03-12 13:06:53</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="从进程的角度再探Java内存"><a href="#从进程的角度再探Java内存" class="headerlink" title="从进程的角度再探Java内存"></a>从进程的角度再探Java内存</h1><p><code>Java</code>的内存模型大家都很熟悉了，比如运行时内存分为：线程栈、本地方法栈、程序计数器、方法区、运行时常量池、堆、本地内存。堆又进一步分为新生代、老年代，新生代又进一步分为eden区和两个survivor区，方法区在JDK1.7之前的hotspot虚拟机的实现中用的是永生代这个概念，但在JDK1.8以后挪到了本地内存空间中去，其他的虚拟机实现比如JRocket一直没有永生代这个概念。</p>
+<p>但同样广为人知的是，Java虚拟机不过是操作系统的一个进程而已。在操作系统看来，这个进程和其他进程并没有什么本质的区别。假设这个虚拟机当前运行在Linux系统中，那么经典的内存分页、交换空间、虚拟内存空间模型，是不是应该还是适用于这个虚拟机。</p>
+<p>于是引发了很多思考：</p>
+<ol>
+<li><p>经典的Linux进程的内存模型，也有堆和栈的概念，这里的堆和栈，和Java运行时内存空间的堆和栈是什么关系？Java运行时内存中的<code>本地内存</code>，到底又和Linux经典内存模型中的哪一部分对应？</p>
+</li>
+<li><p>一个Java进程，能不能申请比物理内存更大的堆空间？如果能，他实际占用的物理内存是多大？</p>
+</li>
+<li><p>Java有OOM错误，操作系统也有OOM错误，这两者之间有什么关系？两者在导致进程死亡上到底有哪些不同？</p>
+</li>
+<li><p>如果再引入一个变量：docker，则问题就更有意思一点。docker daemon只是操作系统的一个进程这个毫无疑问，但是每一个启动起来的container，在操作系统看来又是以什么形态存在的呢？在docker中运行的JVM到底能使用多大的内存，能不能利用经典Linux内存模型中的换页机制？如果超出了docker的内存限制，这时候JVM进程到底是被谁杀死？是docker daemon、操作系统，还是JVM主动停止。</p>
+<p>对这个问题我们可以设想一个场景，在一个物理内存为16G的机器上，启动了一个内存限制为2G的docker，JVM的堆大小能不能设置成3G？假如能，是不是真的能申请到3G内存？假如不能，这个docker里运行的JVM最大能使用多大的堆？超出了会触发谁的OOM机制？</p>
+</li>
+</ol>
+<p>往往是复杂的问题让人兴奋，抽丝剥茧，看到纷繁表象下奔腾在电路板上的二进制洪流。那一刻的光芒，是蔷薇园里最好的一滴晨露，是草原上金线勾勒的鬓角，是中庭下樱花一点的绛唇，是一个程序员的高光时刻。</p>
+<h2 id="经典的Linux内存模型简介"><a href="#经典的Linux内存模型简介" class="headerlink" title="经典的Linux内存模型简介"></a>经典的Linux内存模型简介</h2><h3 id="运行时内存的几个部分"><a href="#运行时内存的几个部分" class="headerlink" title="运行时内存的几个部分"></a>运行时内存的几个部分</h3><p>翻开《程序员的自我修养》这本书第三章：可执行文件的装载与进程。其中讲到：</p>
+<p>进程的<strong>虚拟内存空间</strong>中有部分留作操作系统使用，在32位的linux系统上，一般是虚拟内存空间中最高的那1G空间，而用户只能使用3G空间。而这3G空间中，又主要分为这么几块空间：</p>
+<ul>
+<li><p>代码段。就是我们的代码编译成本机可执行文件后的那个东西，也就是我们平时编译后得到的那个文件，在运行时装载到代码段。</p>
+</li>
+<li><p>数据段。这就是我们代码里的一些常量数据。比如说在代码里写<code>std:string a = &quot;hello world!&quot;</code>，这个字符串就是个常量数据，不会保存到代码段，而是放到数据段。</p>
+</li>
+<li><p>堆空间。这个堆是Linux进程内存模型中的堆，要注意区分和<code>Java</code>运行时内存模型中的堆不是一个概念，虽然他们的功能是非常接近的，就是为进程在运行时动态分配的对象提供内存空间。</p>
+</li>
+<li><p>栈空间。这个栈也是Linux进程内存模型中的栈，要注意区分和<code>JVM</code>内存模型中的线程栈、本地线程栈也不是完全一样，虽然他们的功能也是非常接近的，就是为进程提供一个运行栈。</p>
+</li>
+<li><p>其实细究起来还有很多其他的段，但和我们的讨论相关性很低，就先不管了。</p>
+</li>
+</ul>
+<h3 id="换页机制与swap空间"><a href="#换页机制与swap空间" class="headerlink" title="换页机制与swap空间"></a>换页机制与swap空间</h3><p>只讲结果不探讨原理和为什么。</p>
+<p>现代计算机系统中，每个进程看到的内存都是从0开始的，完整、连续、平坦的一块空间。在32位的linux系统中，一般每个进程都会认为自己有4G内存可以使用。进程看到的内存称之为虚拟内存，而显然这样的虚拟内存和物理内存的地址不可能是一一对应的。所以，实际上无论是物理内存还是虚拟内存，都被分为一些固定大小的页面（一般4k一个页面），内核空间中保存一个虚拟内存页到物理内存页的映射关系。因此不同进程看到的同样地址的虚拟内存，可以被映射到不同地址的物理内存中去。</p>
+<p>实际上，内存管理的方式更加聪明一些，比如说虽然进程能看到4G的空间，但是他并不一定真的会用那么多，实际上很多进程就使用一点点内存。于是当这些虚拟内存没用到的时候，操作系统连虚拟内存到物理内存的映射关系都不会建立，只有当实际用到时才建立。</p>
+<p>那么假如真的有一些进程就是比较占用空间，一直在申请新的内存，确实用到了很大的内存空间，这样的两三个进程，实际用到的内存空间就会超过物理内存，这时候操作系统可以将一些暂时不用的物理内存页的内容写到文件系统里面去（windows下的虚拟内存，注意区分这个虚拟内存和我们刚才讨论的虚拟内存不是一个概念，linux下的交换空间），保证当前的进程仍然可以运行。这个<strong>暂时不用</strong>，我个人的理解是严格来讲只要当前CPU执行的指令用不到的内存地址，理论上都算是暂时不用，都可以交换到文件系统里面去。</p>
+<p>这样做的好处是允许系统中运行的进程能够<strong>实际使用</strong>超过物理内存的内存。这里的<strong>实际使用</strong>是指，假如说从进程的角度观察，自己可用的内存空间一直是4G，那么N个进程看到的虚拟空间地址就是$$4<em>N$$，肯定远远超过物理内存大小了。但他看到的这些内存空间并不一定实际使用，只有它确实在堆空间中申请了一大堆数据，这样才叫*<em>实际使用</em></em>，这样的话，一个进程可能使用100M，另一个使用10M，这样很多个进程，也<strong>未必能实际使用超过物理内存的内存</strong>，在这种情况下，操作系统<strong>就不必须</strong>把物理内存交换到文件系统里去了（实际上并不是只有物理内存耗尽才交换过去，在物理内存耗尽之前，就有可能交换一部分物理内存到交换空间，原因见：<a class="link"   target="_blank" rel="noopener" href="https://blog.51cto.com/wutengfei/2163283" >Linux交换空间<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>）。</p>
+<p>因此，即使进程实际使用的内存超过物理内存，现代操作系统也能够使用交换空间来满足需求。唯一的问题是，在文件系统进行IO是很慢的操作，和在内存里做操作慢了好几个数量级，因此应当尽量避免发生这种事情。</p>
+<p>操作系统设置的交换空间也不是无限的，虽然可以设置地大一点，但肯定不可能无限制地设置。而一旦交换空间  +  物理内存仍不足以满足多个进程的<strong>实际使用</strong>时，就会出现操作系统级别的OOM。</p>
+<p>发生了这种OOM错误以后，操作系统就会开始对现有的进程进行扫描，计算出一个<code>badness</code>评分，然后将评分高的一个或几个进程直接杀掉。操作系统的这个机制称为<code>OOM Killer</code>。这个评分的计算大概参考了以下几个维度：</p>
+<ul>
+<li>子进程内存消耗，越多越容易被选中</li>
+<li>CPU密集型以及老进程，比刚启动的进程更不容易被选中</li>
+<li>root启动的进程更不容易被选中</li>
+<li>用户可以通过控制<code>oom_adj</code>来控制进程选中优先级（范围是-17到15，值越高越容易被杀掉，值为-17时禁止该进程被杀掉）</li>
+</ul>
+<h2 id="Linux运行时内存和Java运行时内存的对应关系"><a href="#Linux运行时内存和Java运行时内存的对应关系" class="headerlink" title="Linux运行时内存和Java运行时内存的对应关系"></a>Linux运行时内存和Java运行时内存的对应关系</h2><h3 id="JVM进程的堆，与Java内存模型的堆"><a href="#JVM进程的堆，与Java内存模型的堆" class="headerlink" title="JVM进程的堆，与Java内存模型的堆"></a>JVM进程的堆，与Java内存模型的堆</h3><p>最常用的<code>JVM</code>之一：OpenJDK，本身是用<code>cpp</code>写的。当该虚拟机运行起来以后，就成为操作系统的一个进程，和其他的操作系统进程相比，这个进程并没有什么特别之处。因此，从整体上观察，一个<code>JVM</code>进程的内存模型就是下面这样子：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://www.history-of-my-life.com/imgs-for-md/JVM-and-Linux-memory-20190901-01.jpg"
+                      alt="JVM与内存模型"
+                ></p>
+<p>其中代码区，放的是<code>jvm</code>虚拟机的代码，数据区，放的是<code>jvm</code>虚拟机的常量数据，堆区，用来放<code>jvm</code>虚拟机申请的实例，这个装载过程是由操作系统进行的，当<code>JVM</code>虚拟机运行起来以后，虚拟机才开始进行我们熟悉的<code>JVM</code>内存的初始化。所以，当考虑到<code>JVM</code>的运行时内存状况时，一个<code>JVM</code>进程的内存是这样的：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://www.history-of-my-life.com/imgs-for-md/JVM-and-Linux-memory-20190901-02.jpg"
+                      alt="JVM与内存模型"
+                ></p>
+<p>这个图是网上找的图，出处见参考部分，只有<code>1.7</code>及以前版本的<code>Hotspot</code>才有永久代，其他的虚拟机实现，以及<code>1.8</code>及以后的<code>Hotspot</code>虚拟机实现，都不再有永久代这个概念。不过既然已经有了这张图，我们先以这个图为例来讨论<code>JVM</code>的内存模型。</p>
+<p>首先，永久代装的是JVM的方法区和运行时常量区。看起来，方法区刚好对应了传统linux内存模型中的代码区，而运行时常量池则对应了数据区。</p>
+<p>其次，新生代、老年代装的是JVM在运行时为用户代码新建的对象。那么新生代 + 老年代，就对应了linux内存模型中的堆区了。</p>
+<p>然后，栈本来就是按需建立的，所以JVM中的栈和linux模型中的栈基本完全对应。</p>
+<p>可见，我们所熟悉的JVM内存，除程序计数器和栈以外，都建立在<code>JVM</code>这个进程的<code>堆空间</code>，这是显而易见的事情，因为所有的这些东西，都是<code>JVM</code>这个进程在运行时新建出来的对象。而<code>Java</code>内存模型中的<code>堆</code>空间，则是<code>JVM</code>虚拟机所建立的一段逻辑空间。</p>
+<p>就像操作系统为每个进程建立了一个逻辑堆空间一样，<code>JVM</code>虚拟机为运行在其上的<code>java</code>代码建立了一个逻辑堆空间，所谓的永久代、新生代、老年代，都是一些数据结构所对应的逻辑空间而已。</p>
+<p>这个问题想明白了，简直是醍醐灌顶，豁然开朗。</p>
+<p>以前的永久代，是<code>jvm</code>这个进程在它的堆空间上分配的一段内存，它维护了这段逻辑内存与自己的进程的虚拟内存对应的一个数据结构，（没看源码的我盲猜）这个数据结构可能包含了起始地址、结束地址、最大可用空间大小等等，在<code>JVM</code>装载<code>java</code>字节码时，会将<code>class</code>文件的内容、运行时常量池放在这个部分。以前的永久代最大空间在<code>JVM</code>运行时就确定了，默认是<code>64M</code>，可以通过<code>-XX:MaxPermSize</code>来指定，当其超过了大小时，就会发生永久代溢出错误，这也是（java）的OOM错误的一种，是<code>JVM</code>主动的行为。</p>
+<p>那么用元空间替代了永久代，并不是说元空间不受<code>JVM</code>这个进程的管控了，只是说<code>JVM</code>对其管理的方式不再像以前的永久代、或者堆那样管理罢了。对堆的管理可能还维护了一个可用空间、起始虚拟内存地址、结束内存地址等，但对于元空间，这部分数据结构可以不用维护了，直接在<code>JVM</code>进程的堆里面申请就完了，要是申请大了，甚至超过了物理机的内存，也没关系啊，操作系统给换页，只要不超过<code>物理内存+swap</code>的总大小就完了，因为<code>swap</code>空间一般还挺大的，一般不至于发生（操作系统级别的）OOM，但一旦因为这个部分的使用发生OOM，那就是操作系统的OOM，会导致操作系统随机杀进程。</p>
+<p>所以说，所谓的用元空间代替永久代，并不是说某一块内存发生了什么神奇的变化，只是在管理这一块内存的时候，采用了一些新的概念模型，如此而已。</p>
+<h3 id="第一个问题的答案"><a href="#第一个问题的答案" class="headerlink" title="第一个问题的答案"></a>第一个问题的答案</h3><p><strong>经典的Linux进程的内存模型，也有堆和栈的概念，这里的堆和栈，和Java运行时内存空间的堆和栈是什么关系？Java运行时内存中的<code>本地内存</code>，到底又和Linux经典内存模型中的哪一部分对应？</strong></p>
+<p>Java内存模型中的本地内存、堆，其实都是分配在<code>Linux</code>经典内存模型中的<code>堆</code>中。</p>
+<p>什么是<code>native memory</code>，翻译成本地内存、直接内存都可以。所谓的本地内存，就是<code>JVM</code>进程所使用的内存。其实我个人理解本地内存就是操作系统分配给<code>JVM</code>进程的内存，那自然从地址空间来讲，包含了java内存模型中的堆在内。只是我们在讨论时，为了理解的方便，经常将java内存模型中的堆从本地内存这个概念中独立出来。那么本地内存的作用就是：</p>
+<ul>
+<li><p>管理java heap的状态数据（用于GC）;</p>
+</li>
+<li><p>JNI调用，也就是Native Stack；</p>
+</li>
+<li><p>JIT（即使编译器）编译时使用Native Memory，并且JIT的输入（Java字节码）和输出（可执行代码）也都是保存在Native Memory；</p>
+</li>
+<li><p>NIO direct buffer；</p>
+</li>
+<li><p>Threads；</p>
+</li>
+<li><p>类加载器和类信息都是保存在Native Memory中的。</p>
+</li>
+</ul>
+<h3 id="第二个问题的答案"><a href="#第二个问题的答案" class="headerlink" title="第二个问题的答案"></a>第二个问题的答案</h3><p><strong>一个Java进程，能不能申请比物理内存更大的堆空间？如果能，他实际占用的物理内存是多大？</strong></p>
+<p>那是自然可以的咯，申请大了没关系，大不了内存换页啊。到底占据多大的物理内存空间，这得看<code>JVM</code>到底是怎么初始化堆的，实际上还真有不同的初始化方式：</p>
+<ul>
+<li><p>在默认情况下，<code>JVM</code>也只是建立了一个有关于java堆的数据结构，java堆的那一块内存并不会去初始化。意思是，对于操作系统来说，<code>JVM</code>这个进程并没有<strong>实际使用</strong>那些内存，因此操作系统也不会给这部分内存真的分配物理地址。于是，实际上这个<code>JVM</code>耗费的物理内存只有一点点，就是<code>JVM</code>本身用到的一些内存，以及java代码使用的那些内存，这两个部分。</p>
+<p>这种方式在大部分情况下是很好的，因为毕竟不是所有人都会主动去设置java堆的大小，而是依赖于java的默认设置（堆最小是1&#x2F;64物理内存，最大1&#x2F;4物理内存），而且即使设置了java堆的大小，也未必真的会用那么多。如果每个JVM启动时都把java堆内存的部分初始化一下，占用物理内存，何止是没必要，简直就是浪费，甚至可能导致操作系统内存吃紧发生问题，此外，初始化那么大一块内存，也很费时间。</p>
+<p>但也有一些不好，考虑一个用java实现的数据库或搜索类服务器，比如说ES，这样的一个服务肯定是你给我多少内存，我恨不得都吃掉，至少可以做缓存啊对不对，最好是启动时我就占很大一块，启动速度可以慢一点，启动后运行速度一定是越快越好。而这样的一些服务一般也是独立部署在服务器上，整台服务器资源基本上都是给他用的，也不太需要顾及其他进程的感受。那这时候，在启动时直接让<code>jvm</code>初始化java堆，这样就能避免在运行时触发缺页异常，保证启动后的速度。</p>
+</li>
+<li><p>于是，<code>JVM</code>实际上有个参数做这个事情，<code>-XX:+AlwaysPreTouch</code>，将会在java堆空间中写满0，这样就可以实现初始化的目的了。避免在实际使用到堆空间时再触发缺页异常，影响运行时的效率。</p>
+</li>
+</ul>
+<p>能申请比物理内存更大的堆空间，不代表这么做是对的。一般的进程里，即使用到了比物理内存更大的内存，但其热点内存区域仍然只有一小部分，也就是说，至少频繁用到的内存页仍然可以只有一小部分，因此可以长期装载在物理内存中，不会频繁引起缺页异常导致数据在物理内存和swap之间换入换出，所以运行效率还尚可。但是<code>JVM</code>由于内存回收机制的存在，在<code>gc</code>过程中，需要扫描很大一块内存，假如堆内存大于物理内存，将会导致疯狂换页，这效率一般就低到尘埃里面去了，甚至会拖垮整个服务，所以，我们尽量不要设置大于物理内存的堆内存，而且还要考虑到内存中还有部分是给内核空间用的、给其他关键进程比如<code>sshd</code>用的，因此一般应该使用比物理空间小一些的堆内存空间。</p>
+<h3 id="第三个问题的答案"><a href="#第三个问题的答案" class="headerlink" title="第三个问题的答案"></a>第三个问题的答案</h3><p><strong>Java有OOM错误，操作系统也有OOM错误，这两者之间有什么关系？两者在导致进程死亡上到底有哪些不同？</strong></p>
+<p>Java的OOM错误，是因为java堆空间已经满了，而且经过了GC仍不足以分配内存空间，这时候<code>JVM</code>会抛出一个<code>OutOfMemoryError</code>，这个错误属于java异常体系的一部分，继承自<code>Throwable</code>，可以用如下方式被捕获：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">oomMethod</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// do some stupid thing to cause OOM</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (OutOfMemoryError e)&#123;</span><br><span class="line">      	<span class="comment">// do something to recover, but you really need a good reason to catch </span></span><br><span class="line">      	<span class="comment">// an OOM error.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>Spring Boot在引入web依赖时，就会帮我们catch这个Error，从而我们的服务可以发生OOM，打出异常栈之后，该服务还能继续接受和处理其他请求。</p>
+<p>但操作系统的OOM，是因为所有运行在该操作系统下的进程所<strong>实际使用</strong>的内存，超出了物理内存和交换空间之和，此时操作系统会根据一些参数计算出一个score，然后把score最大的一个或几个进程直接杀掉，一般就是占用内存最大的那个，（也就是我们的主服务了），这个过程可以人为干预，但仍然有一定的随机性。</p>
+<p>所以，java的OOM是自己检测到无法运行进程了需要退出，是个主动的行为，因此也可以catch后中止这个退出行为；而操作系统的OOM杀进程对于JVM来说，是一个被动的行为，一旦被操作系统选中，作为一个普通进程的jvm将没有任何办法，只能被干掉。</p>
+<p>举一个现实中可能会遇到的情况，我们的线上服务在发生OOM时，有时候会在日志中打出一个OOM的异常栈，然后服务还是启动状态，仍然能接受下一次请求；而在有些情况下，k8s的container会直接重启，查看重启原因会发现是<code>OOM Killed</code>，这就是操作系统的<code>OOM</code>杀了，而因为我们的容器里实际上只运行了<code>JVM</code>，其他进程并不占内存，所以我们可以大胆猜测，是运行时的<code>JVM</code>申请了太多的本地内存，最终导致实际使用的内存超过了物理内存和交换空间之和导致OOM杀，那本地内存在<code>JVM</code>中到底怎么申请的呢？一般会大量使用本地内存、而且在运行前不好估计使用量的，就是NIO框架，以及Spring大量使用的反射机制，所以，调低堆大小，给本地内存留出更大的空间，理论上可以解决这个问题。</p>
+<h2 id="终章：与Docker的战斗"><a href="#终章：与Docker的战斗" class="headerlink" title="终章：与Docker的战斗"></a>终章：与Docker的战斗</h2><h3 id="docker中的进程，也只是一个进程"><a href="#docker中的进程，也只是一个进程" class="headerlink" title="docker中的进程，也只是一个进程"></a>docker中的进程，也只是一个进程</h3><p>想直观地观察到上面的结论，没法用windows或者mac下的docker desktop来观察，因为docker只能运行在linux内核上，所以windows或者mac下docker desktop本质上是个虚拟机。实际上可以理解为，在windows和mac下运行了一个虚拟机，又在虚拟机中运行着docker，因为多了这层虚拟机，所以会干扰我们理解问题。于是我首先在mac上安装一个centOS 7.2的虚拟机，然后在虚拟机上安装docker，在虚拟机上观察。过程不赘。</p>
+<p>我们在虚拟机中运行一个mysql</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password mysql:5.7</span></span><br><span class="line">4a679a362f02fe513bc66b10f1308e42ba99500f1a12ff18587c8eb1435baae0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker ps</span></span><br><span class="line">CONTAINER ID    IMAGE        COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">4a679a362f02    mysql:5.7    &quot;docker-entrypoint.s…&quot;   5 seconds ago       Up 4 seconds        0.0.0.0:3306-&gt;3306/tcp, 33060/tcp   awesome_hugle</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker top 4a679a362f02</span></span><br><span class="line">UID       PID     PPID     C  STIME   TTY    TIME        CMD</span><br><span class="line">polkitd   12230   12213    0  11:55   ?      00:00:00    mysqld</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ ps aux | grep 12230		<span class="comment"># 第一行是我专门粘贴出来的</span></span></span><br><span class="line">USER     PID    %CPU %MEM    VSZ   RSS   TTY    STAT   START   TIME  COMMAND</span><br><span class="line">polkitd  12230  0.3 10.3 1136228 193620  ?      Ssl    11:55   0:00  mysqld</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下面是解释为什么USER是这么诡异的一个值</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">参考https://blog.dbi-services.com/how-uid-mapping-works-in-docker-containers/</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker <span class="built_in">exec</span> -it 4a679a362f02 <span class="built_in">id</span> mysql</span></span><br><span class="line">uid=999(mysql) gid=999(mysql) groups=999(mysql)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ <span class="built_in">id</span> 999</span></span><br><span class="line">uid=999(polkitd) gid=998(polkitd) 组=998(polkitd)</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可见容器里uid为999的用户是mysql，对应着容器外的polkitd，哈哈，虽然知道</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这个冷知识看起来没有多大用，但是有疑惑还是顺手查一查比较安心</span></span><br></pre></td></tr></table></figure></div>
+
+<p>所以，我们可以看到，运行在容器中的mysql对于操作系统来说也是一个进程而已。（在mac下观察不到这个进程，是因为mac的docker还运行了一层虚拟机）</p>
+<h3 id="真的没有特别之处吗？"><a href="#真的没有特别之处吗？" class="headerlink" title="真的没有特别之处吗？"></a>真的没有特别之处吗？</h3><p>从理论上讲是有一些。docker通过linux的nameSpace技术实现了容器之间的资源隔离，并且使用linux的Cgroup技术，限制了容器中的进程所能使用的硬件资源。所以对于每一个运行在容器中的进程来说，他只能看到容器允许他看到的文件系统、使用容器为他单独维护的网络环境，这是一个完整的、完全独立于宿主机和其他容器的文件系统、网络环境，并且，最多只能使用Cgroup限制的硬件资源，包括CPU资源和内存资源。</p>
+<p>因为我们在这里讨论的是硬件资源的限制，所以我们主要来了解一下CGroups。这篇文章讲得非常透彻：<a class="link"   target="_blank" rel="noopener" href="https://www.infoq.cn/article/docker-kernel-knowledge-cgroups-resource-isolation" >Docker 背后的内核知识——cgroups 资源限制<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，这篇文章我也没看完，但已经足够解答我们之前提到的问题了。在这里补充一点，查看当前容器的<code>Cgroup</code>限制，可以去以下目录看：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run --<span class="built_in">rm</span> -it -m 20m ubuntu <span class="built_in">ls</span> /sys/fs/cgroup/memory/</span></span><br><span class="line">cgroup.clone_children		    memory.memsw.failcnt</span><br><span class="line">cgroup.event_control		    memory.memsw.limit_in_bytes</span><br><span class="line">cgroup.procs			    memory.memsw.max_usage_in_bytes</span><br><span class="line">memory.failcnt			    memory.memsw.usage_in_bytes</span><br><span class="line">memory.force_empty		    memory.move_charge_at_immigrate</span><br><span class="line">memory.kmem.failcnt		    memory.numa_stat</span><br><span class="line">memory.kmem.limit_in_bytes	    memory.oom_control</span><br><span class="line">memory.kmem.max_usage_in_bytes	    memory.pressure_level</span><br><span class="line">memory.kmem.slabinfo		    memory.soft_limit_in_bytes</span><br><span class="line">memory.kmem.tcp.failcnt		    memory.stat</span><br><span class="line">memory.kmem.tcp.limit_in_bytes	    memory.swappiness</span><br><span class="line">memory.kmem.tcp.max_usage_in_bytes  memory.usage_in_bytes</span><br><span class="line">memory.kmem.tcp.usage_in_bytes	    memory.use_hierarchy</span><br><span class="line">memory.kmem.usage_in_bytes	    notify_on_release</span><br><span class="line">memory.limit_in_bytes		    tasks</span><br><span class="line">memory.max_usage_in_bytes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这里有好多熟悉的小伙伴啊</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="有关docker与JVM的几个问题"><a href="#有关docker与JVM的几个问题" class="headerlink" title="有关docker与JVM的几个问题"></a>有关docker与JVM的几个问题</h3><p><strong>每一个启动起来的container，在操作系统看来又是以什么形态存在的呢</strong></p>
+<p>答案就是一个进程，但这个进程因为受到CGroup的限制，在申请硬件资源时会被操作系统内核直接限制。</p>
+<p><strong>在docker中运行的JVM到底能使用多大的内存，能不能利用经典Linux内存模型中的换页机制</strong></p>
+<p>能用多大的内存显然取决于CGroups的硬件资源限制。根据<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/candcplusplus/article/details/53728507" >Docker 运行时资源限制<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>中的介绍，限制容器所使用的硬件资源的参数分别如下：</p>
+<ul>
+<li><p>CPU</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run --name &quot;container1&quot; -c 1024 image</span><br><span class="line">docker run --name &quot;container2&quot; -c 512 image</span><br></pre></td></tr></table></figure></div>
+
+<p>参数值是一个整数类型，用于设置当前Docker容器使用cpu的权重值(默认为1024)。这是一个相对值，每个容器能够使用的cpu, 取决于它的cpu shares 占所有容器cpu share的比例: 例如:</p>
+<p>CPU是个稍微特殊一点的资源，假如说CPU资源不紧张的情况下，那我们也没有理由限制容器使用的CPU的数量，所以上述限制只有在CPU紧张的情况下才会发挥作用，如果二者都需要内存，那么 container1 分配到两倍于 container2 的CPU资源。</p>
+</li>
+<li><p>内存</p>
+<p>内存分为物理内存和swap空间，所以docker的限制也包含这两个方面，主要包含六个参数：</p>
+<ul>
+<li><p>第一个是<code>--memory</code>，可以简写为<code>-m</code></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">此时该容器可以使用的最大的内存值为20M, 默认的swap最大值是物理内存的两倍</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run -m 20M image</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">我们运行下面命令来验证这一点</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run --<span class="built_in">rm</span> -m 20m ubuntu <span class="built_in">cat</span> /sys/fs/cgroup/memory/memory.limit_in_bytes</span></span><br><span class="line">20971520</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run --<span class="built_in">rm</span> -m 20m ubuntu <span class="built_in">cat</span> /sys/fs/cgroup/memory/memory.memsw.limit_in_bytes</span></span><br><span class="line">41943040</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">但是有意思的是，容器中的进程并不一定能感知到容器对该进程的硬件资源限制，比如</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run --<span class="built_in">rm</span> -it -m 20m ubuntu free</span></span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:        1877556      523812      414256        9128      939488     1186308</span><br><span class="line">Swap:       2064380       41728     2022652</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">~ docker run --<span class="built_in">rm</span> -it -m 20m ubuntu top</span></span><br><span class="line">top - 07:01:57 up  2:51,  0 users,  load average: 0.02, 0.03, 0.05</span><br><span class="line">Tasks:   1 total,   1 running,   0 sleeping,   0 stopped,   0 zombie</span><br><span class="line"><span class="meta prompt_">%</span><span class="language-bash">Cpu(s):  0.2 us,  0.2 sy,  0.0 ni, 99.5 <span class="built_in">id</span>,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span></span><br><span class="line">KiB Mem :  1877556 total,   416416 free,   521748 used,   939392 buff/cache</span><br><span class="line">KiB Swap:  2064380 total,  2022652 free,    41728 used.  1188244 avail Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line">    1 root      20   0   36616   1688   1272 R   0.0  0.1   0:00.04 top</span><br><span class="line">    </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">无论是top还是free，都并不会去读取cgroup的限制。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">其实JDK1.8_131之前也不会去读取CGroup的限制，导致其在计算默认堆大小时</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">按照物理机的内存上限去申请。</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>--memory-swap=300M</code>，这是指物理内存和swap加起来，总共可以用300M，必须和<code>-m</code>搭配使用，不然没意义。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 比如下面这个，实际就使用了200M的物理内存，和100M的swap空间</span><br><span class="line">docker run -m 200M --memory-swap=300M image</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>--memory-reservation=300M</code>，这是一个软性限制，所谓的软性限制，是指并不是强制容器在任何时候都不超过这个内存使用值，而是说允许容器短时间内使用的内存超过这个限制，但如果系统内存紧张，会收回分配给容器中进程的资源，强迫其回到软性限制的范围内。软性限制是对物理内存的限制，因此一般来说应该比<code>-m</code>指定的值要小，比如：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -m 500M --memory-reservation 200M image</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>--oom-kill-disable</code>，显然，因为docker的资源限制实际上还是使用操作系统内核的特性，所以OOM-killer也仍然由操作系统来进行，未设置这个参数时，当容器使用的内存达到了限制，操作系统内核就会杀掉这个进程，设置后，就不会杀掉这个进程。</p>
+<p>那么假如现在容器中进程使用的资源已经达到了上限，又不允许操作系统杀掉这个进程，此时进程再申请内存怎么办？根据<a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48618431/what-does-oom-kill-disable-do-for-a-docker-container/48618727" >What does –oom-kill-disable do for a Docker container?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的介绍，似乎内核会在该进程申请内存时阻塞，直到人为干预为止。</p>
+<p>在未使用<code>-m</code>限制最大内存使用，又禁用了<code>oom-killer</code>的情况下，有可能该进程耗光操作系统内存，还杀不掉，导致内核随机杀掉其他进程，假如不小心杀掉了系统进程，系统就挂了。</p>
+</li>
+<li><p><code>--oom-score-adj</code>这也是操作系统的一个参数，我们在上面介绍过，是操作系统在检测到OOM时计算<code>badness</code>分数时用的一个参数，值越大越容易被杀死。</p>
+</li>
+<li><p><code>--memory-swappiness</code>这也是操作系统的一个参数。其实操作系统并不是只有当物理内存都耗尽的时候才启用swap空间，而是在物理内存使用到一定百分比时，就考虑启用swap空间了。将这个值设为0，意思是尽量使用物理内存，实在不行再用swap，设为100，意为积极使用swap，有机会就交换内存到swap中。</p>
+</li>
+<li><p><code>--kernel-memory</code>，核心内存，不能被交换到swap空间的内存，就是枪支占着物理内存。</p>
+</li>
+</ul>
+<p>一般来说，常用的就是<code>-m</code>和<code>--memory-reservation</code>这两个参数了。那么回到问题本身：在docker中运行的JVM，最多能用到分配给改容器的物理内存和swap空间之和的内存，当然可以把内存交换出去，虽然这不是个好主意。</p>
+</li>
+</ul>
+<p><strong>如果超出了docker的内存限制，JVM到底被谁杀死？</strong></p>
+<p>操作系统啦，哈哈。到这里这个问题的答案简直就是呼之欲出。</p>
+<p><strong>再来看最后那一段超长的问题假设：</strong></p>
+<p>在一个物理内存为16G的机器上，启动了一个内存限制为2G的docker，JVM的堆大小能不能设置成3G？假如能，是不是真的能申请到3G内存？假如不能，这个docker里运行的JVM最大能使用多大的堆？超出了会导致触发谁的OOM机制？</p>
+<p>这里就可以看出我们最初的假设还不够完善，我们再完善一下：</p>
+<p>在一个物理内存为16G的机器上，启动了一个<strong>物理内存和虚拟内存加起来</strong>限制为2G的docker，JVM的堆大小能不能设置成3G？假如能，是不是真的能申请到3G内存？假如不能，这个docker里运行的JVM最大能使用多大的堆？超出了会导致触发谁的OOM机制？</p>
+<p>答案是：JVM的堆大小何止能设置成3G，简直可以设置成1T，只要你不开<code>+AlwaysPreTouch</code>，这些堆又不会真的被使用，连申请都不会申请，只是一个数字，完全可以设置地非常非常大。但是并不能真的申请到超出2G的堆空间，别说2G，考虑到本地内存的占用，1.6G估计就很极限了，真申请到该JVM使用的内存（包括本地内存和Java运行时使用的内存）超过了2G，就会被操作系统OOM杀了。</p>
+<h2 id="尾声：Docker中的JVM"><a href="#尾声：Docker中的JVM" class="headerlink" title="尾声：Docker中的JVM"></a>尾声：Docker中的JVM</h2><p>在<code>JDK1.8_131</code>之前，<code>JVM</code>并不会去读取容器对其使用资源的限制，而直接根据硬件资源来计算默认堆空间大小，综上所述，这样设置当然是可以启动起来的，但是在运行时随着申请的内存越来越多，超过了容器的资源限制，就会被操作系统OOM杀，也就是我们在K8S中看到的<code>OOM KILLED</code>，对于这个问题可以使用Docker的<code>EntryPoint</code>在启动时加上堆最大值和最小值。</p>
+<p><code>JDK1.8_131</code>时，JVM增加了两个参数用来控制这个行为，在这里我懒得找了，因为不怎么好用，至少在<code>JDK1.8_181</code>及以后，JVM提高了对容器的支持，这样就更好用了，但那几个参数我仍然没记住。具体可参见这么两个参考文章：</p>
+<ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e" >JVM Memory Settings in a Container Environment<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://merikan.com/2019/04/jvm-in-a-container/" >JVM in a Container<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ol>
+<p>另外，通过上面的分析，我们可以得知，JVM虚拟机虽然能够使用交换内存，但是使用后很可能造成性能急剧下降，强烈不推荐这种用法。最好是合理设置小于物理内存的堆内存大小，并且令<code>memory-swappiness=0</code>，从而尽量要求操作系统不把JVM的内存交换到缓存空间中去。而本地内存中使用NIO造成的垃圾，虽然JVM也不是完全不管不顾，但是只有<code>FULL GC</code>时才能回收，而且实际上是调用了<code>System.gc()</code>，如果在虚拟机中参数中禁用了显式的gc，那么该部分内存就无法被回收，最终会触发操作系统的<code>OOM killer</code>，导致<code>JVM</code>进程被杀。</p>
+<h2 id="参考及待研究"><a href="#参考及待研究" class="headerlink" title="参考及待研究"></a>参考及待研究</h2><ul>
+<li><p>Linux内存管理</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.51cto.com/wutengfei/2163283" >Linux交换空间(swap space)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://www.hulkdev.com/posts/oom_killer" >OOM_Killer<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+<li><p>JVM内存管理</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/64737522" >JVM 与 Linux 的内存关系详解<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/11ae309ab078" >JVM:能不能在16G机器上设置17G的堆？<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+<li><p>Docker</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.infoq.cn/article/docker-kernel-knowledge-cgroups-resource-isolation" >Docker 背后的内核知识——cgroups 资源限制<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/candcplusplus/article/details/53728507" >Docker 运行时资源限制<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48618431/what-does-oom-kill-disable-do-for-a-docker-container/48618727" >What does –oom-kill-disable do for a Docker container?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e" >JVM Memory Settings in a Container Environment<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://merikan.com/2019/04/jvm-in-a-container/" >JVM in a Container<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+<li><p>JNI部分</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-jnileak/index.html" >在 JNI 编程中避免内存泄漏<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/pzysoft/article/details/79923121" >JNI内存管理<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+</ul>
+<p><strong>声明：</strong></p>
+<p>本文仅用于自学以及几位好友的内部交流，请勿转发给工作相关人员。</p>
+<p>如果承蒙错爱想发博客，注明一下作者即可。</p>
+<p>不保证文章中任何部分的正确性。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 从进程的角度再探Java内存</li>
+        <li><strong>Author:</strong> hao</li>
+        <li><strong>Created at
+                :</strong> 2020-04-27 14:00:13</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-03-12 13:06:53
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://besthao.cn/2020/04/27/从进程的角度再探Java内存/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2020/05/07/JVM%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">JVM调试工具使用</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2020/04/17/Java%E5%9F%BAJava%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Java基础整理之线程池</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">从进程的角度再探Java内存</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E5%86%8D%E6%8E%A2Java%E5%86%85%E5%AD%98"><span class="nav-text">从进程的角度再探Java内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%9A%84Linux%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%AE%80%E4%BB%8B"><span class="nav-text">经典的Linux内存模型简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E7%9A%84%E5%87%A0%E4%B8%AA%E9%83%A8%E5%88%86"><span class="nav-text">运行时内存的几个部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%A2%E9%A1%B5%E6%9C%BA%E5%88%B6%E4%B8%8Eswap%E7%A9%BA%E9%97%B4"><span class="nav-text">换页机制与swap空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E5%92%8CJava%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-text">Linux运行时内存和Java运行时内存的对应关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%A0%86%EF%BC%8C%E4%B8%8EJava%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A0%86"><span class="nav-text">JVM进程的堆，与Java内存模型的堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%94%E6%A1%88"><span class="nav-text">第一个问题的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%94%E6%A1%88"><span class="nav-text">第二个问题的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%94%E6%A1%88"><span class="nav-text">第三个问题的答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E7%AB%A0%EF%BC%9A%E4%B8%8EDocker%E7%9A%84%E6%88%98%E6%96%97"><span class="nav-text">终章：与Docker的战斗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%B9%9F%E5%8F%AA%E6%98%AF%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B"><span class="nav-text">docker中的进程，也只是一个进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E7%9A%84%E6%B2%A1%E6%9C%89%E7%89%B9%E5%88%AB%E4%B9%8B%E5%A4%84%E5%90%97%EF%BC%9F"><span class="nav-text">真的没有特别之处吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%85%B3docker%E4%B8%8EJVM%E7%9A%84%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-text">有关docker与JVM的几个问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BE%E5%A3%B0%EF%BC%9ADocker%E4%B8%AD%E7%9A%84JVM"><span class="nav-text">尾声：Docker中的JVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%8F%8A%E5%BE%85%E7%A0%94%E7%A9%B6"><span class="nav-text">参考及待研究</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">hao</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        37 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="hao">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2020/05/22/jsava序列化与json/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java序列化与Json">
+<meta property="og:url" content="http://example.com/2020/05/22/Jsava%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8EJson/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2020-05-22T06:16:30.000Z">
+<meta property="article:modified_time" content="2025-03-12T05:06:53.854Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Java序列化与Json | haozz
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/haozz1","instagram":"https://www.instagram.com/haozi_3/","weibo":"https://www.weibo.com/u/2164511885"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"AI":{"icon":"fa-regular fa-link","submenus":{"chatGPT":"https://chatgpt.com/","deepseek":"https://chat.deepseek.com/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"记录","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/img/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                haozz
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    AI
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chatgpt.com/">
+                                                    CHATGPT
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">
+                                                    DEEPSEEK
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-AI"
+                        >
+                            <span>
+                                AI
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-AI">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chatgpt.com/">CHATGPT</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chat.deepseek.com/">DEEPSEEK</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Java序列化与Json</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/img/myname.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">hao</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2020-05-22 14:16:30</span>
+        <span class="mobile">2020-05-22 14:16:30</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-03-12 13:06:53</span>
+            <span class="mobile">2025-03-12 13:06:53</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="java序列化与Json的三个库"><a href="#java序列化与Json的三个库" class="headerlink" title="java序列化与Json的三个库"></a>java序列化与Json的三个库</h1><h3 id="如果一个运行时的数据需要被持久化，或者说需要通过网络进行通信，那么就涉及到对象的序列化问题。比如"><a href="#如果一个运行时的数据需要被持久化，或者说需要通过网络进行通信，那么就涉及到对象的序列化问题。比如" class="headerlink" title="如果一个运行时的数据需要被持久化，或者说需要通过网络进行通信，那么就涉及到对象的序列化问题。比如"></a>如果一个运行时的数据需要被持久化，或者说需要通过网络进行通信，那么就涉及到对象的序列化问题。比如</h3><p>说你在程序中写了一个sql，大概是这个样子：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT into student (student_id,`name`) values ( 121212 ,null)</span><br></pre></td></tr></table></figure></div>
+<p>这个sql要传输到数据库，就必须进行序列化，比如说，null为什么会被识别为Null类型，而不是字符串”null”，<br>121212 为什么被识别为一个数字，而不是字符串。这就依赖于序列化和反序列化的约定。<br>序列化和反序列化在网络编程中更是无处不在。比如现在流行的前后端分离项目，后端接口向前端返回一个对<br>象，在spring boot框架下经常会写成这样代码：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/student&quot;)</span><br><span class="line">public class StudentController &#123;</span><br><span class="line">@GetMapping(&quot;/random&quot;)</span><br><span class="line">public Student random()&#123;</span><br><span class="line">return new Student( 121212 ,&quot;章银莱&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>如果不做其他设置，前端将收到这样的结果：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;studentId&quot;: 121212</span><br><span class="line">&quot;name&quot;: &quot;章银莱&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>那么就应该好奇，为什么返回了一个json，而不是xml，不是yaml。答案是springboot默认调用jackson，将我<br>们的类对象转换成了一个json字符串。</p>
+<p><strong>java</strong> 对序列化的原生支持</p>
+<p>以前，java提供了一个标记接口，java.io.Serializable，任何实现了这个接口的类，都可以使用java自己<br>的序列化机制，实际上，因为这个接口是个标记接口，在大多数情况下，你什么都不用做。如果一个类要完整<br>的序列化，那么他的包含的所有字段都必须实现该序列化接口，不然就会出现异常。<br>java通过一个序列化序号来识别一个对象，也就是我们经常在实现了java.io.Serializable接口的类里看<br>到这个字段的原因：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final long serialVersionUID = 1L;</span><br></pre></td></tr></table></figure></div>
+
+<p>如果不提供的话，java会用某种默认生成机制生成。在反序列化时，如果序列化号对不上，反序列化会失败。<br>java的默认序列化策略有很多问题：</p>
+<ol>
+<li>序列化的声明过于繁琐。字段必须也实现该接口，否则序列化会失败；父类必须也实现该接口，否则父<br>类的部分不会被序列化。有时候父类我们是改变不了的，那就只能接受无法序列化的结果。</li>
+<li>仅适用于java平台相关语言。其他语言没法直接反序列化，或许通过一些中间件可以支持，但是在有些<br>复杂。在前后端分离的大趋势下，这个限制已经令人无法忍受。</li>
+<li>对修改不太友好。假如说我们没有指定序列化号，那么默认的序列号生成策略会考虑到类的现有字段，<br>假如说你对类的字段进行了修改，那序列化号会发生改变。导致反序列化失败。类的改名也有一样的负<br>面影响。<br>限制众多，显然我们需要更方便、通用性、兼容性更好的序列化方式。</li>
+</ol>
+<h2 id="json-or-xml"><a href="#json-or-xml" class="headerlink" title="json or xml"></a>json or xml</h2><h3 id="序列化并不是某一个具体的行为，而是一类行为的统称。我个人认为，序列化的最终目的和最终结果，是将丰"><a href="#序列化并不是某一个具体的行为，而是一类行为的统称。我个人认为，序列化的最终目的和最终结果，是将丰" class="headerlink" title="序列化并不是某一个具体的行为，而是一类行为的统称。我个人认为，序列化的最终目的和最终结果，是将丰"></a>序列化并不是某一个具体的行为，而是一类行为的统称。我个人认为，序列化的最终目的和最终结果，是将丰</h3><h3 id="富多样的数据转换成一串二进制流，毕竟无论是存储在硬盘中以序列化，还是通过网络接口通信，最后的物理"><a href="#富多样的数据转换成一串二进制流，毕竟无论是存储在硬盘中以序列化，还是通过网络接口通信，最后的物理" class="headerlink" title="富多样的数据转换成一串二进制流，毕竟无论是存储在硬盘中以序列化，还是通过网络接口通信，最后的物理"></a>富多样的数据转换成一串二进制流，毕竟无论是存储在硬盘中以序列化，还是通过网络接口通信，最后的物理</h3><h3 id="设备都只能识别和传输二进制。所以，一个靠谱的序列化方案，显然需要做到二进制层面的一致。那么就有了"><a href="#设备都只能识别和传输二进制。所以，一个靠谱的序列化方案，显然需要做到二进制层面的一致。那么就有了" class="headerlink" title="设备都只能识别和传输二进制。所以，一个靠谱的序列化方案，显然需要做到二进制层面的一致。那么就有了"></a>设备都只能识别和传输二进制。所以，一个靠谱的序列化方案，显然需要做到二进制层面的一致。那么就有了</h3><h3 id="两种序列化的风格，一种是直接序列化为二进制流，另一种是现将纷繁复杂的数据转化为字符串，再将字符串"><a href="#两种序列化的风格，一种是直接序列化为二进制流，另一种是现将纷繁复杂的数据转化为字符串，再将字符串" class="headerlink" title="两种序列化的风格，一种是直接序列化为二进制流，另一种是现将纷繁复杂的数据转化为字符串，再将字符串"></a>两种序列化的风格，一种是直接序列化为二进制流，另一种是现将纷繁复杂的数据转化为字符串，再将字符串</h3><h3 id="编码为二进制流。"><a href="#编码为二进制流。" class="headerlink" title="编码为二进制流。"></a>编码为二进制流。</h3><p>java.io.Serializable采用了第一种方案。但很多更流行的序列化方案都采取了第二种风格。比如最经常<br>使用的json和xml。xml确实有它的优势，但作为资源传递的媒介来说，一堆什么DTD，XSD的规范，可能绕几<br>个月也不一定绕清楚xml的所有规范，另外废话也太多，网络传输中会比json占用更多的宽带。<br>相比之下，json就更有优势。JavaScript原生支持，规范要求应当使用unicode，编码方式默认使用utf-8，字符<br>串必须用双引号，key只能是字符串，必须用双引号，等等。加上spring默认使用json作为REST的资源表述方<br>式，至少在java web开发领域，json几乎已经一统天下。<br>json相比java.io.Serializable有很多优势：</p>
+<ol>
+<li>独立于java语言，可以非常便利地支持多语言。</li>
+<li>不怕类名、类字段修改。因为只要修改对不上，这个字段的值将被直接置为null，而多余的字段将会被直<br>接丢弃。至少不会引发异常——其实还可以通过可选字段名的扩展来实现字段名修改前后的兼容。</li>
+<li>序列化支持非常广泛。因为是将字段直接映射为key:value这种格式，不需要其父类、包含的所有字段<br>实现什么特定接口。<br>所以，在目前的编程环境下，已经不太常见java.io.Serializable这种东西，最多的是看到json大行其<br>道。<br>扩展阅读：数据类型和Json格式，json的标准定义</li>
+</ol>
+<h2 id="look-into-json"><a href="#look-into-json" class="headerlink" title="look into json"></a>look into json</h2><p>一个 <strong>example</strong> 类</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import lombok.AllArgsConstructor;</span><br><span class="line">import lombok.Data;</span><br><span class="line">import lombok.NoArgsConstructor;</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import java.time.LocalDateTime;</span><br><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">public class Student &#123;</span><br><span class="line">private String id;</span><br><span class="line">private String name;</span><br><span class="line">private Gender gender;</span><br><span class="line">private ZonedDateTime birthday;</span><br><span class="line">private Integer age;</span><br><span class="line">private Teacher teacher;</span><br><span class="line">public enum Gender &#123;</span><br><span class="line">MALE,</span><br><span class="line">FEMALE,</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>常用的三个 <strong>java</strong> 处理 <strong>json</strong> 库</p>
+<p>google的Gson，alibaba的fastJson，还有springBoot默认的jackson。性能如何，这里就不测试了，对于非极端<br>环境下，作为这种非常优秀且使用广泛的库，基本也不需要我们担心这个问题。<br>引入的pom如下：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">&lt;project.reporting.outputEncoding&gt;UTF-</span><br><span class="line">8 &lt;/project.reporting.outputEncoding&gt;</span><br><span class="line">&lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">&lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;</span><br><span class="line">&lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;</span><br><span class="line">&lt;jackson.version&gt;2.9.8&lt;/jackson.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;1.2.55&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;gson&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;2.8.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;1.16.20&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jackson-core&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jackson.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jackson.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jackson.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure></div>
+<p>可见jackson需要引用的pom最多，这有时候也不太方便。三个库的基本用法如下：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = new GsonBuilder().create();</span><br><span class="line">ObjectMapper mapper = new ObjectMapper();</span><br><span class="line">//fastJson都是静态方法，所以不需要实例化一个解析器</span><br><span class="line">Student student = new Student(&quot;1&quot;, &quot;刘&quot;, Student.Gender.MALE,</span><br><span class="line">ZonedDateTime.now(ZoneId.of(&quot;Asia/Shanghai&quot;)), 18 , teacher);</span><br><span class="line">String fastJsonStr = JSON.toJSONString(student);</span><br><span class="line">String gsonStr = gson.toJson(student);</span><br><span class="line">String jacksonStr = mapper.writeValueAsString(student);</span><br><span class="line">Student student1 = JSON.parseObject(fastJsonStr, Student.class);</span><br><span class="line">Student student2 = gson.fromJson(gsonStr, Student.class);</span><br><span class="line">Student student3 = mapper.readValue(jacksonStr, Student.class);</span><br></pre></td></tr></table></figure></div>
+<p>特殊类型会被怎么处理</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">日期会被怎么处理</span><br><span class="line">假如我们有一个LocalDateTime的类，默认策略下，三个库对其序列化的支持如下：</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Gson:&#123;&quot;date&quot;:&#123;&quot;year&quot;:2019,&quot;month&quot;:4,&quot;day&quot;:1&#125;,&quot;time&quot;:</span><br><span class="line">&#123;&quot;hour&quot;:16,&quot;minute&quot;:6,&quot;second&quot;:47,&quot;nano&quot;:247000000&#125;&#125;</span><br><span class="line">Jackson:</span><br><span class="line">&#123;&quot;year&quot;:2019,&quot;month&quot;:&quot;APRIL&quot;,&quot;dayOfMonth&quot;:1,&quot;dayOfWeek&quot;:&quot;MONDAY&quot;,&quot;dayOfYear&quot;</span><br><span class="line">:91,&quot;hour&quot;:16,&quot;minute&quot;:6,&quot;second&quot;:47,&quot;monthValue&quot;:4,&quot;nano&quot;:247000000,&quot;chrono</span><br><span class="line">logy&quot;:&#123;&quot;id&quot;:&quot;ISO&quot;,&quot;calendarType&quot;:&quot;iso8601&quot;&#125;&#125;</span><br><span class="line">FastJson:2019-04-01T16:06:</span><br><span class="line">如果我们有一个ZonedDateTime类，默认策略下，三个库对其序列化支持如下：</span><br><span class="line">Gson:&#123;&quot;dateTime&quot;:&#123;&quot;date&quot;:&#123;&quot;year&quot;:2019,&quot;month&quot;:4,&quot;day&quot;:2&#125;,&quot;time&quot;:</span><br><span class="line">&#123;&quot;hour&quot;:17,&quot;minute&quot;:25,&quot;second&quot;:25,&quot;nano&quot;:721000000&#125;&#125;,&quot;offset&quot;:</span><br><span class="line">&#123;&quot;totalSeconds&quot;:28800&#125;,&quot;zone&quot;:&#123;&quot;id&quot;:&quot;Asia/Shanghai&quot;&#125;&#125;</span><br><span class="line">JackSon: 请各位自行测试，长到令人崩溃，大概整整两页</span><br><span class="line">FastJson:2019-04-02T17:25:25.721+08:00[Asia/Shanghai]</span><br><span class="line">可以看到gson和jackson对于时间的记录比较完整，而fastJson就有数据的丢失，但绝绝大部分情况下，</span><br><span class="line">好像也不会有什么影响，而且fastJson看起来更舒服。</span><br><span class="line">然而，jackson在反序列化自己序列化的时间的时候，会出现错误，解决方法在下面。</span><br><span class="line">枚举怎么处理(默认场景)</span><br><span class="line">三个类十分统一，都将结果转化为：&quot;gender&quot;:&quot;MALE&quot;</span><br><span class="line">null字段怎么处理(默认场景)</span><br><span class="line">Gson和fastJson：直接忽略</span><br><span class="line">jackson：写入一个null字段。</span><br><span class="line">到底哪一种处理方式更好。显然是见仁见智的事情了。</span><br></pre></td></tr></table></figure></div>
+<p>面对泛型</p>
+<p>根据上面的扩展阅读，一个JSON文本是一个对象（即Map）或者数组（即Array）的序列化结果。因此，我们<br>在任何时候，都可以将一个json文本反序列化一个map或一个array(List, etc…)。比如下面的代码：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String fastJsonStr = JSON.toJSONString(student,</span><br><span class="line">SerializerFeature.WriteMapNullValue);</span><br><span class="line">String gsonStr = gson.toJson(student);</span><br><span class="line">String jacksonStr = mapper.writeValueAsString(student);</span><br><span class="line">Object object1 = JSON.parseObject(fastJsonStr, Map.class);</span><br><span class="line">Object object2 = gson.fromJson(gsonStr, Map.class);</span><br><span class="line">Object object3 = mapper.readValue(jacksonStr, Map.class);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="甚至在默认情况下，比如下面的代码："><a href="#甚至在默认情况下，比如下面的代码：" class="headerlink" title="甚至在默认情况下，比如下面的代码："></a>甚至在默认情况下，比如下面的代码：</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object object2 = gson.fromJson(gsonStr, Object.class);</span><br><span class="line">Object object3 = mapper.readValue(jacksonStr, Object.class);</span><br></pre></td></tr></table></figure></div>
+<p>这两个类都会直接将结果转化为一个map，如果要将其转为我们需要的类，则必须给他传入一个类型信息。<br>如：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student student1 = JSON.parseObject(fastJsonStr, Student.class);</span><br><span class="line">Student student2 = gson.fromJson(gsonStr, Student.class);</span><br><span class="line">Student student3 = mapper.readValue(jacksonStr, Student.class);</span><br></pre></td></tr></table></figure></div>
+<p>这样对简单对象是可以，但当面对泛型时，json往往无能为力，比如将List<Student>序列化后，很可能是<br>这样：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: &quot;1&quot;,</span><br><span class="line">&quot;aaaName&quot;: &quot;刘&quot;,</span><br><span class="line">&quot;gender&quot;: &quot;MALE&quot;,</span><br><span class="line">&quot;birthday&quot;: &quot;2019-04-03T07:23:07.623Z&quot;,</span><br><span class="line">&quot;age&quot;: 18,</span><br><span class="line">&quot;teacher&quot;: &#123;</span><br><span class="line">&quot;students&quot;: null</span><br><span class="line">&#125;</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: &quot;2&quot;,</span><br><span class="line">&quot;aaaName&quot;: &quot;马&quot;,</span><br><span class="line">&quot;gender&quot;: &quot;MALE&quot;,</span><br><span class="line">&quot;birthday&quot;: &quot;2019-04-03T07:23:07.623Z&quot;,</span><br><span class="line">&quot;age&quot;: 18,</span><br><span class="line">&quot;teacher&quot;: &#123;</span><br><span class="line">&quot;students&quot;: null</span><br><span class="line">&#125;</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: &quot;3&quot;,</span><br><span class="line">&quot;aaaName&quot;: &quot;张&quot;,</span><br><span class="line">&quot;gender&quot;: &quot;FEMALE&quot;,</span><br><span class="line">&quot;birthday&quot;: &quot;2019-04-03T07:23:07.623Z&quot;,</span><br><span class="line">&quot;age&quot;: 18,</span><br><span class="line">&quot;teacher&quot;: &#123;</span><br><span class="line">&quot;students&quot;: null</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></div>
+
+<p>将其反序列化时，如果想使用gson.fromJson(gsonStr, List<Student>.class)就会出现问题。编译<br>器会提示无法获得List<Student>的类型，因为java的泛型是java5才加入的，为了兼容老代码，采取运行时<br>擦除类型信息的方式实现。所以List<String>在运行时和List<Integer>是一种类型，这造成了一些有意<br>思(也令人困惑)的现象，其中之一就是：<br>泛型类并没有自己独有的Class类对象。比如并不存在List<String>.class或是<br>List<Integer>.class，而只有List.class；<br>为解决这个问题，三个库都提供了自己的解决方案，主要是运行时获得Type。<br>Gson解决方案</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Type studentListType = new TypeToken&lt;List&lt;Student&gt;&gt;() &#123;</span><br><span class="line">&#125;.getType();</span><br><span class="line">List&lt;Student&gt; students2 = gson.fromJson(gson.toJson(students),</span><br><span class="line">studentListType);</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FastJson解决方案</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import com.alibaba.fastjson.TypeReference</span><br><span class="line">List&lt;Student&gt; students2 =</span><br><span class="line">JSON.parseObject(JSON.toJSONString(students),</span><br><span class="line">new TypeReference&lt;List&lt;Student&gt;&gt;()</span><br><span class="line">&#123;&#125;);</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jackson解决方案</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import com.fasterxml.jackson.core.type.TypeReference</span><br><span class="line">List&lt;Student&gt; students2 =</span><br><span class="line">mapper.readValue(mapper.writeValueAsString(students),</span><br><span class="line">new TypeReference&lt;List&lt;Student&gt;&gt;</span><br><span class="line">() &#123;&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>上述方法对于复杂泛型嵌套一样是可用的，如：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import lombok.Data;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.List;</span><br><span class="line">@Data</span><br><span class="line">public class Result&lt;T&gt; &#123;</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private String result = &quot;result&quot;;</span><br><span class="line">private HashMap&lt;String, List&lt;T&gt;&gt; data = new HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Student student = new Student(&quot;1&quot;, &quot;刘&quot;, Student.Gender.MALE,</span><br><span class="line">ZonedDateTime.now(ZoneId.of(&quot;Asia/Shanghai&quot;)), 18 , teacher);</span><br><span class="line">Student student22 = new Student(&quot;2&quot;, &quot;马&quot;, Student.Gender.MALE,</span><br><span class="line">ZonedDateTime.now(), 18 , teacher);</span><br><span class="line">Student student33 = new Student(&quot;3&quot;, &quot;张&quot;, Student.Gender.FEMALE,</span><br><span class="line">ZonedDateTime.now(), 18 , teacher);</span><br><span class="line">List&lt;Student&gt; students = Arrays.asList(student, student22, student33);</span><br><span class="line">Result&lt;Student&gt; studentResult = new Result&lt;&gt;();</span><br><span class="line">studentResult.getData().put(&quot;students&quot;, students);</span><br><span class="line">Result&lt;Student&gt; students1 = gson.fromJson(gson.toJson(studentResult), new</span><br><span class="line">TypeToken&lt;Result&lt;Student&gt;&gt;() &#123;</span><br><span class="line">&#125;.getType());</span><br><span class="line">Result&lt;Student&gt; students2 =</span><br><span class="line">JSON.parseObject(JSON.toJSONString(studentResult), new</span><br><span class="line">com.alibaba.fastjson.TypeReference&lt;Result&lt;Student&gt;&gt;() &#123;</span><br><span class="line">&#125;);</span><br><span class="line">Result&lt;Student&gt; students3 =</span><br><span class="line">mapper.readValue(mapper.writeValueAsString(studentResult), new</span><br><span class="line">com.fasterxml.jackson.core.type.TypeReference&lt;Result&lt;Student&gt;&gt;() &#123;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>扩展阅读：java泛型</p>
+<p>自定义处理</p>
+<p>字段名自定义</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@com.alibaba.fastjson.annotation.JSONField(name = &quot;aName&quot;)</span><br><span class="line">@com.fasterxml.jackson.annotation.JsonProperty(&quot;aaName&quot;)</span><br><span class="line">@com.google.gson.annotations.SerializedName(&quot;aaaName&quot;)</span><br><span class="line">private String name;</span><br></pre></td></tr></table></figure></div>
+<p>分别对应了三个库的字段名自定义。</p>
+<p>日期格式自定义</p>
+<p>在讨论这个问题之前，需要注意的是，只有fastJson可以不做任何处理地支持java8新增的各种时间类(虽然处理<br>结果未必是你想要的)，其他两个库都需要对解析器做一定的处理。<br>其中jackson需要引入新的pom：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.fasterxml.jackson.datatype&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;jackson-datatype-jsr310&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;$&#123;jackson.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></div>
+<p>同时代码做以下调整：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ObjectMapper mapper = new ObjectMapper()</span><br><span class="line">.registerModule(new JavaTimeModule())</span><br><span class="line">.setTimeZone(TimeZone.getTimeZone(ZoneId.of(&quot;Asia/Shanghai&quot;)));</span><br></pre></td></tr></table></figure></div>
+<p>而Gson的更复杂一点。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = new GsonBuilder().registerTypeAdapter(ZonedDateTime.class, new</span><br><span class="line">JsonSerializer&lt;ZonedDateTime&gt;() &#123;</span><br><span class="line">@Override</span><br><span class="line">public JsonElement serialize(ZonedDateTime src, Type typeOfSrc,</span><br><span class="line">JsonSerializationContext context) &#123;</span><br><span class="line">return new JsonPrimitive(src.toInstant().toString());</span><br><span class="line">&#125;</span><br><span class="line">&#125;).registerTypeAdapter(ZonedDateTime.class, new</span><br><span class="line">JsonDeserializer&lt;ZonedDateTime&gt;() &#123;</span><br><span class="line">@Override</span><br><span class="line">public ZonedDateTime deserialize(JsonElement json, Type typeOfT,</span><br><span class="line">JsonDeserializationContext context) throws JsonParseException &#123;</span><br><span class="line">String datetime = json.getAsJsonPrimitive().getAsString();</span><br><span class="line">return Instant.parse(datetime).atZone(ZoneId.of(&quot;Asia/Shanghai&quot;));</span><br><span class="line">&#125;</span><br><span class="line">&#125;).create(); </span><br></pre></td></tr></table></figure></div>
+<p>实际上是直接注册了自定义的类序列化工具，如何注册自定义的类序列化工具，这个在下面再详细分析。<br>更改过后，新的序列化结果是：<br>Gson:”2019-04-02T11:33:25.847Z”<br>Jackson:1554204805.<br>反序列化都能正常进行。<br>还可以通过注解简单定制序列化的行为：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss.SSSZ&quot;, timezone =</span><br><span class="line">&quot;Asia/Shanghai&quot;)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(format = &quot;yyyy-MM-dd HH:mm:ss.SSSZ&quot;)</span><br><span class="line">private ZonedDateTime birthday;</span><br></pre></td></tr></table></figure></div>
+<p>其中Z是时区的意思，缺失的话反序列化就会出现问题，但即使如此，Fastjson在采用这种方式序列化之后，反<br>序列化时会仍然会丢失时区信息。<br>因为我们刚才的Gson实际上已经完成了完全的自定义序列化和反序列化，所以结果取决于自定义的行为是什<br>么。</p>
+<p>不输出某个字段</p>
+<p>FastJson： @JSONField(serialize &#x3D; false)<br>Gson：直接在字段上加transient关键字，如private transient Gender gender;<br>但因为transient是java的关键字，也会影响java的java.io.Serializable接口，因此要慎用。更详细的情况<br>可参照Gson之排除字段的常见方式<br>jackson：@JsonIgnore</p>
+<p><strong>null</strong> 值是否输出</p>
+<p>Gson和FastJson默认不输出，因此使用下面的语句打开。<br>Gson:Gson gson &#x3D; new GsonBuilder().serializeNulls().create()<br>FastJson:JSON.toJSONString(student, SerializerFeature.WriteMapNullValue);<br>Jackson默认输出，因此这样打开：<br>ObjectMapper mapper &#x3D; new<br>ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);</p>
+<p>把多个字段映射为一个属性</p>
+<p>比如我们从多个源接收数据，想将他们转为反序列化为同一个类，他们的主要字段相同，但字段名却不尽相<br>同。比如我们作为一家app公司，主要是免费加广告的方式发布app，现在有三家广告商，他们提供接口来获取<br>广告收入数据，大概格式都是从哪个时间到哪个时间，点击了多少次，收益多少这样的数据，但字段名不一<br>样，有些叫timeStart，有些叫beginTime，都是json现在传过来了，而我们想统一处理，这里举个例子：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;序号&quot;:1,&quot;名字&quot;:&quot;小刘&quot;,&quot;性别&quot;:&quot;Male&quot;,&quot;年龄&quot;:22,&quot;生日&quot;:&quot;2019-04-14&quot;&#125;</span><br><span class="line">&#123;&quot;age&quot;:22,&quot;birthday&quot;:&quot;2019-04-14&quot;,&quot;gender&quot;:&quot;Male&quot;,&quot;name&quot;:&quot;小</span><br><span class="line">刘&quot;,&quot;studentId&quot;:1&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Student &#123;</span><br><span class="line">private Integer studentId = 1 ;</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">private Gender gender = Gender.Male;</span><br><span class="line">private LocalDate birthday = LocalDate.now();</span><br><span class="line">private Integer age = 22 ;</span><br><span class="line">public enum Gender &#123;</span><br><span class="line">Male,</span><br><span class="line">Female</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>FastJson:</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Student &#123;</span><br><span class="line">@JSONField(alternateNames = &quot;序号&quot;)</span><br><span class="line">private Integer studentId = 1 ;</span><br><span class="line">@JSONField(alternateNames = &quot;姓名&quot;)</span><br><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">@JSONField(alternateNames = &quot;性别&quot;)</span><br><span class="line">private Gender gender = Gender.Male;</span><br><span class="line">@JSONField(alternateNames = &quot;年龄&quot;)</span><br><span class="line">private Integer age = 22 ;</span><br><span class="line">public enum Gender &#123;</span><br><span class="line">Male,</span><br><span class="line">Female</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>则以上两个字符串反序列化结果一致。<br><strong>Gson:</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Student &#123;</span><br><span class="line">@SerializedName(value = &quot;studentId&quot;, alternate = &quot;序号&quot;)</span><br><span class="line">private Integer studentId = 1 ;</span><br><span class="line">@SerializedName(value = &quot;name&quot;, alternate = &quot;姓名&quot;)</span><br><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">@SerializedName(value = &quot;gender&quot;, alternate = &quot;性别&quot;)</span><br><span class="line">private Gender gender = Gender.Male;</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 因为Gson对Date的自定义格式化比较复杂，为演示去掉了这个字段</span><br><span class="line">// private LocalDate birthday = LocalDate.now();</span><br><span class="line">@SerializedName(value = &quot;age&quot;, alternate = &quot;年龄&quot;)</span><br><span class="line">private Integer age = 22 ;</span><br><span class="line">public enum Gender &#123;</span><br><span class="line">Male,</span><br><span class="line">Female</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>jackson</strong> ：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">//@JsonSerialize(using = StudentSerializer.class)</span><br><span class="line">//@JsonDeserialize(using = StudentDeserializer.class)</span><br><span class="line">public class Student &#123;</span><br><span class="line">@JsonAlias(&quot;序号&quot;)</span><br><span class="line">private Integer studentId = 1 ;</span><br><span class="line">@JsonAlias(&quot;姓名&quot;)</span><br><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">@JsonAlias(&quot;性别&quot;)</span><br><span class="line">private Gender gender = Gender.Male;</span><br><span class="line">@JsonAlias(&quot;年龄&quot;)</span><br><span class="line">private Integer age = 22 ;</span><br><span class="line">public enum Gender &#123;</span><br><span class="line">Male,</span><br><span class="line">Female</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>完全自定义的序列化与反序列化</p>
+<p>上面已经示例了Gson的自定义序列化与反序列化，即通过registerTypeAdapter方法来注册<br>JsonSerializer和JsonDeserializer。其实三个库都差不太多，都是手动实现序列化和反序列化，然后<br>通过某种方式注册到解析器里面去。<br><strong>FastJson</strong> ：</p>
+<p>因为FastJson的序列化和反序列化都是静态方法，所以需要在需要序列化和反序列化的类上添加注解，或者在<br>每次序列化和反序列化时传入自定义配置。<br>首先，实现自定义序列化和反序列化类：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class LocalDateSerializer implements ObjectSerializer &#123;</span><br><span class="line">public void write(JSONSerializer serializer, Object object,</span><br><span class="line">Object fieldName, Type fieldType, int features) &#123;</span><br><span class="line">SerializeWriter out = serializer.getWriter();</span><br><span class="line">if (object == null) &#123;</span><br><span class="line">serializer.getWriter().writeNull();</span><br><span class="line">return;</span><br><span class="line">&#125;</span><br><span class="line">out.write(&quot;\&quot;活在当下\&quot;&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">public class LocalDateDeserializer implements ObjectDeserializer &#123;</span><br><span class="line">//不管咋样，我都给你整成当前时间，反正是测试用</span><br><span class="line">public &lt;T&gt; T deserialze(DefaultJSONParser parser, Type type, Object</span><br><span class="line">fieldName) &#123;</span><br><span class="line">JSONLexer lexer = parser.getLexer();</span><br><span class="line">lexer.nextToken( 2 ); //随意设置一个int都可以，但不设置会出异常，不明原</span><br><span class="line">理</span><br><span class="line">return (T) LocalDate.now().plusDays( 1 );</span><br><span class="line">&#125;</span><br><span class="line">public int getFastMatchToken() &#123;</span><br><span class="line">//意义不明，打断点发现从来没被吊用过</span><br><span class="line">return 0 ;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">Student student = new Student();</span><br><span class="line">SerializeConfig config = new SerializeConfig();</span><br><span class="line">config.put(LocalDate.class, new LocalDateSerializer());</span><br><span class="line">String jsonStr = JSON.toJSONString(student, config);</span><br><span class="line">System.out.println(jsonStr);</span><br><span class="line">ParserConfig parserConfig = new ParserConfig();</span><br><span class="line">parserConfig.putDeserializer(LocalDate.class, new</span><br><span class="line">LocalDateDeserializer());</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student student1 = JSON.parseObject(jsonStr, Student.class);</span><br><span class="line">System.out.println(student1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;age&quot;:22,&quot;birthday&quot;:&quot;活在当下&quot;,&quot;gender&quot;:&quot;Male&quot;,&quot;name&quot;:&quot;小刘&quot;,&quot;studentId&quot;:1&#125;</span><br><span class="line">Student(studentId=1, name=小刘, gender=Male, birthday=2019-04-15, age=22)</span><br></pre></td></tr></table></figure></div>
+<p>如果需要全局注册，则：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SerializeConfig.getGlobalInstance().put(LocalDate.class, new</span><br><span class="line">LocalDateSerializer());</span><br><span class="line">ParserConfig.getGlobalInstance().putDeserializer(LocalDate.class, new</span><br><span class="line">LocalDateDeserializer());</span><br></pre></td></tr></table></figure></div>
+<p>如果想只针对特定的字段进行定制，则：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Student &#123;</span><br><span class="line">private Integer studentId = 1 ;</span><br><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">private Gender gender = Gender.Male;</span><br><span class="line">@JSONField(serializeUsing = LocalDateSerializer.class, deserializeUsing</span><br><span class="line">= LocalDateDeserializer.class)</span><br><span class="line">private LocalDate birthday = LocalDate.now();</span><br><span class="line">private Integer age = 22 ;</span><br><span class="line">public enum Gender &#123;</span><br><span class="line">Male,</span><br><span class="line">Female</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>@JSONField</strong> 的设置项非常丰富，基本全部是关于自定义的东西，详细了解一下应该很有收获。<br>另外：FastJson还有一类被称为Filter的类，也可以对结果进行一定的自定义，但并非完全的自定义。大部分是<br>用来判断哪些字段序列化哪些字段不序列化，或者改变序列化后某个字段的名字、值这样的。有兴趣可以了解<br>一下。<br><strong>Jackson</strong> ：<br>套路都一样，首先是实现自己的序列化和反序列化类：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class StudentSerializer extends JsonSerializer&lt;Student&gt; &#123;</span><br><span class="line">@Override</span><br><span class="line">public void serialize(Student value, JsonGenerator jsonGenerator,</span><br><span class="line">SerializerProvider provider)</span><br><span class="line">throws IOException &#123;</span><br><span class="line">jsonGenerator.writeStartObject();</span><br><span class="line">jsonGenerator.writeNumberField(&quot;序号&quot;, value.getStudentId());</span><br><span class="line">jsonGenerator.writeStringField(&quot;名字&quot;, value.getName());</span><br><span class="line">jsonGenerator.writeStringField(&quot;性别&quot;,</span><br><span class="line">value.getGender().toString());</span><br><span class="line">jsonGenerator.writeStringField(&quot;年龄&quot;, value.getAge() + &quot;years-</span><br><span class="line">old&quot;);</span><br><span class="line">jsonGenerator.writeStringField(&quot;生日&quot;,</span><br><span class="line">value.getBirthday().toString());</span><br><span class="line">jsonGenerator.writeEndObject();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class StudentDeserializer extends JsonDeserializer&lt;Student&gt; &#123;</span><br><span class="line">@Override</span><br><span class="line">public Student deserialize(JsonParser jp, DeserializationContext ctxt)</span><br><span class="line">&#123;</span><br><span class="line">return new Student();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Student student = new Student();</span><br><span class="line">SimpleModule module = new SimpleModule();</span><br><span class="line">module.addSerializer(Student.class, new StudentSerializer());</span><br><span class="line">module.addDeserializer(Student.class, new StudentDeserializer());</span><br><span class="line">ObjectMapper mapper = new ObjectMapper().registerModule(module);</span><br><span class="line">String jsonStr = mapper.writeValueAsString(student);</span><br><span class="line">System.out.println(jsonStr);</span><br><span class="line">Student student2 = mapper.readValue(jsonStr, Student.class);</span><br><span class="line">System.out.println(student2);</span><br></pre></td></tr></table></figure></div>
+<p>可以看到主要是注册module来实现自定义，更简单的办法是直接在类上添加：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@JsonSerialize(using = StudentSerializer.class)</span><br><span class="line">@JsonDeserialize(using = StudentDeserializer.class)</span><br><span class="line">public class Student &#123;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="…"><a href="#…" class="headerlink" title="…"></a>…</h3><h3 id=""><a href="#" class="headerlink" title="}"></a>}</h3><h3 id="这两个注解同时可用于字段级别。"><a href="#这两个注解同时可用于字段级别。" class="headerlink" title="这两个注解同时可用于字段级别。"></a>这两个注解同时可用于字段级别。</h3><p>再看 <strong>Gson</strong> ：<br>可以看到，另外两个库都有通过注解自定义的方法，gson也有@JsonAdapter()注解，但gson用这个注解同<br>时来序列化与反序列化的自定义工作，鉴于一个类或者字段不可能标注两个同样的注解，因此Gson的序列化和<br>反序列化是写在同一个类里面的，如下：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class StudentTypeAdapter extends TypeAdapter&lt;Student&gt; &#123;</span><br><span class="line">public void write(JsonWriter out, Student value) throws IOException &#123;</span><br><span class="line">out.beginObject();</span><br><span class="line">out.name(&quot;序号&quot;);</span><br><span class="line">out.value(value.getStudentId());</span><br><span class="line">out.name(&quot;姓名&quot;);</span><br><span class="line">out.value(value.getName());</span><br><span class="line">out.endObject();</span><br><span class="line">&#125;</span><br><span class="line">public Student read(JsonReader in) throws IOException &#123;</span><br><span class="line">Student student = new Student();</span><br><span class="line">student.setGender(Student.Gender.Female);</span><br><span class="line">in.beginObject();</span><br><span class="line">String fieldname = null;</span><br><span class="line">while (in.hasNext()) &#123;</span><br><span class="line">JsonToken token = in.peek();</span><br><span class="line">if (token.equals(JsonToken.NAME)) &#123;</span><br><span class="line">//get the current token</span><br><span class="line">fieldname = in.nextName();</span><br><span class="line">&#125;</span><br><span class="line">if (&quot;序号&quot;.equals(fieldname)) &#123;</span><br><span class="line">student.setStudentId(in.nextInt());</span><br><span class="line">&#125; else if (&quot;姓名&quot;.equals(fieldname)) &#123;</span><br><span class="line">student.setName(in.nextString());</span><br><span class="line">&#125; else in.skipValue();</span><br><span class="line">&#125;</span><br><span class="line">in.endObject();</span><br><span class="line">return student;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>之后用@JsonAdapter(StudentTypeAdapter.class)注解即可。</p>
+<p>面对循环引用</p>
+<p>设想这样的实体类：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Student &#123;</span><br><span class="line">private Integer studentId = 1 ;</span><br><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">private Teacher teacher;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Teacher &#123;</span><br><span class="line">private Integer teacherId = 2 ;</span><br><span class="line">private String name = &quot;老王&quot;;</span><br><span class="line">private Student student;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这是一个简化版的一对一家教的数据库表。常见于@OneToOne的场景下。<br>之后会有这样的代码：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student student = new Student();</span><br><span class="line">Teacher teacher = new Teacher();</span><br><span class="line">student.setTeacher(teacher);</span><br><span class="line">teacher.setStudent(student);</span><br></pre></td></tr></table></figure></div>
+<p>那么序列化时会发生什么问题？我们测试一下：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ObjectMapper mapper = new ObjectMapper();</span><br><span class="line">Gson gson = new GsonBuilder().create();</span><br><span class="line">System.out.println(JSON.toJSONString(teacher));</span><br><span class="line">System.out.println(gson.toJson(teacher));</span><br><span class="line">System.out.println(mapper.writeValueAsString(teacher));</span><br></pre></td></tr></table></figure></div>
+<p>FastJson的输出是：{“student”:{“name”:”小刘”,”studentId”:1,”teacher”:{“$ref”:”..”}}}<br>Gson和Jackson爆栈异常，其实我个人觉得爆栈异常更合理，这种互相持有引用的情况应该特殊处理，<br>fastJson替我们处理了有好有坏，比如其他语言可能无法反序列化这样它的序列化结果，因而引发异常。所以官<br>方也提供手动关闭的功能：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//全局关闭</span><br><span class="line">JSON.DEFAULT_GENERATE_FEATURE |=</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SerializerFeature.DisableCircularReferenceDetect.getMask();</span><br><span class="line">//单次关闭</span><br><span class="line">JSON.toJSONString(obj, SerializerFeature.DisableCircularReferenceDetect);</span><br></pre></td></tr></table></figure></div>
+<p>那么假设我们真的要处理这样的情况，该如何是好呢？<br>一种方式是在某个类的对另一个类的引用上忽略另一个类，即不输出这个字段。这样断开循环引用。另外的方<br>式就是通过某种方式来指明引用方式：<br>jackson下最全的：Jackson – Bidirectional Relationships，其中和FastJson表现形式最接近的是<br>@JsonIdentityInfo方法。要注意的是@JsonIdentityInfo必须提供的参数是generator，其实是指定<br>了ID的生成策略，之后通过ID解除相互引用的问题。随便选择一个可用的即可，比如：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Teacher &#123;</span><br><span class="line">private Integer teacherId = 2 ;</span><br><span class="line">private String name = &quot;老王&quot;;</span><br><span class="line">@JsonIdentityInfo(generator =</span><br><span class="line">ObjectIdGenerators.StringIdGenerator.class)</span><br><span class="line">private Student student;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Student &#123;</span><br><span class="line">private Integer studentId = 1 ;</span><br><span class="line">private String name = &quot;小刘&quot;;</span><br><span class="line">@JsonIdentityInfo(generator =</span><br><span class="line">ObjectIdGenerators.StringIdGenerator.class)</span><br><span class="line">private Teacher teacher;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>Gson没有查到类似策略，似乎只能通过忽略字段来断开无限循环。<br>当然了，以上问题都可以通过完全自定义的序列化与反序列化完成工作</p>
+<h2 id="三个库与Spring框架整合"><a href="#三个库与Spring框架整合" class="headerlink" title="三个库与Spring框架整合"></a>三个库与Spring框架整合</h2><p>目前Spring框架默认使用Jackson来序列化和反序列化json，如果细致一点观察Spring框架，会发现Spring框架<br>正是使用HttpMessageConverter来实现HTTP信息处理的，其他两个Gson库也提供了和Spring框架整合的能<br>力，得益于Spring框架本身的松耦合，替换HttpMessageConverter是轻而易举的：<br>FastJson：官方文档：集成Spring框架<br>Gson: Configure gson in spring using GsonHttpMessageConverter</p>
+<p>如果已经决定替换掉jackson，那还应该在pom文件中去除jackson的引用，如下：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;exclusions&gt;</span><br><span class="line">&lt;exclusion&gt;</span><br><span class="line">&lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;</span><br><span class="line">&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">&lt;/exclusion&gt;</span><br><span class="line">&lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></div>
+<h2 id="我该如何选择呢？"><a href="#我该如何选择呢？" class="headerlink" title="我该如何选择呢？"></a>我该如何选择呢？</h2><p>整体上讲，三个框架各有特点吧。jackson能被spring官方选中自然有他的道理，对标准的严格执行，强大的可<br>扩展性、稳定性，速度也很快，缺点是接口不那么易用，要引的包也着实有点多。Gson是谷歌的产品，我们单<br>位用的比较多，但被fastJson公然嘲讽速度慢：<br>Gson应该叫龟速Json。<br>fastJson速度快，接口简单，但批评者认为，使用Json本身就不是看中他的速度，而是他的兼容性和灵活性，<br>fastJson硬编码的东西多，灵活性不够，等等。见知乎讨论：fastjson这么快老外为啥还是热衷 jackson，但是它<br>确实很简单易用，速度也挺快。<br>从功能上来讲，三者可以说都是完备的。如果是我选择，想偷懒应该会用FastJson，想安全稳定面对特别复杂<br>的需求，应该还是用jackson。Gson……不知道为什么就是不太喜欢它……</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Java序列化与Json</li>
+        <li><strong>Author:</strong> hao</li>
+        <li><strong>Created at
+                :</strong> 2020-05-22 14:16:30</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-03-12 13:06:53
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://besthao.cn/2020/05/22/Jsava序列化与Json/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2020/07/02/JsavSpring%E6%A1%86%E6%9E%B6%E4%B8%8B%E7%9A%84Log/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Spring框架下的Log</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2020/05/09/HttpClient%E7%9A%84%E5%87%A0%E4%B8%AA%E5%8F%82%E6%95%B0/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">HttpClient的几个参数</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Java序列化与Json</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8EJson%E7%9A%84%E4%B8%89%E4%B8%AA%E5%BA%93"><span class="nav-text">java序列化与Json的三个库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%80%E4%B8%AA%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9C%80%E8%A6%81%E8%A2%AB%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%8C%E6%88%96%E8%80%85%E8%AF%B4%E9%9C%80%E8%A6%81%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E8%BF%9B%E8%A1%8C%E9%80%9A%E4%BF%A1%EF%BC%8C%E9%82%A3%E4%B9%88%E5%B0%B1%E6%B6%89%E5%8F%8A%E5%88%B0%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E9%97%AE%E9%A2%98%E3%80%82%E6%AF%94%E5%A6%82"><span class="nav-text">如果一个运行时的数据需要被持久化，或者说需要通过网络进行通信，那么就涉及到对象的序列化问题。比如</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json-or-xml"><span class="nav-text">json or xml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%B9%B6%E4%B8%8D%E6%98%AF%E6%9F%90%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E8%A1%8C%E4%B8%BA%EF%BC%8C%E8%80%8C%E6%98%AF%E4%B8%80%E7%B1%BB%E8%A1%8C%E4%B8%BA%E7%9A%84%E7%BB%9F%E7%A7%B0%E3%80%82%E6%88%91%E4%B8%AA%E4%BA%BA%E8%AE%A4%E4%B8%BA%EF%BC%8C%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E6%9C%80%E7%BB%88%E7%9B%AE%E7%9A%84%E5%92%8C%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%EF%BC%8C%E6%98%AF%E5%B0%86%E4%B8%B0"><span class="nav-text">序列化并不是某一个具体的行为，而是一类行为的统称。我个人认为，序列化的最终目的和最终结果，是将丰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%8C%E5%A4%9A%E6%A0%B7%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E6%88%90%E4%B8%80%E4%B8%B2%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B5%81%EF%BC%8C%E6%AF%95%E7%AB%9F%E6%97%A0%E8%AE%BA%E6%98%AF%E5%AD%98%E5%82%A8%E5%9C%A8%E7%A1%AC%E7%9B%98%E4%B8%AD%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%8C%E8%BF%98%E6%98%AF%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E9%80%9A%E4%BF%A1%EF%BC%8C%E6%9C%80%E5%90%8E%E7%9A%84%E7%89%A9%E7%90%86"><span class="nav-text">富多样的数据转换成一串二进制流，毕竟无论是存储在硬盘中以序列化，还是通过网络接口通信，最后的物理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E9%83%BD%E5%8F%AA%E8%83%BD%E8%AF%86%E5%88%AB%E5%92%8C%E4%BC%A0%E8%BE%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E3%80%82%E6%89%80%E4%BB%A5%EF%BC%8C%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%8C%E6%98%BE%E7%84%B6%E9%9C%80%E8%A6%81%E5%81%9A%E5%88%B0%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%B1%82%E9%9D%A2%E7%9A%84%E4%B8%80%E8%87%B4%E3%80%82%E9%82%A3%E4%B9%88%E5%B0%B1%E6%9C%89%E4%BA%86"><span class="nav-text">设备都只能识别和传输二进制。所以，一个靠谱的序列化方案，显然需要做到二进制层面的一致。那么就有了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E9%A3%8E%E6%A0%BC%EF%BC%8C%E4%B8%80%E7%A7%8D%E6%98%AF%E7%9B%B4%E6%8E%A5%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B5%81%EF%BC%8C%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%98%AF%E7%8E%B0%E5%B0%86%E7%BA%B7%E7%B9%81%E5%A4%8D%E6%9D%82%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E5%86%8D%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">两种序列化的风格，一种是直接序列化为二进制流，另一种是现将纷繁复杂的数据转化为字符串，再将字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B5%81%E3%80%82"><span class="nav-text">编码为二进制流。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#look-into-json"><span class="nav-text">look into json</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9A%E8%87%B3%E5%9C%A8%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E6%AF%94%E5%A6%82%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-text">甚至在默认情况下，比如下面的代码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%A6"><span class="nav-text">…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E4%B8%A4%E4%B8%AA%E6%B3%A8%E8%A7%A3%E5%90%8C%E6%97%B6%E5%8F%AF%E7%94%A8%E4%BA%8E%E5%AD%97%E6%AE%B5%E7%BA%A7%E5%88%AB%E3%80%82"><span class="nav-text">这两个注解同时可用于字段级别。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E5%BA%93%E4%B8%8ESpring%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88"><span class="nav-text">三个库与Spring框架整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%91%A2%EF%BC%9F"><span class="nav-text">我该如何选择呢？</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">hao</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        37 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

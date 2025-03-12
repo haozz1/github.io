@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="hao">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2020/07/02/jsavspring框架下的log/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring框架下的Log">
+<meta property="og:url" content="http://example.com/2020/07/02/JsavSpring%E6%A1%86%E6%9E%B6%E4%B8%8B%E7%9A%84Log/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2020-07-02T06:17:55.000Z">
+<meta property="article:modified_time" content="2025-03-12T05:06:53.860Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Spring框架下的Log | haozz
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/haozz1","instagram":"https://www.instagram.com/haozi_3/","weibo":"https://www.weibo.com/u/2164511885"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"AI":{"icon":"fa-regular fa-link","submenus":{"chatGPT":"https://chatgpt.com/","deepseek":"https://chat.deepseek.com/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"记录","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/img/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                haozz
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    AI
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chatgpt.com/">
+                                                    CHATGPT
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">
+                                                    DEEPSEEK
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-AI"
+                        >
+                            <span>
+                                AI
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-AI">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chatgpt.com/">CHATGPT</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chat.deepseek.com/">DEEPSEEK</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Spring框架下的Log</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/img/myname.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">hao</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2020-07-02 14:17:55</span>
+        <span class="mobile">2020-07-02 14:17:55</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-03-12 13:06:53</span>
+            <span class="mobile">2025-03-12 13:06:53</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Spring/">Spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="关于Spring的log"><a href="#关于Spring的log" class="headerlink" title="关于Spring的log"></a>关于Spring的log</h1><p>Spring框架默认使用Logback用于日志。除了Spring自己框架使用了日志以外，我们在业务代码里也有使用log<br>的需求，因此时常需要获得一个log实例，获得一个log实例的方式很多，根据使用的不同的包，有很多种方<br>式，举例如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CommonsLog</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.apache.commons.logging.<span class="type">Log</span> <span class="variable">log</span> <span class="operator">=</span>org.apache.commons.logging.LogFactory.getLog(LogExample.class);</span><br><span class="line"><span class="meta">@Flogger</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> com.google.common.flogger.<span class="type">FluentLogger</span> <span class="variable">log</span> <span class="operator">=</span>com.google.common.flogger.FluentLogger.forEnclosingClass();</span><br><span class="line"><span class="meta">@JBossLog</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.jboss.logging.<span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span>org.jboss.logging.Logger.getLogger(LogExample.class);</span><br><span class="line"><span class="meta">@Log</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> java.util.logging.<span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span>java.util.logging.Logger.getLogger(LogExample.class.getName());</span><br><span class="line"><span class="meta">@Log4j</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.apache.log4j.<span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span>org.apache.log4j.Logger.getLogger(LogExample.class);</span><br><span class="line"><span class="meta">@Log4j</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.apache.logging.log4j.<span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span>org.apache.logging.log4j.LogManager.getLogger(LogExample.class);</span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.slf4j.<span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span>org.slf4j.LoggerFactory.getLogger(LogExample.class);</span><br><span class="line"><span class="meta">@XSlf4j</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.slf4j.ext.<span class="type">XLogger</span> <span class="variable">log</span> <span class="operator">=</span>org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);</span><br></pre></td></tr></table></figure></div>
+<p>这些不同的log提供的功能都大同小异，对我们来说，只是格式化有点差异而已。</p>
+<p>值得一提的是，lombok这个插件为我们提供了直接生成log的便利，当我们在类上标注上面代码框中的注解<br>时，会自动为我们生成一个log实例供我们使用，不同的注解生成对应库的log，如：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CommonsLog</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogExample</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//就相当于：</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogExample</span> &#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.apache.commons.logging.<span class="type">Log</span> <span class="variable">log</span></span><br><span class="line"><span class="operator">=</span> org.apache.commons.logging.LogFactory.getLog(LogExample.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>一般系统出了bug，我们极大依赖于日志，但我在log的使用过程中，发现有这么几个问题：</p>
+<ol>
+<li>log过少<br>即该打log的地方没有打log，导致完全不知道系统中发生了什么，只能根据异常去倒查，异常实际上丢<br>失了一些信息，比如调用参数信息等，debug很困难。</li>
+<li>log过多<br>像我做的一些模块，之前没有经验，喜欢把参数信息和返回值都输出，有时候就会日志洪泛，像我们这<br>块儿，返回值有时候就是一些文章内容什么的，一下刷十几屏，淹没了有效信息。</li>
+<li>log在平时看的时候过多，在debug时过少<br>这是上两个的结合体了，有时候debug需要的信息，日常没出错时不需要，但我们也没法断定说这什么<br>时候出错，什么时候不出错。所以有些地方的日志就变成了不出错时太多，出错时太少。</li>
+<li>有些框架日志明显不需要，比如我们连接eureka的时候，每 5 分钟发一次心跳包，info级别日志，几天不<br>看，这个心跳包日志就完全刷屏了，看着就很烦，如下图：</li>
+</ol>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">2019-04-29 16:24:07.337 INFO 1 --- [trap-executor-0]</span><br><span class="line">c.n.d.s.r.aws.ConfigClusterResolver : Resolving eureka endpoints</span><br><span class="line">via configuration</span><br><span class="line">2019-04-29 16:29:07.337 INFO 1 --- [trap-executor-0]</span><br><span class="line">c.n.d.s.r.aws.ConfigClusterResolver : Resolving eureka endpoints</span><br><span class="line">via configuration</span><br><span class="line">2019-04-29 16:34:07.338 INFO 1 --- [trap-executor-0]</span><br><span class="line">c.n.d.s.r.aws.ConfigClusterResolver : Resolving eureka endpoints</span><br><span class="line">via configuration</span><br><span class="line">2019-04-29 16:39:07.339 INFO 1 --- [trap-executor-0]</span><br><span class="line">c.n.d.s.r.aws.ConfigClusterResolver : Resolving eureka endpoints</span><br><span class="line">via configuration</span><br><span class="line">2019-04-29 16:44:07.339 INFO 1 --- [trap-executor-0]</span><br><span class="line">c.n.d.s.r.aws.ConfigClusterResolver : Resolving eureka endpoints</span><br><span class="line">via configuration</span><br><span class="line">2019-04-29 16:49:07.340 INFO 1 --- [trap-executor-0]</span><br><span class="line">c.n.d.s.r.aws.ConfigClusterResolver : Resolving eureka endpoints</span><br><span class="line">via configuration</span><br></pre></td></tr></table></figure></div>
+<h5 id="日志输出的过多或者不够，会造成出现问题就要改代码、重新打包上传、再部署、再运行，这样的一个步骤，"><a href="#日志输出的过多或者不够，会造成出现问题就要改代码、重新打包上传、再部署、再运行，这样的一个步骤，" class="headerlink" title="日志输出的过多或者不够，会造成出现问题就要改代码、重新打包上传、再部署、再运行，这样的一个步骤，"></a>日志输出的过多或者不够，会造成出现问题就要改代码、重新打包上传、再部署、再运行，这样的一个步骤，</h5><p>debug之后又要原路改回去。这样的事情我干过不少次。</p>
+<p>所以引出了最近的几点思考，试简单总结如下：</p>
+<p>日志分级</p>
+<p>一般来讲，日志分为 5 级，trace、debug、info、warn、error，从下到上依次严重，我们在代码里对应的一般<br>就是log.trace(),log.debug()这样方法。</p>
+<p>我们把debug需要的那部分信息通过log.debug()输出，正常日志通过info输出，这样就把不同级别的日志区<br>分开了，当我们需要debug时，代码不需要改动，只需要在参数中改变日志的level，就能看到debug日志，修<br>改完之后把debug日志关闭即可。这样就避免了频繁改变文件打包。</p>
+<p>###<strong>Spring</strong> 的 <strong>log</strong> 日志级别设置</p>
+<p>spring默认使用logback记录日志，日志级别通过logging.level.xxx参数设置。其中logging.level.是<br>通用前缀，xxx是具体包名。如：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logging.level.com.mycompany.tahiti.attachment.aop.ServiceLogger: debug</span><br></pre></td></tr></table></figure></div>
+<p>是指com.mycompany.tahiti.attachment.aop.ServiceLogger这个包里生成的log使用debug级别。<br>而其他的log仍然使用默认的级别。如果要更改默认级别，可以使用以下命令修改：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logging.level.root=debug</span><br></pre></td></tr></table></figure></div>
+<p>但在Spring中特别不建议这么做，因为我们Spring框架中也会同样输出debug日志，于是日志被各种debug信息<br>占满，完全没法看了。一般还是针对需要debug的那几个包设置debug级别就足够了。</p>
+<p>这个参数可以直接加在application.yaml文件中，也可以加在application.apprities文件里，当我们<br>使用k8s时，还可以直接在k8s中增加args，如下图：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">template:</span><br><span class="line">spec:</span><br><span class="line">containers:</span><br><span class="line">args: [&quot;--logging.level.root=info&quot;,&quot;--arg2=value2&quot;]</span><br></pre></td></tr></table></figure></div>
+<h2 id="所以我们上面提出的第四个问题也解决了，我们先找到框架中输出这个心跳包的类，然后直接将其日志级别设"><a href="#所以我们上面提出的第四个问题也解决了，我们先找到框架中输出这个心跳包的类，然后直接将其日志级别设" class="headerlink" title="所以我们上面提出的第四个问题也解决了，我们先找到框架中输出这个心跳包的类，然后直接将其日志级别设"></a>所以我们上面提出的第四个问题也解决了，我们先找到框架中输出这个心跳包的类，然后直接将其日志级别设</h2><p>置为warn。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logging.level.com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: warn</span><br></pre></td></tr></table></figure></div>
+<p>这样这个包的info信息就不生成了。</p>
+<p>如果我们自己的log也想使用这个机制，建议使用</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@lombok</span>.extern.apachecommons.CommonsLog</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span>&#123; &#125;</span><br></pre></td></tr></table></figure></div>
+<p>或者直接手写一个log：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.apache.commons.logging.<span class="type">Log</span> <span class="variable">log</span> <span class="operator">=</span>org.apache.commons.logging.LogFactory.getLog(LogExample.class);</span><br></pre></td></tr></table></figure></div>
+
+<p>其他的log包可能有的不能和spring的配置协作，未验证，因此最好不用。如果再观察一下配置文件的解析，发<br>现配置文件是由:</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.logging.LoggingApplicationListener</span><br></pre></td></tr></table></figure></div>
+<p>这个包来解析的。先是解析配置文件，建立了一个class的fullname到level的map，将这个map注册到<br>LogFactory中，我们上面的log是通过LogFactory静态方法取得的，这样就可以确保获得的log有正确的<br>level。这可以说是factory的经典应用了。</p>
+<p><strong>log exception</strong></p>
+<p>另外，当我们记录exception时，有时候会写这样的代码：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    dosth();</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        log.error(<span class="string">&quot;sth bad happened&quot;</span>);</span><br><span class="line">        e.printStack();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这样造成了一个隐含问题，e.printStack()是将数据输出到stdout中，当log的输出源也是stdout时，这<br>样没有问题，当log的输出源被改为文件后，这两个输出就不在一起了。因此，建议使用</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log.error(<span class="string">&quot;sth bad happened&quot;</span>, e);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="log-与-AOP"><a href="#log-与-AOP" class="headerlink" title="log 与 AOP"></a><strong>log</strong> 与 <strong>AOP</strong></h3><p>有时候，我们需要记录系统进行了哪些操作，比如想记录每一次对controller的调用，那么，我们要在每个方法<br>里加一个log.info(“xxx方法被调用”)，这样显然很麻烦，也影响代码的整洁美观。利用SpringAOP，我们<br>可以建立一个这样的类：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@CommonsLog</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServiceLogger</span> &#123;</span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(*com.mycompany.tahiti.attachment.service.impl.AttachmentServiceImpl2.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">action</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    <span class="meta">@Around(&quot;action()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">logRequest</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        log.info(String.format(<span class="string">&quot;--------%s方法被调用&quot;</span>,</span><br><span class="line">        joinPoint.getSignature()));</span><br><span class="line">        <span class="keyword">if</span> (log.isDebugEnabled()) &#123;</span><br><span class="line">            log.debug(String.format(<span class="string">&quot;共收到%d个参数%s&quot;</span>,</span><br><span class="line">            joinPoint.getArgs().length,</span><br><span class="line">            joinPoint.getArgs().length == <span class="number">0</span>? <span class="string">&quot;&quot;</span> : <span class="string">&quot;，以下是详细参数信息：&quot;</span>));</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span> ; i != joinPoint.getArgs().length; ++i) &#123;</span><br><span class="line">                <span class="type">Object</span> <span class="variable">arg</span> <span class="operator">=</span> joinPoint.getArgs()[i];</span><br><span class="line">                <span class="keyword">if</span> (Collection.class.isAssignableFrom(arg.getClass())) &#123;</span><br><span class="line">                    log.debug(String.format(<span class="string">&quot;参数%d是容器类，共有%d个元素&quot;</span>, i,((Collection) arg).size()));</span><br><span class="line">                    log.debug(String.format(<span class="string">&quot; %s&quot;</span>, ((Collection&lt;?&gt;)arg).stream().map(Object::toString).collect(Collectors.joining(<span class="string">&quot;,&quot;</span>))));</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Map.class.isAssignableFrom(arg.getClass())) &#123;</span><br><span class="line">                    log.debug(String.format(<span class="string">&quot;参数%d是Map类，共有%d个元素&quot;</span>, i,((Map) arg).size()));</span><br><span class="line">                    <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();((Map&lt;?, ?&gt;) arg).forEach((k, v) -&gt;sb.append(<span class="string">&quot;key=&quot;</span>).append(k).append(<span class="string">&quot;value=&quot;</span>).append(v).append(<span class="string">&quot;; &quot;</span>));</span><br><span class="line">                    log.debug(String.format(<span class="string">&quot; %s&quot;</span>, sb.toString()));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    log.debug(String.format(<span class="string">&quot;参数%d为：%s&quot;</span>, i,arg.toString()));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">retValue</span> <span class="operator">=</span> joinPoint.proceed(joinPoint.getArgs());</span><br><span class="line">        log.info(String.format(<span class="string">&quot;------%s方法返回&quot;</span>,</span><br><span class="line">        joinPoint.getSignature()));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (log.isDebugEnabled()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Collection.class.isAssignableFrom(retValue.getClass())) &#123;</span><br><span class="line">                log.debug(String.format(<span class="string">&quot;返回值是容器类，共有%d个元素&quot;</span>,((Collection) retValue).size()));</span><br><span class="line">                log.debug(String.format(<span class="string">&quot; %s&quot;</span>, ((Collection&lt;?&gt;)retValue).stream().map(Object::toString).collect(Collectors.joining(<span class="string">&quot;,&quot;</span>))));</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Map.class.isAssignableFrom(retValue.getClass())) &#123;</span><br><span class="line">                log.debug(String.format(<span class="string">&quot;返回值是Map类，共有%d个元素&quot;</span>, ((Map)retValue).size()));</span><br><span class="line">                <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();((Map&lt;?, ?&gt;) retValue).forEach((k, v) -&gt;sb.append(<span class="string">&quot;key=&quot;</span>).append(k).append(<span class="string">&quot;value=&quot;</span>).append(v).append(<span class="string">&quot;; &quot;</span>));</span><br><span class="line">                log.debug(String.format(<span class="string">&quot; %s&quot;</span>, sb.toString()));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                log.debug(String.format(<span class="string">&quot;返回值为：%s&quot;</span>,retValue.toString()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这样可以保证每一个方法调用时都能够产生日志，不用每次手写日志。</p>
+<h3 id="Log-与时区问题"><a href="#Log-与时区问题" class="headerlink" title="Log 与时区问题"></a><strong>Log</strong> 与时区问题</h3><p>我们经常发现我们的日志中的时间和北京时间相差八小时，大多数时候这一点我们自己看的时候在脑子里做个<br>时间转换就可以了，但这样还是容易让人疑惑和烦躁，因此我们需要某种方式来统一时间。</p>
+<p>在linux中，当地时间由&#x2F;etc&#x2F;localtime确定的，而这个文件实际上是一个软链，链接<br>到&#x2F;var&#x2F;db&#x2F;timezone&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai。因此，如果要改变linux的标准时间，只需要改变这个<br>软链接的指向即可。</p>
+<p>我们现在主要用Docker进行部署，一般来讲，Python语言的项目打的包会有一个完整的linux环境，因为它依赖<br>的东西太多了，pip install甚至还要求docker镜像里有完整的开发环境，所以一个包经常有1.2G以上。但<br>java的docker就精简很多，甚至最常用的ls命令都没有打包到java:8这个基础镜像里，因此一个包经常只有<br>100M左右。我们分别以这两种语言的docker包为例，实例如何正确显示当地时间。</p>
+<ol>
+<li>Java<br>只需要在Dockerfile中添加一个环境变量，因为java的极简包里什么都没有，也不通过&#x2F;etc&#x2F;localtime<br>来确定时间。</li>
+</ol>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk: 8 -alpine</span><br><span class="line">WORKDIR /app</span><br><span class="line">ENV TZ Asia/Shanghai # 就是这一句</span><br><span class="line">COPY target/ROOT.jar.</span><br><span class="line">ENTRYPOINT [&quot;java&quot;, &quot;-XX:+UnlockExperimentalVMOptions&quot;, &quot;-</span><br><span class="line">XX:+UseCGroupMemoryLimitForHeap&quot;, &quot;-jar&quot;, &quot;ROOT.jar&quot;]</span><br></pre></td></tr></table></figure></div>
+
+<ol start="2">
+<li>python项目<br>在Dockerfile中直接更改&#x2F;etc&#x2F;localtime的软链。</li>
+</ol>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM rappdw/docker-java-python:latest</span><br><span class="line">RUN mkdir -p ~/.pip</span><br><span class="line">RUN echo &quot;[global]\n\</span><br><span class="line">trusted-host = mirrors.aliyun.com\n\</span><br><span class="line">index-url = http://mirrors.aliyun.com/pypi/simple&quot; &gt; ~/.pip/pip.conf</span><br><span class="line">COPY requirements.txt ./</span><br><span class="line">RUN pip3 install --no-cache-dir -r requirements.txt</span><br><span class="line">COPY ./ ./</span><br><span class="line">RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主要是这一句</span></span><br><span class="line">RUN chmod a+x run.sh</span><br><span class="line">ENTRYPOINT [&quot;/run.sh&quot;]</span><br></pre></td></tr></table></figure></div>
+
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Spring框架下的Log</li>
+        <li><strong>Author:</strong> hao</li>
+        <li><strong>Created at
+                :</strong> 2020-07-02 14:17:55</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-03-12 13:06:53
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://besthao.cn/2020/07/02/JsavSpring框架下的Log/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Spring/">#Spring</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2021/05/02/%E5%A4%A9%E5%AE%AB/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">天宫</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2020/05/22/Jsava%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8EJson/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Java序列化与Json</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Spring框架下的Log</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ESpring%E7%9A%84log"><span class="nav-text">关于Spring的log</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E4%B8%8A%E9%9D%A2%E6%8F%90%E5%87%BA%E7%9A%84%E7%AC%AC%E5%9B%9B%E4%B8%AA%E9%97%AE%E9%A2%98%E4%B9%9F%E8%A7%A3%E5%86%B3%E4%BA%86%EF%BC%8C%E6%88%91%E4%BB%AC%E5%85%88%E6%89%BE%E5%88%B0%E6%A1%86%E6%9E%B6%E4%B8%AD%E8%BE%93%E5%87%BA%E8%BF%99%E4%B8%AA%E5%BF%83%E8%B7%B3%E5%8C%85%E7%9A%84%E7%B1%BB%EF%BC%8C%E7%84%B6%E5%90%8E%E7%9B%B4%E6%8E%A5%E5%B0%86%E5%85%B6%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E8%AE%BE"><span class="nav-text">所以我们上面提出的第四个问题也解决了，我们先找到框架中输出这个心跳包的类，然后直接将其日志级别设</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log-%E4%B8%8E-AOP"><span class="nav-text">log 与 AOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log-%E4%B8%8E%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98"><span class="nav-text">Log 与时区问题</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">hao</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        37 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

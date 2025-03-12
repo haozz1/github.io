@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="hao">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2020/02/07/java的io进化简史/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的IO进化简史">
+<meta property="og:url" content="http://example.com/2020/02/07/Java%E7%9A%84IO%E8%BF%9B%E5%8C%96%E7%AE%80%E5%8F%B2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2020-02-07T04:32:25.000Z">
+<meta property="article:modified_time" content="2025-03-12T05:06:53.837Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Java的IO进化简史 | haozz
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/haozz1","instagram":"https://www.instagram.com/haozi_3/","weibo":"https://www.weibo.com/u/2164511885"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"AI":{"icon":"fa-regular fa-link","submenus":{"chatGPT":"https://chatgpt.com/","deepseek":"https://chat.deepseek.com/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"记录","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/img/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                haozz
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    AI
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chatgpt.com/">
+                                                    CHATGPT
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">
+                                                    DEEPSEEK
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-AI"
+                        >
+                            <span>
+                                AI
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-AI">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chatgpt.com/">CHATGPT</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chat.deepseek.com/">DEEPSEEK</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Java的IO进化简史</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/img/myname.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">hao</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2020-02-07 12:32:25</span>
+        <span class="mobile">2020-02-07 12:32:25</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-03-12 13:06:53</span>
+            <span class="mobile">2025-03-12 13:06:53</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>– 你有《时间简史》吗？</p>
+<p>– 你有病吧，我有时间也不去捡屎啊。</p>
+<p>好吧，上面是个冷笑话。</p>
+<span id="more"></span>
+
+<h2 id="问题的引出"><a href="#问题的引出" class="headerlink" title="问题的引出"></a>问题的引出</h2><p>前一段时间看Java的内存模型，里面提到了本地内存，以及经常会使用本地内存的一种由<code>JDK1.4</code>引入的新IO方式，<code>NIO</code>，虽然官方称之为<code>New IO</code>，但是实际上因为其最重要的特性是非阻塞，因此常被称为<code>Non-Blocking IO</code>，即非阻塞式IO，它的出现解决了传统的<code>Blocking IO</code>带来的一些性能问题。其具体的优化细节和解决的痛点我们之后再详细讨论。</p>
+<p>然后我就陷入<code>NIO</code>的坑里了，经过一段时间的整理，我发现<code>JDK1.7</code>以后，又引入了一种新的IO类型，<code>NIO2.0</code>，又称为<code>AIO</code>，意思是<code>Asynchronous IO</code>，即异步IO。能推出异步IO肯定有他的道理，但出现了这个概念以后，我就想认真梳理一下这些IO有什么不同，以及到底解决了什么问题。</p>
+<p>于是首先我陷入了一个新手可能都会绕进去的概念里面：</p>
+<h2 id="同步、异步-阻塞、非阻塞"><a href="#同步、异步-阻塞、非阻塞" class="headerlink" title="同步、异步 | 阻塞、非阻塞"></a>同步、异步 | 阻塞、非阻塞</h2><p>这两个可以排列组合的，所以将可能排列出同步阻塞、同步非阻塞、异步阻塞、异步非阻塞，这四种方式，特别是其中的异步阻塞最为诡异和难以理解。我一开始确实绕进去了，但后来还是根据上面知乎回答搞明白了这几个概念。</p>
+<p>其中最核心的区别是：</p>
+<p>同步、异步是针对调用者而言的，一个同步调用在<strong>被调用者完成其任务前</strong>不会返回，而一个异步调用，在<strong>向被调用者提交完任务后</strong>就返回了，被调用者通过通知来告知调用者其任务已经执行完毕，或者直接执行调用者提供的回调函数。</p>
+<p>而阻塞、非阻塞关注的是程序在等待返回值时在干什么。阻塞是指当前的任务会被挂起，一直到结果返回，而非阻塞是指<strong>即使调用没有立即完成</strong>，程序在等待完成的过程中可以干点其他的事情。</p>
+<p>这个还是不好理解的话，知乎上举的例子还是很简单易懂的。</p>
+<blockquote>
+<p>老张爱喝茶，废话不说，煮开水。<br>出场人物：老张，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。<br>1 老张把水壶放到火上，立等水开。（同步阻塞）<br>老张觉得自己有点傻<br>2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）<br>老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。<br>3 老张把响水壶放到火上，立等水开。（异步阻塞）<br>老张觉得这样傻等意义不大<br>4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）<br>老张觉得自己聪明了。</p>
+</blockquote>
+<p>其中最诡异的是异步阻塞，其行为很反逻辑，所以会让人想不明白，因为我都异步了，为什么要阻塞在这里等待？但其实这个在某些场合下也有用处。比如说：在数据库主从同步时，如果要求强一致性，那么在返回之前就必须保证所有的从数据库的消息都返回，那我是不是一个个调用从数据的阻塞接口，写完一个再写下一个？或者提交任务后一遍遍去问他们都做完了没有？显然更好的方式是我一口气给他们每一个都发送一个异步任务，然后阻塞着等他们都完成后通知我，我再进行下一步。其他我实在想不到应用场景……总之比较诡异。</p>
+<p>上面老张的例子是个好理解的例子而已，而且上面所说的异步非阻塞的模型是<strong>异步+通知</strong>的模型，实际上还有个<strong>异步+回调</strong>的模型，如果非要用烧水煮茶的例子类比，就是这个水壶很智能，你可以告诉他水烧好后自己泡茶，然后你就彻底不用管了。</p>
+<p>以上的四种模型，如果用代码语言去表达，大概会是什么样子呢？我试着举出下面的例子，如有错误，请自行甄别：</p>
+<ul>
+<li><p>同步阻塞</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> sum(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);		<span class="comment">// 这就是个典型的同步阻塞调用</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span>[] input)</span>&#123;</span><br><span class="line">  	<span class="comment">// 忽略判null</span></span><br><span class="line">   	<span class="type">int</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">  	<span class="keyword">for</span>(<span class="type">int</span> i: input)&#123;</span><br><span class="line">      	ret += i;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>同步非阻塞</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SyncBlock</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SumTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span>[] input;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">SumTask</span><span class="params">(<span class="type">int</span>[] input)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.input = input;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Integer <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i : input) &#123;</span><br><span class="line">                ret += i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> ret;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line"></span><br><span class="line">        Callable&lt;Integer&gt; sumTask = <span class="keyword">new</span> <span class="title class_">SumTask</span>(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;);</span><br><span class="line">        FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(sumTask);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask).start();</span><br><span class="line">        <span class="keyword">while</span> (!futureTask.isDone()) &#123;</span><br><span class="line">            <span class="comment">// 下面这行输出是模拟我在等待结果的过程中做其他事情</span></span><br><span class="line">            <span class="comment">// 同步的意思是，futureTask.isDone()在返回时该方法的任务已经完成了</span></span><br><span class="line">            <span class="comment">// 毕竟他的任务只是判断任务是不是已经结束。</span></span><br><span class="line">            <span class="comment">// 又因为调用者在等待结果时可以做其他事，所以称之为非阻塞</span></span><br><span class="line">            System.out.println(<span class="string">&quot;我买了好破一台电脑，四个数都加不出来&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(futureTask.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>异步非阻塞</p>
+<p>先来个回调方式，这样实际上调用线程什么都不用做了，只要提供一个合理的回调方法就行。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AsyncNonBlockingWithCallback</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SumTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span>[] input;</span><br><span class="line">        Consumer&lt;Integer&gt; callback;</span><br><span class="line"></span><br><span class="line">        SumTask(<span class="type">int</span>[] input, Consumer&lt;Integer&gt; callBack) &#123;</span><br><span class="line">            <span class="built_in">this</span>.input = input;</span><br><span class="line">            <span class="built_in">this</span>.callback = callBack;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i : input) &#123;</span><br><span class="line">                ret += i;</span><br><span class="line">            &#125;</span><br><span class="line">            callback.accept(ret);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        Consumer&lt;Integer&gt; callback = (result) -&gt; System.out.println(result);</span><br><span class="line">        <span class="type">Runnable</span> <span class="variable">sumTask</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SumTask</span>(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, callback);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(sumTask).start();</span><br><span class="line">        System.out.println(<span class="string">&quot;OH YEAH，任务甩给那个线程啦，我现在想干啥都行了，干完以后他自己处理回调就好了&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>通知方式，即当异步任务完成后，会去通知调用线程。这是上面老王煮茶那个例子了。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AsyncNonBlockingWithNotify</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SumTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span>[] input;</span><br><span class="line">        <span class="keyword">private</span> Thread caller;</span><br><span class="line"></span><br><span class="line">        SumTask(<span class="type">int</span>[] input, Thread caller) &#123;</span><br><span class="line">            <span class="built_in">this</span>.input = input;</span><br><span class="line">            <span class="built_in">this</span>.caller = caller;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Integer <span class="title function_">call</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i : input) &#123;</span><br><span class="line">                ret += i;</span><br><span class="line">            &#125;</span><br><span class="line">            caller.interrupt();</span><br><span class="line">            <span class="comment">// 这里隐藏了一个很微妙的线程同步问题，即这个interrupt和后面的返回并不是原子的</span></span><br><span class="line">          	<span class="comment">// 万一打断后，该线程失去了CPU使用权，没返回，那边会在get上阻塞一下，虽然不是大问题</span></span><br><span class="line">            <span class="keyword">return</span> ret;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">SumTask</span> <span class="variable">sumTask</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SumTask</span>(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, Thread.currentThread());</span><br><span class="line">        FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(sumTask);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask).start();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 我愉快地干自己的事情啦</span></span><br><span class="line">          	<span class="comment">// 区别于上一次我一直去轮询Future是不是完成了</span></span><br><span class="line">            <span class="comment">// 这里其实是异步任务(通过打断线程)来通知我任务完成了</span></span><br><span class="line">          	<span class="comment">// 我在这里只需要在合适的位置去检查这个中断标志就可以了</span></span><br><span class="line">          	<span class="comment">// 相当于老王在看电视的同时等待水壶响起来，但是在程序里总得有个时间点去检查</span></span><br><span class="line">          	<span class="comment">// 通知的状态。</span></span><br><span class="line">            System.out.println(<span class="string">&quot;等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (Thread.currentThread().isInterrupted()) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(String.format(<span class="string">&quot;好吧，这哥们加完了，结果是%d&quot;</span>, futureTask.get()));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 实际运行效果</span></span><br><span class="line"><span class="comment">* 等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水</span></span><br><span class="line"><span class="comment">* 等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水</span></span><br><span class="line"><span class="comment">* 等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水</span></span><br><span class="line"><span class="comment">* 等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水</span></span><br><span class="line"><span class="comment">* 等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水</span></span><br><span class="line"><span class="comment">* 等待等待再等待，心儿已等碎，我和你在河两岸，共饮一江水</span></span><br><span class="line"><span class="comment">* 好吧，这哥们加完了，结果是10</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>异步阻塞</p>
+<p>终于到了这个奇怪的组合了，稍微修改一下上面的例子即可。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">SumTask</span> <span class="variable">sumTask</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SumTask</span>(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, Thread.currentThread());</span><br><span class="line">    FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(sumTask);</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask).start();</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 在sleep调用时如果interrupt标志已经置位，会直接抛出InterruptedException</span></span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;哎呀被打断了&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(String.format(<span class="string">&quot;好吧，这哥们加完了，结果是%d&quot;</span>, futureTask.get()));</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>在另外一个参考文件上获得了一段对理解阻塞非常有意义的文字，摘抄如下：</p>
+<blockquote>
+<p>正在执行的进程，由于期待的某些事件未发生，如请求系统资源失败、等待某种操作的完成、新数据尚未到达或无新工作做等，<strong>则由系统自动执行阻塞原语(Block)，使自己由运行状态变为阻塞状态。<strong>可见，进程的阻塞是进程自身的一种</strong>主动行为</strong>，也因此只有处于运行态的进程（获得CPU），才可能将其转为阻塞状态。当进程进入阻塞状态，是不占用CPU资源的。</p>
+</blockquote>
+<h2 id="BIO（Blocking-IO）"><a href="#BIO（Blocking-IO）" class="headerlink" title="BIO（Blocking IO）"></a>BIO（Blocking IO）</h2><p>同步阻塞IO模式，即数据的读取和写入必须阻塞在一个线程内等待其完成。如果想在等待时干点其他的事情，就需要手动实现类似上面举的例子中的一些多线程的东西。比如一个线程去读，另外一个线程干其他事情。但是，IO操作本身是同步的，这就导致如果不想阻塞在IO上，必须要多开一个线程。</p>
+<p>于是，最传统的、基于BIO（一请求一应答）的通信模型图如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://camo.githubusercontent.com/5ef6de9824ae82bb0c403522a647953d1193a362/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f322e706e67"
+                      alt="BIO-Web-Service"
+                ></p>
+<p>一般由一个Acceptor去接受请求，经典的代码就是在<code>while(true)</code>里面去调用accept接口，accept接口会阻塞一直到有新的请求到来，每当来一个新的请求，<code>Acceptor</code>就开个新的线程去处理这个请求。</p>
+<p>一请求一应答的模式有很大的缺陷：</p>
+<ol>
+<li>线程的新建和销毁的成本很高。要新建栈空间，初始化一堆东西，在 Linux 这样的操作系统中，线程本质上就是一个进程，创建和销毁线程都是重量级的系统函数。而且由于栈空间也会消耗内存空间，过多的线程会导致OOM错误。</li>
+<li>线程的切换成本很高。线程切换涉及到CPU寄存器上下文保存等，一直是一个成本很高的操作。</li>
+</ol>
+<p>针对上面的问题，一般会考虑用线程池来缓解问题，线程池维护一些工作线程，这样就节省了线程新建和销毁的成本，一个线程池维护M个线程，可以应对远大于M的N个请求。实际操作中，一般是将socket包装成一个Runable，交给线程池去做，于是CS模型会变成下面这样</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://camo.githubusercontent.com/04b258a50ca7f9762f43d64e70f4489440bae4eb/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f332e706e67"
+                     
+                ></p>
+<p>但这仍然有一些问题：</p>
+<ol>
+<li>有一些HTTP长连接需要长期保持，比如说聊天软件，不可能创建一个无限大的线程池来保持每一个连接的通信。</li>
+<li>即使线程池大小不是问题，BIO的这种阻塞模型，会要求当连接建立时对应的处理线程就要分配出来，但这时候很有可能真正的数据还在传输中，没有到达，这个等待因为是IO等待，一般都会比较长，那么工作线程在这个过程中占据了线程资源，却没有真的干活。这受限于BlockingIO的同步阻塞特性，不好消除。</li>
+</ol>
+<p>比如一个经典的基于BIO的Server可能如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 闪电侠</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018年10月14日</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 服务端</span></span><br><span class="line"><span class="comment"> * 原文自：https://www.jianshu.com/p/a4e03835921a</span></span><br><span class="line"><span class="comment"> * 本文作者有小改动</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IOServer</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// TODO 服务端处理客户端连接请求</span></span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">3333</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 接收到客户端连接请求之后为每个客户端创建一个新的线程进行链路处理</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 阻塞方法获取新的连接</span></span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 每一个新的连接都创建一个线程，负责读取数据</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="type">int</span> len;</span><br><span class="line">                        <span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> socket.getInputStream();</span><br><span class="line">                        <span class="comment">// 按字节流方式读取数据</span></span><br><span class="line">                        <span class="keyword">while</span> ((len = inputStream.read(data)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                            System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(data, <span class="number">0</span>, len));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).start();</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>如果用连接池改写，就是这个样子：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IOServer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SocketConsumer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">SocketConsumer</span><span class="params">(Socket socket)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.socket = socket;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> socket.getInputStream();</span><br><span class="line">                <span class="comment">// 按字节流方式读取数据</span></span><br><span class="line">                <span class="keyword">while</span> ((len = inputStream.read(data)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(data, <span class="number">0</span>, len));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// TODO 服务端处理客户端连接请求</span></span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">3333</span>);</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executorService</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 接收到客户端连接请求之后为每个客户端创建一个新的线程进行链路处理</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 阻塞方法获取新的连接</span></span><br><span class="line">                <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                executorService.execute(<span class="keyword">new</span> <span class="title class_">SocketConsumer</span>(socket));</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>BIO的好处在于，当连接数不多（单机1000连接以下）的时候，用这种编程模型非常简单，不容易出错，而且工作的也还不错。但是应对十万甚至百万级的连接时，就会非常困难。</p>
+<p>到了JDK1.4，java引入了新的IO模型，即NIO</p>
+<h2 id="NIO（Non-Blocking-IO）"><a href="#NIO（Non-Blocking-IO）" class="headerlink" title="NIO（Non-Blocking IO）"></a>NIO（Non-Blocking IO）</h2><h3 id="NIO要解决什么问题"><a href="#NIO要解决什么问题" class="headerlink" title="NIO要解决什么问题"></a>NIO要解决什么问题</h3><p>知道了上面BIO的缺点，那我们大概就可以猜测NIO到底想要解决什么问题：</p>
+<ol>
+<li>能不能用尽量少的线程对应尽可能多的连接；</li>
+<li>能不能在需要的数据都到达以后，才把数据交由真正的工作线程去处理，避免工作线程空等数据到来。</li>
+</ol>
+<p>答案是可以。我们先来考虑一下一次网络IO大概要经历哪些步骤（自己的理解，有错误请自行甄别）：</p>
+<ol>
+<li>网卡收到了一些数据，之后将这些数据放到物理内存的某个部分。</li>
+<li>这部分物理内存只有内核态的代码有访问权限，即所谓的特权代码。熟悉内存布局的同志应该了解，一个进程中有一部分内存是操作系统使用的，只有这部分特权代码有权限访问硬件资源。而用户代码要访问这一部分内存，必须通过系统调用。Java中的IO类，实际上也是对系统调用的一种封装。</li>
+<li>现在用户代码通过Java的IO类进行了一次系统调用，此时就需要把一些数据从内核态内存复制到用户内存中（至少从模型上理解是这样的，至于内存映射之类的骚操作这里先不考虑）。那么传统的BIO就是我们一直监听着这一块内存，没有数据就等着，有数据就从内核态的内存传过来给用户用。</li>
+</ol>
+<p>那么这个读取的过程，其实要包含两个部分，一个部分是等待数据到来，一个部分是复制数据，其中等待数据到来的这个过程，就是阻塞，其示意图如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://www.history-of-my-life.com/imgs-for-md/BIO-CopyFromKernel-20190828.png"
+                      alt="BIO"
+                ></p>
+<p>那么内核能不能修改一下这个阻塞行为，当还在等待数据到来的时候直接返回一个数据还未准备好的状态，这样就不用阻塞等待了。那当然是可以的，这就是非阻塞IO了，其模型如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://www.history-of-my-life.com/imgs-for-md/Non-BlockingIO-CopyFromKernel-20190828.png"
+                      alt="NIO"
+                ></p>
+<p>这个模型显然是同步非阻塞的，需要我们一直去轮询。那我们是不是需要自己手写代码去轮询这个呢？答案是你可以这么做，就像我上面的代码中的：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!futureTask.isDone()) &#123;</span><br><span class="line">      	<span class="comment">// 我还没准备好，技能冷却中，我还不能那么做，太远了</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      	<span class="comment">// 好了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这样的话，其实我就可以用<strong>一个线程</strong>去监视多个socket通道了，只要我们这个线程里开一个<strong>轮询器</strong>，把那些Socket全都注册到这个轮询器上，我轮询一圈，看数据好了没，好了我就提示用户，没好我就继续轮询。（显然我这里说的这种初级的轮询方式会造成严重的CPU空转问题，实际的设计应该更精巧一些，比如说socket准备好了以后主动通知轮询器，但这就是异步了，我们目前先不管这个，所以了解轮询器就是这么概念模型就好）</p>
+<h3 id="NIO的核心组件"><a href="#NIO的核心组件" class="headerlink" title="NIO的核心组件"></a>NIO的核心组件</h3><p>好了，这就是NIO的思想了，通过我上面描述的这个简易模型，他解决了上面提出的两个问题：</p>
+<ol>
+<li>用尽量少的线程对应尽量多的连接；</li>
+<li>在没有真正数据准备好的时候不要来烦我。</li>
+</ol>
+<p>了解了NIO要解决的问题和它的思想，我们再来正式介绍NIO的核心组件。</p>
+<p>NIO有很多组件，但核心的组件主要是下面这三个：</p>
+<ul>
+<li><p>轮询器，NIO称为selector；</p>
+</li>
+<li><p>需要监听的连接，NIO称为channel；</p>
+</li>
+<li><p>接收数据的缓冲区，NIO称为Buffer。</p>
+</li>
+</ul>
+<p>NIO将一个连接分为好几个步骤，并且将这些步骤抽象为几个可以监听的事件，不同的事件发生后，可以通知不同的监听器。</p>
+<ul>
+<li>Accept：有可以接受的连接到来了；</li>
+<li>Connect：成功建立了连接；</li>
+<li>Read：有数据可以读</li>
+<li>Write：准备好接收写入数据了</li>
+</ul>
+<p>显然，当我们遇到合适的事件发生时再去做合适的事情就好了，再也不用一个线程对应一个请求，在阻塞时傻傻等待了。接下来我们详细介绍一下这几个组件。</p>
+<h4 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h4><p>一个channel就代表了和某一实体的链接，这个实体可以是文件、网络套接字等，官网上是这么解读的：</p>
+<blockquote>
+<p>A channel represents an open connection to an entity such as a<br>hardware device, a file, a network socket, or a program component that<br>is capable of performing one or more distinct I&#x2F;O operations, for<br>example reading or writing.</p>
+</blockquote>
+<p>这个组件的地位，有点类似于BIO中的Stream，其功能也有点类似Stream，就是从一个Buffer中读取数据，或者把数据写入Buffer。</p>
+<p>Java中NIO中最常用的通道实现有以下几个：</p>
+<ul>
+<li><p>FileChannel：读写文件，只有阻塞模式。这是因为UNIX当时不支持文件的非阻塞读取，而Java为了跨平台的表现一致，也就这样设置了。参考：<a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3955250/why-filechannel-in-java-is-not-non-blocking" >Why FileChannel in Java is not non-blocking?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>这意味着它也没法注册到Selector上面去。</p>
+</li>
+<li><p>DatagramChannel: UDP协议网络通信</p>
+</li>
+<li><p>SocketChannel：TCP协议网络通信</p>
+</li>
+<li><p>ServerSocketChannel：监听TCP连接，TCP连接的服务端。</p>
+</li>
+</ul>
+<p>事件也是在Channel上发生的，所以我们需要在注册事件时，告知Selector我到底关心这个Channel上发生了哪些事件。</p>
+<p>要注意的是，FileChannel只有阻塞模式。具体原因待调差。</p>
+<h4 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h4><p>这就是NIO中使用的缓冲区，他不是一个byte[]，而是封装过的一个Buffer类，其继承层次如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://www.history-of-my-life.com/imgs-for-md/NonBlockingIO-channel-20190828-01.png"
+                      alt="NIO-Buffer"
+                ></p>
+<p>看来还帮我们封装了一些基本的数据类型，这样读起来可能方便一些，分配内存的时候，也是按相应数据类型来计算size的，比如<code>IntBuffer.allocate(1024)</code>就是申请一个能放1024个Int的缓冲区，而<code>Double.allocate(1024)</code>就是申请一个能放1024个Double的缓冲区。</p>
+<p>Buffer有几个重要的变量，就是上面标注的那四个。</p>
+<ul>
+<li>capacity。容量，allocate后就不会变了；</li>
+<li>limit。此次可以操作的最后一个元素的位置。显然当Buffer被用于写的时候，就是Buffer的capacity，当Buffer用于读的时候，就是Buffer中已写入的元素的数量。</li>
+<li>position。当前操作到的那个元素。</li>
+<li>mark。一个可以随时指定的标记位，可以调用<code>Buffer#mark()</code>标记，调用<code>Buffer#reset()</code>使position指针回到上一次mark的位置。</li>
+</ul>
+<p>Buffer即可以用来读，也可以用来写，只是不能同时用来读和写，从写状态切换为读状态使用<code>filp()</code>，从读切换到写状态使用<code>compact()</code>。</p>
+<p>读写状态调用<code>Buffer#filp()</code>方法来进行转换。一般来说，都是先写进去一些数据，然后再读出来，而这个状态的切换实际上也挺精妙的。我们在写的过程中，position一直在增长，指向最后一个写入的元素，此时limit表示可以写的最后一个位置的下一个位置，当然是和capacity的值保持一致。那当要从这个Buffer里读取元素时，只需要将limit置为写的position，然后将position置为0即可，这样就可以从0开始读，最多读到position。再由读翻转到写，只要吧position置为0，limit再置为capacity就可以了。</p>
+<h4 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h4><p>根据上文描述的简易模型，这个选择器就对应着轮询器，用于监听各个通道中的事件。我们先将通道注册到选择器，并设置好关心的事件，然后就可以通过调用select()方法，等待我们关心的事件发生。</p>
+<p>关心的事件上面已经介绍过了。</p>
+<p>Selector本身是阻塞的，当没有任何关心的事件发生时，他不会占据CPU，在内存消耗上，他也只占据了一个线程的资源。当发生了感兴趣的事情以后，它再进行实际的工作。而且不像非阻塞IO那样，需要我们自己不断去查询连接状态，这样会空耗CPU。所以确实是一个比较理想的方案。</p>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是个单线程的Server</span></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SelectionKey;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.Selector;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.ServerSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NioServer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 创建一个selector</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化TCP连接监听通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">listenChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">        listenChannel.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">8080</span>));</span><br><span class="line">      	<span class="comment">// NIO的阻塞与否是可选的，在网络环境下我们将其设置为非阻塞</span></span><br><span class="line">        listenChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        <span class="comment">// 注册到selector（监听其ACCEPT事件）</span></span><br><span class="line">        listenChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建一个缓冲区</span></span><br><span class="line">        <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            selector.select(); <span class="comment">//阻塞，直到有监听的事件发生</span></span><br><span class="line">          	<span class="comment">// 可能不止有一个连接状态发生了变化</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; keyIter = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 通过迭代器依次访问select出来的Channel事件</span></span><br><span class="line">            <span class="keyword">while</span> (keyIter.hasNext()) &#123;</span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">key</span> <span class="operator">=</span> keyIter.next();</span><br><span class="line">                <span class="keyword">if</span> (key.isAcceptable()) &#123; <span class="comment">// 有连接可以接受</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">channel</span> <span class="operator">=</span> ((ServerSocketChannel) key.channel()).accept();</span><br><span class="line">                    channel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">                  	<span class="comment">// 再次注册，这次指明关心的事件是可读</span></span><br><span class="line">                    channel.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">                    System.out.println(<span class="string">&quot;与【&quot;</span> + channel.getRemoteAddress() + <span class="string">&quot;】建立了连接！&quot;</span>);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isReadable()) &#123; <span class="comment">// 有数据可以读取</span></span><br><span class="line">                    buffer.clear();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 读取-1说明到了流末尾，说明TCP连接已断开，</span></span><br><span class="line">                    <span class="comment">// 因此需要关闭通道或者取消监听READ事件</span></span><br><span class="line">                    <span class="comment">// 否则会无限循环</span></span><br><span class="line">                    <span class="keyword">if</span> (((SocketChannel) key.channel()).read(buffer) == -<span class="number">1</span>) &#123;</span><br><span class="line">                        key.channel().close();</span><br><span class="line">                      	<span class="comment">// 已经处理的事件一定要手动移除</span></span><br><span class="line">                				keyIter.remove();</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 按字节遍历数据</span></span><br><span class="line">                    buffer.flip();</span><br><span class="line">                    <span class="keyword">while</span> (buffer.hasRemaining()) &#123;</span><br><span class="line">                        <span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> buffer.get();</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> (b == <span class="number">0</span>) &#123; <span class="comment">// 客户端消息末尾的\0</span></span><br><span class="line">                            System.out.println();</span><br><span class="line"></span><br><span class="line">                            <span class="comment">// 响应客户端</span></span><br><span class="line">                            buffer.clear();</span><br><span class="line">                            buffer.put(<span class="string">&quot;Hello, Client!\0&quot;</span>.getBytes());</span><br><span class="line">                            buffer.flip();</span><br><span class="line">                            <span class="keyword">while</span> (buffer.hasRemaining()) &#123;</span><br><span class="line">                                ((SocketChannel) key.channel()).write(buffer);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            System.out.print((<span class="type">char</span>) b);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 已经处理的事件一定要手动移除</span></span><br><span class="line">                keyIter.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>再来一个简单的Client</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NioClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">8080</span>);</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> socket.getInputStream();</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">os</span> <span class="operator">=</span> socket.getOutputStream();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 先向服务端发送数据</span></span><br><span class="line">        os.write(<span class="string">&quot;Hello, Server!\0&quot;</span>.getBytes());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读取服务端发来的数据</span></span><br><span class="line">        <span class="type">int</span> b;</span><br><span class="line">        <span class="keyword">while</span> ((b = is.read()) != <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.print((<span class="type">char</span>) b);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        socket.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>运行一下是这样的：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># server端</span><br><span class="line">与【/127.0.0.1:59974】建立了连接！</span><br><span class="line">Hello, Server!</span><br><span class="line"></span><br><span class="line"># client端</span><br><span class="line">Hello, Client!</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="NIO并不完美"><a href="#NIO并不完美" class="headerlink" title="NIO并不完美"></a>NIO并不完美</h3><p>这个例子展示了挺多东西。首先，我们可以看到Server用单线程处理了多个连接。但也暴露出一些问题。</p>
+<ol>
+<li><p>如果我们的服务器里用上面的单线程模型去处理，那么多CPU的性能优势就体现不出来。当然了，我们可以改善这个模型，使用一个线程来监听Accept事件，用多个线程来监听Read事件，代码就会变成这个样子。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SelectionKey;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.Selector;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.ServerSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NioServerMultiThread</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">AcceptListener</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Selector acceptSelector;</span><br><span class="line">        <span class="keyword">private</span> Selector[] readSelectors;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        AcceptListener(Selector acceptSelector, Selector[] readSelectors) &#123;</span><br><span class="line">            <span class="built_in">this</span>.acceptSelector = acceptSelector;</span><br><span class="line">            <span class="built_in">this</span>.readSelectors = readSelectors;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">ServerSocketChannel</span> <span class="variable">listenChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">                listenChannel.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">8081</span>));</span><br><span class="line">                listenChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">                <span class="comment">// 注册到selector（监听其ACCEPT事件）</span></span><br><span class="line">                listenChannel.register(acceptSelector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (acceptSelector.select(<span class="number">1</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        Iterator&lt;SelectionKey&gt; keyIter = acceptSelector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 通过迭代器依次访问select出来的Channel事件</span></span><br><span class="line">                        <span class="keyword">while</span> (keyIter.hasNext()) &#123;</span><br><span class="line">                            <span class="type">SelectionKey</span> <span class="variable">key</span> <span class="operator">=</span> keyIter.next();</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">if</span> (key.isAcceptable()) &#123; <span class="comment">// 有连接可以接受</span></span><br><span class="line">                                <span class="keyword">try</span> &#123;</span><br><span class="line">                                    <span class="type">SocketChannel</span> <span class="variable">channel</span> <span class="operator">=</span> ((ServerSocketChannel) key.channel()).accept();</span><br><span class="line">                                    channel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">                                  	<span class="comment">// 这个register方法有可能出现问题</span></span><br><span class="line">                                    channel.register(readSelectors[index], SelectionKey.OP_READ);</span><br><span class="line">                                    index = (index + <span class="number">1</span>) % readSelectors.length;</span><br><span class="line"></span><br><span class="line">                                    System.out.println(<span class="string">&quot;与【&quot;</span> + channel.getRemoteAddress() + <span class="string">&quot;】建立了连接！&quot;</span>);</span><br><span class="line">                                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                                    keyIter.remove();</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                <span class="comment">// do nothing</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReadListener</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Selector readSelector;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">        ReadListener(Selector readSelector) &#123;</span><br><span class="line">            <span class="built_in">this</span>.readSelector = readSelector;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                  	<span class="comment">// 如果用上个例子的select()方法会导致acceptListener中的register阻塞</span></span><br><span class="line">                  	<span class="comment">// 原因是readSelector锁定了内部key等待，而这个key在register中也需要先获取才能register，就死锁了</span></span><br><span class="line">                  	<span class="comment">// 所以只好让他定期来释放锁，给register以机会</span></span><br><span class="line">                    <span class="keyword">if</span> (readSelector.select(<span class="number">1</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        Iterator&lt;SelectionKey&gt; keyIter = readSelector.selectedKeys().iterator();</span><br><span class="line">                        <span class="keyword">while</span> (keyIter.hasNext()) &#123;</span><br><span class="line">                            <span class="type">SelectionKey</span> <span class="variable">key</span> <span class="operator">=</span> keyIter.next();</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">if</span> (key.isReadable()) &#123;</span><br><span class="line">                                <span class="keyword">try</span> &#123;</span><br><span class="line">                                    buffer.clear();</span><br><span class="line"></span><br><span class="line">                                    <span class="comment">// 读取到流末尾说明TCP连接已断开，</span></span><br><span class="line">                                    <span class="comment">// 因此需要关闭通道或者取消监听READ事件</span></span><br><span class="line">                                    <span class="comment">// 否则会无限循环</span></span><br><span class="line">                                    <span class="keyword">if</span> (((SocketChannel) key.channel()).read(buffer) == -<span class="number">1</span>) &#123;</span><br><span class="line">                                        key.channel().close();</span><br><span class="line">                                        <span class="keyword">continue</span>;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                    buffer.flip();</span><br><span class="line">                                    <span class="keyword">while</span> (buffer.hasRemaining()) &#123;</span><br><span class="line">                                        <span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> buffer.get();</span><br><span class="line"></span><br><span class="line">                                        <span class="keyword">if</span> (b == <span class="number">0</span>) &#123; <span class="comment">// 客户端消息末尾的\0</span></span><br><span class="line">                                            System.out.println();</span><br><span class="line"></span><br><span class="line">                                            <span class="comment">// 响应客户端</span></span><br><span class="line">                                            buffer.clear();</span><br><span class="line">                                            buffer.put(<span class="string">&quot;Hello, Client!\0&quot;</span>.getBytes());</span><br><span class="line">                                            buffer.flip();</span><br><span class="line">                                            <span class="keyword">while</span> (buffer.hasRemaining()) &#123;</span><br><span class="line">                                                ((SocketChannel) key.channel()).write(buffer);</span><br><span class="line">                                            &#125;</span><br><span class="line">                                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                            System.out.print((<span class="type">char</span>) b);</span><br><span class="line">                                        &#125;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                                    keyIter.remove();</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                <span class="comment">// do nothing</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">acceptSelector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line">        Selector[] readSelectors = <span class="keyword">new</span> <span class="title class_">Selector</span>[]&#123;</span><br><span class="line">                Selector.open(),</span><br><span class="line">                Selector.open(),</span><br><span class="line">                Selector.open()</span><br><span class="line">        &#125;;  <span class="comment">// 假设我们是4核机器，于是开一个线程监听连接，开三个线程处理业务</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">AcceptListener</span>(acceptSelector, readSelectors)).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">ReadListener</span>(readSelectors[<span class="number">0</span>])).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">ReadListener</span>(readSelectors[<span class="number">1</span>])).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">ReadListener</span>(readSelectors[<span class="number">2</span>])).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在这里我们对数据的处理的耗时非常短暂，实际上只是读出数据，并把它输出出来而已。但还是要知道，这个处理的过程对于每个readSelector所在的线程来说，都是串行的。既然是串行的，自然会导致其他请求处理不了，假如我们的这个处理的耗时比较长，比如说再有个数据库操作、文件读写、$$n^3$$以上复杂度的计算等，那其他注册在该selector上的请求都必须等待这个处理完了再说。这也是个灾难。我们当然可以启动N个readSelector来缓解这个问题，但是如果你启动了非常多的Selector，那么线程太多导致的内存和CPU切换耗资源的问题不就又出现了吗？</p>
+<p>这个问题的解决方案，老实说我暂时没想出来。是不是要走BIO的老路，再建一个连接池，每一个请求read以后把read的结果包装成一个Runnable，再让线程池去处理，这不就又回到了一个请求一个线程的老路上去了，唯一的优化就在于至少在创建线程时工作线程都是有事可干的。</p>
+<p>我只能猜想，这种耗时巨大的一些线上运算，或许用一个请求一个连接的BIO模型更优。这样至少不会出现前请求完成不了，后请求必须排队的情况。要解决并发不够的问题的话，那就部署集群好一点，反正加硬件几乎总是能解千愁。而NIO这种一个线程处理很多连接的方式，似乎更适合做一些不怎么占CPU的处理。</p>
+</li>
+<li><p>上面的例子还有一些问题，比如说buffer是有capacity的，因此一条信息很有可能不能在一次读完，同一条连接会发过来很多个信息，我们肯定要对这些信息进行拼接、定界。在响应的时候，我们也不可能用一个while循环真的把数据写完才做其他工作，不然写入的话限于缓冲区和网络IO的慢速度，又是一种浪费CPU的阻塞了。</p>
+</li>
+<li><p>这里我们的客户端和服务器之间的通信简直过于简单了，没有用任何协议，直接字节流扔过去，手动写了一个<code>\0</code>作为结束标志。现实中的客户端和服务器的通信哪有这样的，各种通信不都得有个协议，HTTP、FTP等，而我们已经看到了，用这一套原生的NIO接口，我们处理的是一些基础类型，比如char、int之类的，你得自己去处理各种协议。这还不玩死自己。所以，用这套源生API真的处理业务问题，会导致非常难写、非常容易出错。</p>
+</li>
+<li><p>另外，epoll的某种实现似乎还有bug，可能导致cpu空转。</p>
+</li>
+</ol>
+<p>要解决上面这些问题，需要有一个非常严谨和繁琐的设计，幸运的是我们不需要真的自己去设计这个系统，开源框架Netty已经帮我们封装好了NIO的原生接口，解决了很多问题。关于Netty会在后续的文章中予以介绍。</p>
+<h3 id="NIO与内存管理"><a href="#NIO与内存管理" class="headerlink" title="NIO与内存管理"></a>NIO与内存管理</h3><p><a class="link"   target="_blank" rel="noopener" href="http://lovestblog.cn/blog/2015/05/12/direct-buffer/" >JVM源码分析之堆外内存完全解读<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/60892134" >Java NIO direct buffer的优势在哪儿？<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/u014590757/article/details/79856425" >JAVA的堆外内存(基于NIO的ByteBuffer类实现)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>在读JVM内存管理相关的内容时，我们经常会读到一句话：NIO使用了本地内存，而不是堆内存，因此大量使用NIO可能造成与传统的堆内存OOM表现不太一致的OOM错误。那么这个到底是怎么回事呢？</p>
+<p>先说答案的一部分：这是因为NIO中使用的Buffer，在直接分配到本地内存时的IO效率比分配到堆内存上的效率要高一点，所以框架大量使用了本地内存上分配Buffer，而这造成了OOM的隐患，而且与堆内存溢出的OOM表现不太一致。于是引出这么几个问题：</p>
+<ol>
+<li><p>怎么在本地内存上直接分配空间？</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Buffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocateDirect(<span class="number">1024</span>);		<span class="comment">// 在本地内存分配空间</span></span><br><span class="line"><span class="type">Buffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);					<span class="comment">// 在堆内存分配空间</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>为什么在堆内存分配缓存空间要慢一点？</p>
+<p>在调用IO的系统调用，将内存从用户空间复制到内核空间时，或者将内核空间的数据复制到用户空间的过程中，要求传入系统调用的内存地址必须满足两个条件：</p>
+<ul>
+<li>不能变；</li>
+<li>必须是连续的。</li>
+</ul>
+<p>而因为GC的存在，java堆内存会在不确定的时间点发生变化，其实也不是不能pin住单个对象不让他变化，但这就增加了内存收集的复杂性，直接破坏了GC的基本模型不说，这样不可变的内存分配多了，还有可能把内存割裂成一块一块的，另外，GC的新生代回收非常频繁，这样的一些缓存pin在哪里，假如卡IO了，很容易短时间内耗光eden区，整体上来说，有一点得不偿失，所以JVM的作者普遍没有选择这么做。</p>
+<p>此外，byte[]在java规范中并不要求是连续的，虽然绝大多数实现中他们确实是连续的。但并不能保证这一点。</p>
+<p>综合以上两个原因，在堆中分配的Buffer，在真正进行IO的时候，需要复制到本地内存中去。因为对关联的这一块本地内存的清理只在Full GC时进行，频率要低得多，所以适合做这种需要等待的事情。</p>
+</li>
+<li><p>为什么不只提供直接分配在本地内存中的Buffer，取消分配在堆中的buffer。</p>
+<p>不是不可以，但是直接分配在堆中有个好处，就是可以被GC，而分配在直接内存中的数据只有在fullGC时才能被回收（如果禁用了显式GC，那就回收不了了），容易引发堆内存明明还有挺多，但是却OOM的问题。</p>
+</li>
+</ol>
+<p>那么，这部分内存到底在什么时候回收呢？可以参考:<a class="link"   target="_blank" rel="noopener" href="http://lovestblog.cn/blog/2015/05/12/direct-buffer/" >JVM源码分析之堆外内存完全解读<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<blockquote>
+<p>DirectByteBuffer对象在创建的时候关联了一个PhantomReference，说到PhantomReference它其实主要是用来跟踪对象何时被回收的，它不能影响gc决策，但是gc过程中如果发现某个对象除了只有PhantomReference引用它之外，并没有其他的地方引用它了，那将会把这个引用放到java.lang.ref.Reference.pending队列里，在gc完毕的时候通知ReferenceHandler这个守护线程去执行一些后置处理，而DirectByteBuffer关联的PhantomReference是PhantomReference的一个子类，在最终的处理里会通过Unsafe的free接口来释放DirectByteBuffer对应的堆外内存块</p>
+</blockquote>
+<p>因此，假如你闲的没事，使用JVM参数<code>-XX:+DisableExplicitGC</code>关闭了显式GC，那么这部分内存永远不会释放了，时间长一点就等着OOM吧。</p>
+<h2 id="AIO（Asynchronous-I-O）"><a href="#AIO（Asynchronous-I-O）" class="headerlink" title="AIO（Asynchronous I&#x2F;O）"></a>AIO（Asynchronous I&#x2F;O）</h2><p>如果我们仔细观察上面所说的Non-Blocking IO，我们会发现一个问题，即真正的<code>IO operation</code>，还是阻塞的。要理解这个问题，首先要精确定义<strong>IO operation</strong>，我们这里所说的<code>IO operation</code>，是指把数据从kernel内存中复制到user内存中的这个过程。</p>
+<p>在BIO时，我们的线程在IO的整个过程，包括等待连接建立、等待数据就位、从内核态复制数据到用户态的过程中，全都都是阻塞等待的。</p>
+<p>在NIO中，我们的线程在IO还没有准备好的时候不用阻塞，当IO的数据准备好了以后，从内核内存复制到用户内存的过程里，是阻塞的。因为这个阻塞过程，意味着用户如果要同时做其他工作，就要控制这个读写的过程不能阻塞太久，不然还是要放到单独的IO线程里面去执行。</p>
+<p>那么有没有一种办法，把这个内核态到用户态的复制这个步骤也搞成非阻塞的，等到需要的数据都拷贝到用户内存里以后，再来通知我说复制好了。那这样岂不美哉？甚至更进一步，我直接把一个回调函数传给负责IO的线程，说等你复制完数据以后，直接帮我执行一下这个回调函数就好了。这样主线程写起来是不是就更快乐了？</p>
+<p>用取包裹举个例子，BIO同步阻塞年代，是我站在门口痴痴地等待快递小哥到来，NIO时代，是快递小哥到了门口给我打电话我去取，而AIO时代，是快递小哥把东西直接搬到我指定的位置放好，然后给我打个电话说一声。</p>
+<p>那么AIO到底解决了什么问题呢？大概就是在IO执行过程中彻底不需要阻塞了，只在数据完全准备好时才通知应用程序处理，而且回调方法的出现，多少简化了编程模型，并且它甚至增加了对线程池的源生支持，可以为回调方法的执行预先准备一个线程池。</p>
+<p>多少有点美好。那我们首先来看一下AIO的主要接口。</p>
+<h3 id="AIO的核心组件"><a href="#AIO的核心组件" class="headerlink" title="AIO的核心组件"></a>AIO的核心组件</h3><h4 id="AsynchronousChannel"><a href="#AsynchronousChannel" class="headerlink" title="AsynchronousChannel"></a>AsynchronousChannel</h4><p>我们可以看到，NIO和AIO在前半部分是很像的，所以这个Channel和NIO的Channel其实也是一样的，即代表了我们关注的一些连接。</p>
+<p>他的子类包括：</p>
+<ul>
+<li>AsynchronousFileChannel</li>
+<li>AsynchronousServerSocketChannel</li>
+<li>AsynchronousSocketChannel</li>
+</ul>
+<h4 id="AsynchronousChannelGroup"><a href="#AsynchronousChannelGroup" class="headerlink" title="AsynchronousChannelGroup"></a>AsynchronousChannelGroup</h4><p>异步channel的分组管理机制，主要是一个Group可以绑定一个线程池，这个线程池用来处理IO事件和CompletionHandler。AsynchronousServerSocketChannel创建的时候可以传入一个AsynchronousChannelGroup，那么通过AsynchronousServerSocketChannel创建的 AsynchronousSocketChannel将同属于一个组，共享资源。代码如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">AsynchronousChannelGroup</span> <span class="variable">group</span> <span class="operator">=</span> AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(<span class="number">4</span>));</span><br><span class="line"><span class="type">AsynchronousServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> AsynchronousServerSocketChannel.open(group).bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">8013</span>));</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="CompletionHandler"><a href="#CompletionHandler" class="headerlink" title="CompletionHandler"></a>CompletionHandler</h4><p>回调借口。AIO的API允许两种方式来处理异步操作的结果：返回的Future模式或者注册CompletionHandler。返回Future的方式，因为<code>Future#get()</code>是阻塞接口，所以用的稍微不仔细一点，就成了异步阻塞的那一套了，所以可能用CompletionHandler要更好一些，这些handler的调用是由AsynchronousChannelGroup的线程池派发的。因此线程池的使用也与性能相关，线程池的使用不是这里的重点，在这里不详述。</p>
+<p>其接口如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.nio.channels;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CompletionHandler</span>&lt;V,A&gt; &#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">completed</span><span class="params">(V result, A attachment)</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">failed</span><span class="params">(Throwable exc, A attachment)</span>;  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>其中Result表示IO调用的结果，而A是你需要使用的任意一个对象，在IO调用时传入。</p>
+<p>抄一段代码如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.CharBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.AsynchronousChannelGroup;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.AsynchronousServerSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.AsynchronousSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.CompletionHandler;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.CharsetEncoder;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutionException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Future;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Charset</span> <span class="variable">charset</span> <span class="operator">=</span> StandardCharsets.US_ASCII;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">CharsetEncoder</span> <span class="variable">encoder</span> <span class="operator">=</span> charset.newEncoder();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">AsynchronousChannelGroup</span> <span class="variable">group</span> <span class="operator">=</span> AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(<span class="number">4</span>));</span><br><span class="line">        <span class="type">AsynchronousServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> AsynchronousServerSocketChannel.open(group).bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">8013</span>));</span><br><span class="line">        server.accept(<span class="literal">null</span>, <span class="keyword">new</span> <span class="title class_">CompletionHandler</span>&lt;AsynchronousSocketChannel, Void&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">completed</span><span class="params">(AsynchronousSocketChannel result, Void attachment)</span> &#123;</span><br><span class="line">                server.accept(<span class="literal">null</span>, <span class="built_in">this</span>); <span class="comment">// 接受下一个连接</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="type">String</span> <span class="variable">now</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>().toString();</span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> encoder.encode(CharBuffer.wrap(now + <span class="string">&quot;\r\n&quot;</span>));</span><br><span class="line">                    <span class="comment">//result.write(buffer, null, new CompletionHandler&lt;Integer,Void&gt;()&#123;...&#125;); //callback or</span></span><br><span class="line">                    Future&lt;Integer&gt; f = result.write(buffer);</span><br><span class="line">                    f.get();</span><br><span class="line">                    System.out.println(<span class="string">&quot;sent to client: &quot;</span> + now);</span><br><span class="line">                    result.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException | InterruptedException | ExecutionException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">failed</span><span class="params">(Throwable exc, Void attachment)</span> &#123;</span><br><span class="line">                exc.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        group.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这个例子里用了两种方式，其中发送数据用了future。但这个Future其实也就是个数字，表明写了几个字符，没有实际意义。</p>
+<p>Client实现：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">AsynchronousSocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> AsynchronousSocketChannel.open();</span><br><span class="line">        Future&lt;Void&gt; future = client.connect(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8013</span>));</span><br><span class="line">        future.get();</span><br><span class="line"></span><br><span class="line">        <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">100</span>);</span><br><span class="line">        client.read(buffer, <span class="literal">null</span>, <span class="keyword">new</span> <span class="title class_">CompletionHandler</span>&lt;Integer, Void&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">completed</span><span class="params">(Integer result, Void attachment)</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;client received: &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(buffer.array()));</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">failed</span><span class="params">(Throwable exc, Void attachment)</span> &#123;</span><br><span class="line">                exc.printStackTrace();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    client.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="完美了吗？"><a href="#完美了吗？" class="headerlink" title="完美了吗？"></a>完美了吗？</h3><p>其实我们可以发现，上面的编程模型确实稍微简化了一点。只需要告诉系统IO完了之后执行哪些任务就可以了，Selector用不到了，因为不需要我们去轮询了，任务的分派系统可以自动利用线程池，心智负担确实小了一些。</p>
+<p>但是这个也不是就没有问题了。其实他面对的主要问题，和NIO是一样的，就是协议的处理、拆包、定界等这些问题。一样繁琐，实际上还是依赖框架的包装心智负担更小一些。</p>
+<h2 id="BIO-NIO-AIO的适用场景"><a href="#BIO-NIO-AIO的适用场景" class="headerlink" title="BIO NIO AIO的适用场景"></a>BIO NIO AIO的适用场景</h2><p>这个其实我也没有经验，只要直接COPY网上的东西了：</p>
+<ul>
+<li><p>BIO方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应用中，JDK1.4以前的唯一选择，但程序直观简单易理解。</p>
+</li>
+<li><p>NIO方式适用于连接数目多且连接比较短（轻操作）的架构，比如聊天服务器，并发局限于应用中，编程比较复杂，JDK1.4开始支持。</p>
+</li>
+<li><p>AIO方式使用于连接数目多且连接比较长（重操作）的架构，比如相册服务器，充分调用OS参与并发操作，编程比较复杂，JDK7开始支持。</p>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p>阻塞和同步异步相关</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/19732473" >怎样理解阻塞非阻塞与同步异步的区别<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000003063859" >Linux IO模式及 select、poll、epoll详解<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li><p>BIO相关</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/BIO-NIO-AIO.md" >githun:BIO-NIO-AIO<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li><p>NIO相关</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://tech.meituan.com/2016/11/04/nio.html" >Java NIO浅析<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/pony1223/p/8138233.html" >JAVA NIO学习一：NIO简介、NIO&amp;IO的主要区别<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017040893" >一文让你彻底理解 Java NIO 核心组件<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/a4e03835921a" >跟闪电侠学Netty<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3955250/why-filechannel-in-java-is-not-non-blocking" >Why FileChannel in Java is not non-blocking?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li><p>AIO相关</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51453522" >深入理解BIO、NIO、AIO<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://colobu.com/2014/11/13/java-aio-introduction/" >java aio 编程<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/duanxz/p/6782803.html" >Java NIO系列教程（八）JDK AIO编程<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><p>这些IO方式我们现实中可能都很少直接用到，但是IO方式的改进反映出的思想确实很有价值，值得我们参考借鉴。</p>
+<p>另外：笔记仅用于自己学习和几位好友的内部技术交流，请勿转发给工作相关人员。如果承蒙错爱想发博客，注明一下作者即可。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Java的IO进化简史</li>
+        <li><strong>Author:</strong> hao</li>
+        <li><strong>Created at
+                :</strong> 2020-02-07 12:32:25</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-03-12 13:06:53
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://besthao.cn/2020/02/07/Java的IO进化简史/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2020/04/07/Java%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86%E4%B9%8B%E7%BA%BF%E7%A8%8B/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Java基础整理之线程</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2019/11/28/Don-t-Be-So-Serious/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Don&#39;t Be So Serious</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Java的IO进化简史</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E5%BC%95%E5%87%BA"><span class="nav-text">问题的引出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E3%80%81%E5%BC%82%E6%AD%A5-%E9%98%BB%E5%A1%9E%E3%80%81%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-text">同步、异步 | 阻塞、非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO%EF%BC%88Blocking-IO%EF%BC%89"><span class="nav-text">BIO（Blocking IO）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO%EF%BC%88Non-Blocking-IO%EF%BC%89"><span class="nav-text">NIO（Non-Blocking IO）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO%E8%A6%81%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-text">NIO要解决什么问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-text">NIO的核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO%E5%B9%B6%E4%B8%8D%E5%AE%8C%E7%BE%8E"><span class="nav-text">NIO并不完美</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NIO%E4%B8%8E%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">NIO与内存管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIO%EF%BC%88Asynchronous-I-O%EF%BC%89"><span class="nav-text">AIO（Asynchronous I&#x2F;O）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AIO%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-text">AIO的核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E7%BE%8E%E4%BA%86%E5%90%97%EF%BC%9F"><span class="nav-text">完美了吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO-NIO-AIO%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">BIO NIO AIO的适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84"><span class="nav-text">附</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">hao</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        37 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

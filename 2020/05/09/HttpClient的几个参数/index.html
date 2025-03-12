@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="hao">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2020/05/09/httpclient的几个参数/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HttpClient的几个参数">
+<meta property="og:url" content="http://example.com/2020/05/09/HttpClient%E7%9A%84%E5%87%A0%E4%B8%AA%E5%8F%82%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2020-05-09T06:05:35.000Z">
+<meta property="article:modified_time" content="2025-03-12T05:06:53.831Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            HttpClient的几个参数 | haozz
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/haozz1","instagram":"https://www.instagram.com/haozi_3/","weibo":"https://www.weibo.com/u/2164511885"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"AI":{"icon":"fa-regular fa-link","submenus":{"chatGPT":"https://chatgpt.com/","deepseek":"https://chat.deepseek.com/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"记录","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/img/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                haozz
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://ohevan.com">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    AI
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chatgpt.com/">
+                                                    CHATGPT
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">
+                                                    DEEPSEEK
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-AI"
+                        >
+                            <span>
+                                AI
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-AI">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chatgpt.com/">CHATGPT</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chat.deepseek.com/">DEEPSEEK</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">HttpClient的几个参数</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/img/myname.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">hao</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2020-05-09 14:05:35</span>
+        <span class="mobile">2020-05-09 14:05:35</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-03-12 13:06:53</span>
+            <span class="mobile">2025-03-12 13:06:53</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="Apache-HttpClient的几个重要参数"><a href="#Apache-HttpClient的几个重要参数" class="headerlink" title="Apache HttpClient的几个重要参数"></a>Apache HttpClient的几个重要参数</h1><p>最近在业务中发现一些性能问题，主要是和HttpClient有关的，刚好在这里总结一下。</p>
+<p>针对版本号如下：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.5.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="maxConnPerRoute-与-maxConnTotal"><a href="#maxConnPerRoute-与-maxConnTotal" class="headerlink" title="maxConnPerRoute 与 maxConnTotal"></a>maxConnPerRoute 与 maxConnTotal</h2><p>正如大家所知，HttpClient与目的主机进行HTTP通信，必须要进行TCP连接。而因为三次握手、四次挥手、滑动窗口机制，连接的建立和释放是颇为耗时的一件事情，因此，HttpClient实现了连接池。以便在请求同一个<code>host:port</code>时，会复用已经建立的连接。</p>
+<p>那么显然，这个复用的连接针对同一个<code>host:port</code>才有意义，这就是<code>maxConnPerRoute</code>的含义，即允许同一个<code>host:port</code>最多有几个活跃连接。当设置为2时，意味着同时最多有两个到<code>host:port</code>的连接，如果有空闲连接，本次请求会使用已经建立的空闲连接，但如果没有，就会进入等待队列，等待到该<code>host:port</code>的连接可用。</p>
+<p>而maxConnTotal更直接了，意思就是总共允许HttpClient建立多少个连接，超出以后所有的连接都会进入等待队列。</p>
+<p>在<code>CloseableHttpClient</code>的实现类<code>InternalHttpClient</code>中，连接的管理是依靠<code>HttpClientConnectionManager</code>的实现类，默认为<code>PoolingHttpClientConnectionManager</code>。</p>
+<p>具体的代码，从<code>httpclient.execute(...)</code>可以追溯到：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> CloseableHttpResponse <span class="title function_">doExecute</span><span class="params">(</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> HttpHost target,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> HttpRequest request,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> HttpContext context)</span> <span class="keyword">throws</span> IOException, ClientProtocolException&#123;</span><br><span class="line">  <span class="comment">// 上半部分省略，try catch省略  </span></span><br><span class="line">  <span class="keyword">final</span> <span class="type">HttpRoute</span> <span class="variable">route</span> <span class="operator">=</span> determineRoute(target, wrapper, localcontext);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.execChain.execute(route, wrapper, localcontext, execAware);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>继续追寻<code>execChain.execute(...)</code>，最终会进入<code>MainClientExec#exec(...)</code>中，有关建立连接的语句如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">ConnectionRequest</span> <span class="variable">connRequest</span> <span class="operator">=</span> connManager.requestConnection(route, userToken);</span><br><span class="line"><span class="keyword">final</span> <span class="type">HttpClientConnection</span> <span class="variable">managedConn</span> <span class="operator">=</span> connRequest.get(timeout &gt; <span class="number">0</span> ? timeout : <span class="number">0</span>, TimeUnit.MILLISECONDS);</span><br></pre></td></tr></table></figure></div>
+
+<p>而这个<code>ConnectionRequest</code>，则是定义于<code>PoolingHttpClientConnectionManager</code>中的一个匿名类，如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> ConnectionRequest <span class="title function_">requestConnection</span><span class="params">(<span class="keyword">final</span> HttpRoute route,<span class="keyword">final</span> Object state)</span> &#123;</span><br><span class="line">    Args.notNull(route, <span class="string">&quot;HTTP route&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.log.isDebugEnabled()) &#123;</span><br><span class="line">        <span class="built_in">this</span>.log.debug(<span class="string">&quot;Connection request: &quot;</span> + format(route, state) + formatStats(route));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">final</span> Future&lt;CPoolEntry&gt; future = <span class="built_in">this</span>.pool.lease(route, state, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ConnectionRequest</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">cancel</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> future.cancel(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> HttpClientConnection <span class="title function_">get</span><span class="params">(</span></span><br><span class="line"><span class="params">                <span class="keyword">final</span> <span class="type">long</span> timeout,</span></span><br><span class="line"><span class="params">                <span class="keyword">final</span> TimeUnit tunit)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException, ConnectionPoolTimeoutException &#123;</span><br><span class="line">            <span class="keyword">return</span> leaseConnection(future, timeout, tunit);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>我们可以看到，他的get方法重载了，实际上调用了<code>leaseConnection</code>方法，那这个方法：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> HttpClientConnection <span class="title function_">leaseConnection</span><span class="params">(</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> Future&lt;CPoolEntry&gt; future,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> <span class="type">long</span> timeout,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> TimeUnit tunit)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException, ConnectionPoolTimeoutException &#123;</span><br><span class="line">    <span class="keyword">final</span> CPoolEntry entry;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        entry = future.get(timeout, tunit);</span><br><span class="line">        <span class="comment">// 以下省略</span></span><br><span class="line">        <span class="keyword">return</span> CPoolProxy.newProxy(entry);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (<span class="keyword">final</span> TimeoutException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ConnectionPoolTimeoutException</span>(<span class="string">&quot;Timeout waiting for connection from pool&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这个proxy可以先不去理会，可见最重要的还是这个future。那这个future是什么呢？</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Future&lt;CPoolEntry&gt; future = <span class="built_in">this</span>.pool.lease(route, state, <span class="literal">null</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>进到lease方法里，会发现他是直接构造了一个Future实例，那我们关注他的<code>get()</code>方法的实现：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="comment">// 这里的E实际类型就是CPoolEntry</span></span><br><span class="line"><span class="keyword">public</span> E <span class="title function_">get</span><span class="params">(<span class="keyword">final</span> <span class="type">long</span> timeout, <span class="keyword">final</span> TimeUnit tunit)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException, TimeoutException &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">E</span> <span class="variable">entry</span> <span class="operator">=</span> entryRef.get();</span><br><span class="line">    <span class="keyword">if</span> (entry != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> entry;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (;;) &#123;	<span class="comment">// 无限循环是为了一直尝试获取</span></span><br><span class="line">                <span class="keyword">final</span> <span class="type">E</span> <span class="variable">leasedEntry</span> <span class="operator">=</span> getPoolEntryBlocking(route, state, timeout, tunit, <span class="built_in">this</span>);</span><br><span class="line">                <span class="keyword">if</span> (validateAfterInactivity &gt; <span class="number">0</span>)  &#123;</span><br><span class="line">               			<span class="comment">// 检测一下是不是超时了，超时了就重来一次 </span></span><br><span class="line">                    <span class="keyword">if</span> (leasedEntry.getUpdated() + validateAfterInactivity &lt;= System.currentTimeMillis()) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (!validate(leasedEntry)) &#123;</span><br><span class="line">                            leasedEntry.close();</span><br><span class="line">                            release(leasedEntry, <span class="literal">false</span>);</span><br><span class="line">                            <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> leasedEntry;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (<span class="keyword">final</span> IOException ex) &#123;</span><br><span class="line">            <span class="comment">// 省略</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>所以真正的获取的方法是<code>getPoolEntryBlocking(...)</code>，追踪之：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> E <span class="title function_">getPoolEntryBlocking</span><span class="params">(</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> T route, <span class="keyword">final</span> Object state,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> <span class="type">long</span> timeout, <span class="keyword">final</span> TimeUnit tunit,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> Future&lt;E&gt; future)</span> <span class="keyword">throws</span> IOException, InterruptedException, TimeoutException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">Date</span> <span class="variable">deadline</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      	<span class="comment">// 指获得连接要等待多久，这个timeout就是ConnectionTimeout。</span></span><br><span class="line">      	<span class="comment">// 要追溯这个timeout是ConnectionTimeToLive</span></span><br><span class="line">        deadline = <span class="keyword">new</span> <span class="title class_">Date</span> (System.currentTimeMillis() + tunit.toMillis(timeout));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      	<span class="comment">// 获得一个特定路由的连接池，细节实际就是从可用队列里获得一个连接</span></span><br><span class="line">        <span class="keyword">final</span> RouteSpecificPool&lt;T, C, E&gt; pool = getPool(route);</span><br><span class="line">        E entry;</span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            Asserts.check(!<span class="built_in">this</span>.isShutDown, <span class="string">&quot;Connection pool shut down&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">              	<span class="comment">// 尝试从其中获得可用的连接，这个操作在第一次执行时一定返回null</span></span><br><span class="line">                entry = pool.getFree(state);</span><br><span class="line">                <span class="keyword">if</span> (entry == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">              	<span class="comment">// 如果超时了，关闭这个入口。因为不可能无限保持TCP连接，至少这是个不好的操作</span></span><br><span class="line">              	<span class="comment">// 所以超时了以后就关闭连接比较合理。这里的超时是指ConnectionTimeToLive</span></span><br><span class="line">                <span class="keyword">if</span> (entry.isExpired(System.currentTimeMillis())) &#123;</span><br><span class="line">                    entry.close();</span><br><span class="line">                &#125;</span><br><span class="line">              	<span class="comment">// 如果已经被关闭，那就从可用队列里移除。</span></span><br><span class="line">                <span class="keyword">if</span> (entry.isClosed()) &#123;</span><br><span class="line">                    <span class="built_in">this</span>.available.remove(entry);</span><br><span class="line">                    pool.free(entry, <span class="literal">false</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          	<span class="comment">// 这里一连串的if还是很严谨的</span></span><br><span class="line">            <span class="keyword">if</span> (entry != <span class="literal">null</span>) &#123;</span><br><span class="line">              	<span class="comment">// 被使用了，当然要移出可用队列</span></span><br><span class="line">                <span class="built_in">this</span>.available.remove(entry);</span><br><span class="line">              	<span class="comment">// 加入已分配队列</span></span><br><span class="line">                <span class="built_in">this</span>.leased.add(entry);</span><br><span class="line">                onReuse(entry);</span><br><span class="line">                <span class="keyword">return</span> entry;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// New connection is needed。</span></span><br><span class="line">          	<span class="comment">// 因为第一次的时候free一定是空的，所以会新建。</span></span><br><span class="line">          	<span class="comment">// 根据默认设置，这里会得到2，一会会详细看一下这个方法</span></span><br><span class="line">            <span class="keyword">final</span> <span class="type">int</span> <span class="variable">maxPerRoute</span> <span class="operator">=</span> getMax(route);</span><br><span class="line">            <span class="comment">// Shrink the pool prior to allocating a new connection</span></span><br><span class="line">          	<span class="comment">// 超出了最大允许的连接数，即maxPerRoute，就回收一下</span></span><br><span class="line">            <span class="keyword">final</span> <span class="type">int</span> <span class="variable">excess</span> <span class="operator">=</span> Math.max(<span class="number">0</span>, pool.getAllocatedCount() + <span class="number">1</span> - maxPerRoute);</span><br><span class="line">            <span class="keyword">if</span> (excess &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; excess; i++) &#123;</span><br><span class="line">                    <span class="keyword">final</span> <span class="type">E</span> <span class="variable">lastUsed</span> <span class="operator">=</span> pool.getLastUsed();</span><br><span class="line">                    <span class="keyword">if</span> (lastUsed == <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    lastUsed.close();</span><br><span class="line">                    <span class="built_in">this</span>.available.remove(lastUsed);</span><br><span class="line">                    pool.remove(lastUsed);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          </span><br><span class="line">						<span class="comment">// 如果这个route的已分配连接没有超过允许的最大连接，就分配。</span></span><br><span class="line">            <span class="keyword">if</span> (pool.getAllocatedCount() &lt; maxPerRoute) &#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="type">int</span> <span class="variable">totalUsed</span> <span class="operator">=</span> <span class="built_in">this</span>.leased.size();</span><br><span class="line">                <span class="keyword">final</span> <span class="type">int</span> <span class="variable">freeCapacity</span> <span class="operator">=</span> Math.max(<span class="built_in">this</span>.maxTotal - totalUsed, <span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (freeCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">totalAvailable</span> <span class="operator">=</span> <span class="built_in">this</span>.available.size();</span><br><span class="line">                    <span class="keyword">if</span> (totalAvailable &gt; freeCapacity - <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (!<span class="built_in">this</span>.available.isEmpty()) &#123;</span><br><span class="line">                            <span class="keyword">final</span> <span class="type">E</span> <span class="variable">lastUsed</span> <span class="operator">=</span> <span class="built_in">this</span>.available.removeLast();</span><br><span class="line">                            lastUsed.close();</span><br><span class="line">                            <span class="keyword">final</span> RouteSpecificPool&lt;T, C, E&gt; otherpool = getPool(lastUsed.getRoute());</span><br><span class="line">                            otherpool.remove(lastUsed);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                  	<span class="comment">// 真正新建一个connection，在这一步，为entry设置了超时时间。</span></span><br><span class="line">                  	<span class="comment">// 这个超时时间在上面一个代码块中会用</span></span><br><span class="line">                    <span class="keyword">final</span> <span class="type">C</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="built_in">this</span>.connFactory.create(route);</span><br><span class="line">                    entry = pool.add(conn);</span><br><span class="line">                    <span class="built_in">this</span>.leased.add(entry);</span><br><span class="line">                    <span class="keyword">return</span> entry;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          </span><br><span class="line">            <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (future.isCancelled()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">InterruptedException</span>(<span class="string">&quot;Operation interrupted&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">              	<span class="comment">// 否则就将这个申请的请求加到等待队列里</span></span><br><span class="line">                pool.queue(future);</span><br><span class="line">                <span class="built_in">this</span>.pending.add(future);</span><br><span class="line">                <span class="keyword">if</span> (deadline != <span class="literal">null</span>) &#123;</span><br><span class="line">                    success = <span class="built_in">this</span>.condition.awaitUntil(deadline);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="built_in">this</span>.condition.await();</span><br><span class="line">                    success = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (future.isCancelled()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">InterruptedException</span>(<span class="string">&quot;Operation interrupted&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">// In case of &#x27;success&#x27;, we were woken up by the</span></span><br><span class="line">                <span class="comment">// connection pool and should now have a connection</span></span><br><span class="line">                <span class="comment">// waiting for us, or else we&#x27;re shutting down.</span></span><br><span class="line">                <span class="comment">// Just continue in the loop, both cases are checked.</span></span><br><span class="line">              	<span class="comment">// 所以接下来就重试了，注意最上面那个for (;;)无限循环</span></span><br><span class="line">                pool.unqueue(future);</span><br><span class="line">                <span class="built_in">this</span>.pending.remove(future);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// check for spurious wakeup vs. timeout</span></span><br><span class="line">            <span class="keyword">if</span> (!success &amp;&amp; (deadline != <span class="literal">null</span> &amp;&amp; deadline.getTime() &lt;= System.currentTimeMillis())) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TimeoutException</span>(<span class="string">&quot;Timeout waiting for connection&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后再来稍微看一下这个<code>final int maxPerRoute = getMax(route);</code>方法：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getMax</span><span class="params">(<span class="keyword">final</span> T route)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">Integer</span> <span class="variable">v</span> <span class="operator">=</span> <span class="built_in">this</span>.maxPerRoute.get(route);</span><br><span class="line">    <span class="keyword">if</span> (v != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> v.intValue();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.defaultMaxPerRoute;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>可见，先是从一个map里面查一下数据，如果没有的话就使用<code>defaultMaxPerRoute</code>。这两个值都可以由我们自行设置。</p>
+<p>自此，我们理清楚了一个connection是怎么获得的。然后再来看这两个参数怎么设置。当一个请求到来之后，先会去解析他的<code>host:port</code>，之后尝试根据这个<code>host:port</code>去尝试获取连接，如果当前到<code>host:port</code>的连接数量少于<code>maxConnPerRoute</code>，并且该<code>HttpClient</code>中发出的所有连接数量小于<code>maxConnTotal</code>，那么连接可以分配，如果两个条件有一个不满足，请求就会进入等待队列。不断轮询。关于这两个值的大小设置，我们来看一下官方的解读：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> ClientConnectionPoolManager&#125; maintains a pool of</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> HttpClientConnection&#125;s and is able to service connection requests</span></span><br><span class="line"><span class="comment"> * from multiple execution threads. Connections are pooled on a per route</span></span><br><span class="line"><span class="comment"> * basis. A request for a route which already the manager has persistent</span></span><br><span class="line"><span class="comment"> * connections for available in the pool will be services by leasing</span></span><br><span class="line"><span class="comment"> * a connection from the pool rather than creating a brand new connection.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> ClientConnectionPoolManager&#125; maintains a maximum limit of connection</span></span><br><span class="line"><span class="comment"> * on a per route basis and in total. Per default this implementation will</span></span><br><span class="line"><span class="comment"> * create no more than than 2 concurrent connections per given route</span></span><br><span class="line"><span class="comment"> * and no more 20 connections in total. For many real-world applications</span></span><br><span class="line"><span class="comment"> * these limits may prove too constraining, especially if they use HTTP</span></span><br><span class="line"><span class="comment"> * as a transport protocol for their services. Connection limits, however,</span></span><br><span class="line"><span class="comment"> * can be adjusted using &#123;<span class="doctag">@link</span> ConnPoolControl&#125; methods.</span></span><br><span class="line"><span class="comment"> * 上面这一段划重点，意思是默认值对于生产环境可能太小了，特别是当我们把HTTP当RPC用的时候</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Total time to live (TTL) set at construction time defines maximum life span</span></span><br><span class="line"><span class="comment"> * of persistent connections regardless of their expiration setting. No persistent</span></span><br><span class="line"><span class="comment"> * connection will be re-used past its TTL value.</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * The handling of stale connections was changed in version 4.4.</span></span><br><span class="line"><span class="comment"> * Previously, the code would check every connection by default before re-using it.</span></span><br><span class="line"><span class="comment"> * The code now only checks the connection if the elapsed time since</span></span><br><span class="line"><span class="comment"> * the last use of the connection exceeds the timeout that has been set.</span></span><br><span class="line"><span class="comment"> * The default timeout is set to 2000ms</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 4.3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Contract(threading = ThreadingBehavior.SAFE_CONDITIONAL)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PoolingHttpClientConnectionManager</span></span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">HttpClientConnectionManager</span>, ConnPoolControl&lt;HttpRoute&gt;, Closeable &#123;</span><br><span class="line">  	<span class="comment">// 省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>既然太小了，那就有调整的必要，调整主要有两种办法：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClientBuilder.create()</span><br><span class="line">            .setMaxConnTotal(<span class="number">400</span>).setMaxConnPerRoute(<span class="number">200</span>).build();</span><br></pre></td></tr></table></figure></div>
+
+<p>不解释了。还有一种更详细的设置方式，就是既然connection的管理是依靠<code>PoolingHttpClientConnectionManager</code>，那我们给httpClient设置一个<code>PoolingHttpClientConnectionManager</code>，就可以完全掌握连接分配了，而<code>PoolingHttpClientConnectionManager</code>的设置项要更多一些。如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PoolingHttpClientConnectionManager</span> <span class="variable">manager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PoolingHttpClientConnectionManager</span>();</span><br><span class="line">manager.setDefaultMaxPerRoute(<span class="number">100</span>);</span><br><span class="line">manager.setMaxTotal(<span class="number">500</span>);</span><br><span class="line">manager.setMaxPerRoute(<span class="keyword">new</span> <span class="title class_">HttpRoute</span>(</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">HttpHost</span>(<span class="string">&quot;https://www.baidu.com&quot;</span>, <span class="number">443</span>)), <span class="number">200</span>);</span><br><span class="line"><span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClientBuilder.create()</span><br><span class="line">  .setConnectionManager(manager).build();</span><br></pre></td></tr></table></figure></div>
+
+<p>这个可以对单独的route设置最大连接数量，并且<code>setConnectionManager(manager)</code>会覆盖<code>setMaxConnTotal(400).setMaxConnPerRoute(200)</code>。</p>
+<p>上面的这个<code>connectionTimeToLive</code>可以用以下两种方法设置，所有的超时连接都不会被复用：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="type">PoolingHttpClientConnectionManager</span> <span class="variable">manager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PoolingHttpClientConnectionManager</span>(<span class="number">100</span>，TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClientBuilder.create()</span><br><span class="line">            .setConnectionTimeToLive(<span class="number">100</span>，TimeUnit.SECONDS).build();</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="RequestConfig-的-三个TimeOut"><a href="#RequestConfig-的-三个TimeOut" class="headerlink" title="RequestConfig 的 三个TimeOut"></a>RequestConfig 的 三个TimeOut</h2><p>每一个请求都可以带一个RequestConfig参数，对此次请求的一些参数进行设置。这里面比较重要的是三个timeout参数，如下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RequestConfig</span> <span class="variable">requestConfig</span> <span class="operator">=</span> RequestConfig.custom()</span><br><span class="line">            .setConnectionRequestTimeout(<span class="number">30000</span>).setConnectTimeout(<span class="number">30000</span>)</span><br><span class="line">            .setSocketTimeout(<span class="number">30000</span>).build();</span><br><span class="line"><span class="type">HttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HttpGet</span>();	<span class="comment">// 或者new HttpPost()等</span></span><br><span class="line">request.setConfig(requestConfig);</span><br><span class="line">httpclient.execute(request);</span><br></pre></td></tr></table></figure></div>
+
+<p>这三个timeout到底是干什么的？</p>
+<p>###ConnectionRequestTimeout</p>
+<p>看了上一章关于Connection的解读，这个参数的概念就十分清晰了。但我们还是从源码里追溯一下：</p>
+<p>其调用栈大概是：</p>
+<p><code>Httpclient#execute(HttpRequest)</code>  –&gt; <code>InternalHttpClient#doExecute(HttpHost, HttpRequest, HttpContext)</code>  –&gt; <code>MainClientExec#execute(HttpRoute, HttpRequestWrapper, HttpClientContext, HttpExecutionAware)</code>  </p>
+<p>这个connectionTimeOut真正起作用的地方在这里：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainClientExec</span> <span class="keyword">implements</span> <span class="title class_">ClientExecChain</span> &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> CloseableHttpResponse <span class="title function_">execute</span><span class="params">(</span></span><br><span class="line"><span class="params">            <span class="keyword">final</span> HttpRoute route,</span></span><br><span class="line"><span class="params">            <span class="keyword">final</span> HttpRequestWrapper request,</span></span><br><span class="line"><span class="params">            <span class="keyword">final</span> HttpClientContext context,</span></span><br><span class="line"><span class="params">            <span class="keyword">final</span> HttpExecutionAware execAware)</span> <span class="keyword">throws</span> IOException, HttpException &#123;</span><br><span class="line">      <span class="comment">// 省略前后的无关语句</span></span><br><span class="line">     	<span class="comment">// 在doExecute中，requestConfig参数被包装到context里面了</span></span><br><span class="line">      <span class="keyword">final</span> <span class="type">RequestConfig</span> <span class="variable">config</span> <span class="operator">=</span> context.getRequestConfig();</span><br><span class="line">      <span class="comment">// 下面这个语句我们是熟悉的</span></span><br><span class="line">      <span class="keyword">final</span> <span class="type">ConnectionRequest</span> <span class="variable">connRequest</span> <span class="operator">=</span> connManager.requestConnection(route, userToken);</span><br><span class="line">      <span class="keyword">final</span> <span class="type">int</span> <span class="variable">timeout</span> <span class="operator">=</span> config.getConnectionRequestTimeout();</span><br><span class="line">      managedConn = connRequest.get(timeout &gt; <span class="number">0</span> ? timeout : <span class="number">0</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">      <span class="comment">// 之后的省略</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>之后去追溯<code>connRequest.get</code>方法，最终还是追溯到<code>getPoolEntryBlocking</code>方法里面去了。就是timeout和deadline的那个关系，可以关注一下上面的代码块。意思就是在等待队列里等到deadline还没法获取connection，就会抛<code>TimeoutException</code>异常。</p>
+<h3 id="ConnectTimeout"><a href="#ConnectTimeout" class="headerlink" title="ConnectTimeout"></a>ConnectTimeout</h3><p>还是从<code>MainClientExec#execute(HttpRoute, HttpRequestWrapper, HttpClientContext, HttpExecutionAware)</code>去追溯，会发现有这么一个方法：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!managedConn.isOpen()) &#123;</span><br><span class="line">    <span class="built_in">this</span>.log.debug(<span class="string">&quot;Opening connection &quot;</span> + route);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      	<span class="comment">// 当连接未打开时，首先建立连接</span></span><br><span class="line">        establishRoute(proxyAuthState, managedConn, route, request, context);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (<span class="keyword">final</span> TunnelRefusedException ex) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.log.isDebugEnabled()) &#123;</span><br><span class="line">            <span class="built_in">this</span>.log.debug(ex.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        response = ex.getResponse();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>调用栈是：<code>MainClientExec#establishRoute</code>  –&gt;  <code>PoolingHttpClientConnectionManager#connect(HttpClientConnection, HttpRoute, int, HttpContext context)</code>  –&gt;  <code>DefaultHttpClientConnectionOperator#connect(ManagedHttpClientConnection, HttpHost, InetSocketAddress, int, SocketConfig, HttpContext) </code></p>
+<p>最后调用了<code>ConnectionSocketFactory#connectSocket(...)</code>方法，其实就是说这次建立连接的超时时间……好吧，是因为我懒得继续追溯源代码了。就这样敷衍了事吧。</p>
+<h3 id="SocketTimeout"><a href="#SocketTimeout" class="headerlink" title="SocketTimeout"></a>SocketTimeout</h3><p>这个调用栈太深了，转来转去。我也懒得追踪了……总之意思就是连接多久不断开。当我们连接的是一个需要很长时间才能返回的Http接口时，将这个时间调的长一些以避免连接断开。但是这个也有副作用，就是假如设置了一个不合理的长时间，而被连接的服务出错或者挂掉了，那就会等待太久。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> HttpClient的几个参数</li>
+        <li><strong>Author:</strong> hao</li>
+        <li><strong>Created at
+                :</strong> 2020-05-09 14:05:35</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-03-12 13:06:53
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://besthao.cn/2020/05/09/HttpClient的几个参数/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2020/05/22/Jsava%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8EJson/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Java序列化与Json</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2020/05/07/JVM%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">JVM调试工具使用</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">HttpClient的几个参数</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Apache-HttpClient%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-text">Apache HttpClient的几个重要参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maxConnPerRoute-%E4%B8%8E-maxConnTotal"><span class="nav-text">maxConnPerRoute 与 maxConnTotal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestConfig-%E7%9A%84-%E4%B8%89%E4%B8%AATimeOut"><span class="nav-text">RequestConfig 的 三个TimeOut</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ConnectTimeout"><span class="nav-text">ConnectTimeout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SocketTimeout"><span class="nav-text">SocketTimeout</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">hao</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        37 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
