@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2018/09/28/hive元数据结构/"/>
+    <link rel="canonical" href="http://example.com/categories/记录/随笔/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -22,17 +22,14 @@
     
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hive元数据结构">
-<meta property="og:url" content="http://example.com/2018/09/28/Hive%E5%85%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/categories/%E8%AE%B0%E5%BD%95/%E9%9A%8F%E7%AC%94/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
-<meta property="article:published_time" content="2018-09-28T08:47:49.000Z">
-<meta property="article:modified_time" content="2025-03-12T05:06:53.820Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Hive">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
     
@@ -46,7 +43,7 @@
     
     <title>
         
-            Hive元数据结构 | haozz
+            Category: 随笔 | haozz
         
     </title>
 
@@ -429,799 +426,59 @@
 			
 
 			<div class="main-content">
-				<div class="post-page-container flex relative justify-between box-border w-full h-full">
-	<div class="article-content-container">
+				<div class="page-template-container">
+	
 
-		<div class="article-title relative w-full">
-			
-			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Hive元数据结构</h1>
-			</div>
-			
-		</div>
-
-		
-		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-				<img src="/img/myname.jpg">
-			</div>
-			<div class="info flex flex-col justify-between">
-				<div class="author flex items-center">
-					<span class="name text-default-text-color text-lg font-semibold">hao</span>
-					
-					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
-					
-				</div>
-				<div class="meta-info">
-					<div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2018-09-28 16:47:49</span>
-        <span class="mobile">2018-09-28 16:47:49</span>
-        <span class="hover-info">Created</span>
-    </span>
+	
+	<div class="category-name">
+    <i class="fa-solid fa-folder"></i>&nbsp;随笔
+</div>
+<div class="category-post-list">
     
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-12 13:06:53</span>
-            <span class="mobile">2025-03-12 13:06:53</span>
-            <span class="hover-info">Updated</span>
-        </span>
+<div class="archive-list-container">
     
-
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2022</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
                 
-                    <li>
-                        <a href="/tags/Hive/">Hive</a>&nbsp;
-                    </li>
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-24'>
+                    
+                    <a href="/2022/09/24/%E8%AE%B0/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">随记</span>
+                    </a>
+                    
                 
+                </li> <!-- Ensure the last item is properly closed -->
             </ul>
-        </span>
-    
-
-    
-    
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
+        </section>
     
 </div>
-
-				</div>
-			</div>
-		</div>
-		
-
-		
-
-
-		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>Hive中的数据库和表都是一目录的形式存储在HDFS的<code>/user/hive/warehouse/</code>下的,表中的数据则已文件的形式存储.<br>Hive的元数据metadata则需要存在关系型数据库中,Hive默认是将元数据存储在内嵌的Derby数据库中,而一般我们使用Hive的时候都需要将其修改为Mysql数据库.<br><a class="link"   target="_blank" rel="noopener" href="http://besthao.cn/2018/09/29/Hive%E9%85%8D%E7%BD%AEMySQL-metastore/" >修改方法在这里<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>这里主要写一下Hive的元数据的结构,看看都存了些什么内容.</p>
-<h3 id="1-存储Hive版本的元数据表（VERSION）"><a href="#1-存储Hive版本的元数据表（VERSION）" class="headerlink" title="1. 存储Hive版本的元数据表（VERSION）"></a>1. 存储Hive版本的元数据表（VERSION）</h3><hr>
-<p>表结构很简单,存储的内容对于Hive比较重要</p>
-<table>
-<thead>
-<tr>
-<th>VER_ID</th>
-<th>SCHEMA_VERSION</th>
-<th>VERSION_COMMENT</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ID主键</td>
-<td>Hive版本</td>
-<td>版本说明</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0.13.0</td>
-<td>Set by MetaStore</td>
-</tr>
-</tbody></table>
-<p>如果该表出现问题，根本进入不了Hive-Cli。<br>比如该表不存在，当启动Hive-Cli时候，就会报错<br><strong>Table ‘hive.version’ doesn’t exist</strong></p>
-<h3 id="2-Hive数据库相关的元数据表（DBS、DATABASE-PARAMS）"><a href="#2-Hive数据库相关的元数据表（DBS、DATABASE-PARAMS）" class="headerlink" title="2. Hive数据库相关的元数据表（DBS、DATABASE_PARAMS）"></a>2. Hive数据库相关的元数据表（DBS、DATABASE_PARAMS）</h3><hr>
-<ul>
-<li>DBS<br>该表存储Hive中所有数据库的基本信息，字段如下：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>DB_ID</td>
-<td>数据库ID</td>
-<td>2</td>
-</tr>
-<tr>
-<td>DESC</td>
-<td>数据库描述</td>
-<td>测试库</td>
-</tr>
-<tr>
-<td>DB_LOCATION_URI</td>
-<td>数据库HDFS路径</td>
-<td>hdfs:&#x2F;&#x2F;namenode&#x2F;user&#x2F;hive&#x2F;warehouse&#x2F;1234.db</td>
-</tr>
-<tr>
-<td>NAME</td>
-<td>数据库名</td>
-<td>test_db</td>
-</tr>
-<tr>
-<td>OWNER_NAME</td>
-<td>数据库所有者用户名</td>
-<td>shichenhao</td>
-</tr>
-<tr>
-<td>OWNER_TYPE</td>
-<td>所有者角色</td>
-<td>USER</td>
-</tr>
-</tbody></table>
-<ul>
-<li>DATABASE_PARAMS<br>该表存储数据库的相关参数,在create database的时候用到<br>WITH DBPROPERTIES (property_name&#x3D;property_value, …)指定的参数</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>DB_ID</td>
-<td>数据库ID</td>
-<td>2</td>
-</tr>
-<tr>
-<td>PARAM_KEY</td>
-<td>参数名</td>
-<td>createdby</td>
-</tr>
-<tr>
-<td>PARAM_VALUE</td>
-<td>参数值</td>
-<td>shichenhao</td>
-</tr>
-</tbody></table>
-<p>DBS和DATABASE_PARAMS这两张表通过DB_ID字段关联</p>
-<h3 id="3-Hive表和视图相关的元数据表"><a href="#3-Hive表和视图相关的元数据表" class="headerlink" title="3. Hive表和视图相关的元数据表"></a>3. Hive表和视图相关的元数据表</h3><hr>
-<p>主要有TBLS、TABLE_PARAMS、TBL_PRIVS，这三张表通过TBL_ID关联.</p>
-<ul>
-<li>TBLS<br>该表存储Hive表、视图、索引表的基本信息</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TBL_ID</td>
-<td>表ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>CREATE_TIME</td>
-<td>创建时间</td>
-<td>1436317071</td>
-</tr>
-<tr>
-<td>DB_ID</td>
-<td>数据库ID</td>
-<td>2 对应DBS中的DB_ID</td>
-</tr>
-<tr>
-<td>LAST_ACCESS_TIME</td>
-<td>上次访问时间</td>
-<td>1436317071</td>
-</tr>
-<tr>
-<td>OWNER</td>
-<td>所有者</td>
-<td>shichenhao</td>
-</tr>
-<tr>
-<td>RETENTION</td>
-<td>保留字段</td>
-<td>0</td>
-</tr>
-<tr>
-<td>SD_ID</td>
-<td>序列化配置信息</td>
-<td>86 对应SDS表中的SD_ID</td>
-</tr>
-<tr>
-<td>TBL_NAME</td>
-<td>表名</td>
-<td>test</td>
-</tr>
-<tr>
-<td>TBL_TYPE</td>
-<td>表类型</td>
-<td>MANAGED_TABLE、EXTERNAL_TABLE、INDEX_TABLE、VIRTUAL_VIEW</td>
-</tr>
-<tr>
-<td>VIEW_EXPANDED_TEXT</td>
-<td>视图的详细HQL语句</td>
-<td>select ‘test’.’pt’, ‘test’.’pcid’ from ‘test_db’.’test’</td>
-</tr>
-<tr>
-<td>VIEW_ORIGINAL_TEXT</td>
-<td>视图的原始HQL语句</td>
-<td>select * from lxw1234</td>
-</tr>
-</tbody></table>
-<ul>
-<li>TABLE_PARAMS<br>该表存储表&#x2F;视图的属性信息</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TBL_ID</td>
-<td>表ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>PARAM_KEY</td>
-<td>属性名</td>
-<td>totalSize、numRows、EXTERNAL</td>
-</tr>
-<tr>
-<td>PARAM_VALUE</td>
-<td>属性值</td>
-<td>970107336、21231028、TRUE</td>
-</tr>
-</tbody></table>
-<ul>
-<li>TBL_PRIVS<br>该表存储表&#x2F;视图的授权信息</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TBL_GRANT_ID</td>
-<td>授权ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>CREATE_TIME</td>
-<td>授权时间</td>
-<td>1436320455</td>
-</tr>
-<tr>
-<td>GRANT_OPTION</td>
-<td></td>
-<td>0</td>
-</tr>
-<tr>
-<td>GRANTOR</td>
-<td>授权执行用户</td>
-<td>shichenhao</td>
-</tr>
-<tr>
-<td>GRANTOR_TYPE</td>
-<td>授权者类型</td>
-<td>USER</td>
-</tr>
-<tr>
-<td>PRINCIPAL_NAME</td>
-<td>被授权用户</td>
-<td>username</td>
-</tr>
-<tr>
-<td>PRINCIPAL_TYPE</td>
-<td>被授权用户类型</td>
-<td>USER</td>
-</tr>
-<tr>
-<td>TBL_PRIV</td>
-<td>权限</td>
-<td>Select、Alter</td>
-</tr>
-<tr>
-<td>TBL_ID</td>
-<td>表ID</td>
-<td>22，对应TBLS表中的TBL_ID</td>
-</tr>
-</tbody></table>
-<h3 id="4-Hive文件存储信息相关的元数据表"><a href="#4-Hive文件存储信息相关的元数据表" class="headerlink" title="4.	Hive文件存储信息相关的元数据表"></a>4.	Hive文件存储信息相关的元数据表</h3><hr>
-<p>主要涉及SDS、SD_PARAMS、SERDES、SERDE_PARAMS</p>
-<p>由于HDFS支持的文件格式很多,而建Hive表时候也可以指定各种文件格式,Hive在将HQL解析成MapReduce时候,需要知道去哪里，使用哪种格式去读写HDFS文件,而这些信息就保存在这几张表中</p>
-<ul>
-<li>SDS<br>该表保存文件存储的基本信息，如INPUT_FORMAT、OUTPUT_FORMAT、是否压缩等.<br>TBLS表中的SD_ID与该表关联，可以获取Hive表的存储信息</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SD_ID</td>
-<td>存储信息ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>CD_ID</td>
-<td>字段信息ID</td>
-<td>21，对应CDS表</td>
-</tr>
-<tr>
-<td>INPUT_FORMAT</td>
-<td>文件输入格式</td>
-<td>org.apache.hadoop.mapred.TextInputFormat</td>
-</tr>
-<tr>
-<td>IS_COMPRESSED</td>
-<td>是否压缩</td>
-<td>0</td>
-</tr>
-<tr>
-<td>IS_STOREDASSUBDIRECTORIES</td>
-<td>是否以子目录存储</td>
-<td>0</td>
-</tr>
-<tr>
-<td>LOCATION</td>
-<td>HDFS路径</td>
-<td>hdfs:&#x2F;&#x2F;namenode&#x2F;hivedata&#x2F;warehouse&#x2F;ut.db&#x2F;t_lxw</td>
-</tr>
-<tr>
-<td>NUM_BUCKETS</td>
-<td>分桶数量</td>
-<td>5</td>
-</tr>
-<tr>
-<td>OUTPUT_FORMAT</td>
-<td>文件输出格式</td>
-<td>org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat</td>
-</tr>
-<tr>
-<td>SERDE_ID</td>
-<td>序列化类ID</td>
-<td>3，对应SERDES表</td>
-</tr>
-</tbody></table>
-<ul>
-<li>SD_PARAMS<br>该表存储Hive存储的属性信息，在创建表时候使用<br>STORED BY ‘storage.handler.class.name’ [WITH SERDEPROPERTIES (…)指定</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SD_ID</td>
-<td>存储配置ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>PARAM_KEY</td>
-<td>存储属性名</td>
-<td></td>
-</tr>
-<tr>
-<td>PARAM_VALUE</td>
-<td>存储属性值</td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li>SERDES<br>该表存储序列化使用的类信息</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SERDE_ID</td>
-<td>序列化类配置ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>NAME</td>
-<td>序列化类别名</td>
-<td></td>
-</tr>
-<tr>
-<td>SLIB</td>
-<td>序列化类</td>
-<td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
-</tr>
-</tbody></table>
-<ul>
-<li>SERDE_PARAMS<br>该表存储序列化的一些属性、格式信息,比如：行、列分隔符</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SERDE_ID</td>
-<td>序列化类配置ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>PARAM_KEY</td>
-<td>属性名</td>
-<td>field.delim</td>
-</tr>
-<tr>
-<td>PARAM_VALUE</td>
-<td>属性值</td>
-<td>,</td>
-</tr>
-</tbody></table>
-<h3 id="5-Hive表字段相关的元数据表"><a href="#5-Hive表字段相关的元数据表" class="headerlink" title="5. Hive表字段相关的元数据表"></a>5. Hive表字段相关的元数据表</h3><hr>
-<p>主要涉及COLUMNS_V2</p>
-<ul>
-<li>COLUMNS_V2<br>该表存储表对应的字段信息。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CD_ID</td>
-<td>字段信息ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>COMMENT</td>
-<td>字段注释</td>
-<td></td>
-</tr>
-<tr>
-<td>COLUMN_NAME</td>
-<td>字段名</td>
-<td>pt</td>
-</tr>
-<tr>
-<td>TYPE_NAME</td>
-<td>字段类型</td>
-<td>string</td>
-</tr>
-<tr>
-<td>INTEGER_IDX</td>
-<td>字段顺序</td>
-<td>2</td>
-</tr>
-</tbody></table>
-<h3 id="6-Hive表分区相关的元数据表"><a href="#6-Hive表分区相关的元数据表" class="headerlink" title="6. Hive表分区相关的元数据表"></a>6. Hive表分区相关的元数据表</h3><hr>
-<p>主要涉及PARTITIONS、PARTITION_KEYS、PARTITION_KEY_VALS、PARTITION_PARAMS</p>
-<ul>
-<li>PARTITIONS<br>该表存储表分区的基本信息。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PART_ID</td>
-<td>分区ID</td>
-<td>1</td>
-</tr>
-<tr>
-<td>CREATE_TIME</td>
-<td>分区创建时间</td>
-<td></td>
-</tr>
-<tr>
-<td>LAST_ACCESS_TIME</td>
-<td>最后一次访问时间</td>
-<td></td>
-</tr>
-<tr>
-<td>PART_NAME</td>
-<td>分区名</td>
-<td>pt&#x3D;2015-06-12</td>
-</tr>
-<tr>
-<td>SD_ID</td>
-<td>分区存储ID</td>
-<td>21</td>
-</tr>
-<tr>
-<td>TBL_ID</td>
-<td>表ID</td>
-<td>2</td>
-</tr>
-</tbody></table>
-<ul>
-<li>PARTITION_KEYS<br>该表存储分区的字段信息。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TBL_ID</td>
-<td>表ID</td>
-<td>2</td>
-</tr>
-<tr>
-<td>PKEY_COMMENT</td>
-<td>分区字段说明</td>
-<td></td>
-</tr>
-<tr>
-<td>PKEY_NAME</td>
-<td>分区字段名</td>
-<td>pt</td>
-</tr>
-<tr>
-<td>PKEY_TYPE</td>
-<td>分区字段类型</td>
-<td>string</td>
-</tr>
-<tr>
-<td>INTEGER_IDX</td>
-<td>分区字段顺序</td>
-<td>1</td>
-</tr>
-</tbody></table>
-<p> </p>
-<ul>
-<li>PARTITION_KEY_VALS<br>该表存储分区字段值。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PART_ID</td>
-<td>分区ID</td>
-<td>2</td>
-</tr>
-<tr>
-<td>PART_KEY_VAL</td>
-<td>分区字段值</td>
-<td>2015-06-12</td>
-</tr>
-<tr>
-<td>INTEGER_IDX</td>
-<td>分区字段值顺序</td>
-<td>0</td>
-</tr>
-</tbody></table>
-<p> </p>
-<ul>
-<li>PARTITION_PARAMS<br>该表存储分区的属性信息。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>元数据表字段</th>
-<th>说明</th>
-<th>示例数据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PART_ID</td>
-<td>分区ID</td>
-<td>2</td>
-</tr>
-<tr>
-<td>PARAM_KEY</td>
-<td>分区属性名</td>
-<td>numFiles、numRows</td>
-</tr>
-<tr>
-<td>PARAM_VALUE</td>
-<td>分区属性值</td>
-<td>15、502195</td>
-</tr>
-</tbody></table>
-<h3 id="7-其他不常用的元数据表"><a href="#7-其他不常用的元数据表" class="headerlink" title="7. 其他不常用的元数据表"></a>7. 其他不常用的元数据表</h3><hr>
-<ul>
-<li>DB_PRIVS</li>
-</ul>
-<p>数据库权限信息表。通过GRANT语句对数据库授权后，将会在这里存储。</p>
-<ul>
-<li>IDXS</li>
-</ul>
-<p>索引表，存储Hive索引相关的元数据</p>
-<ul>
-<li>INDEX_PARAMS</li>
-</ul>
-<p>索引相关的属性信息。</p>
-<ul>
-<li>TAB_COL_STATS</li>
-</ul>
-<p>表字段的统计信息。使用ANALYZE语句对表字段分析后记录在这里。</p>
-<ul>
-<li>TBL_COL_PRIVS</li>
-</ul>
-<p>表字段的授权信息</p>
-<ul>
-<li>PART_PRIVS</li>
-</ul>
-<p>分区的授权信息</p>
-<ul>
-<li>PART_COL_STATS</li>
-</ul>
-<p>分区字段的统计信息。</p>
-<ul>
-<li>PART_COL_PRIVS</li>
-</ul>
-<p>分区字段的权限信息。</p>
-<ul>
-<li>FUNCS</li>
-</ul>
-<p>用户注册的函数信息</p>
-<ul>
-<li>FUNC_RU</li>
-</ul>
-<p>用户注册函数的资源信息</p>
-
-		</div>
-
-		
-		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-			<div class="article-copyright-info-container">
-    <ul>
-        <li><strong>Title:</strong> Hive元数据结构</li>
-        <li><strong>Author:</strong> hao</li>
-        <li><strong>Created at
-                :</strong> 2018-09-28 16:47:49</li>
-        
-            <li>
-                <strong>Updated at
-                    :</strong> 2025-03-12 13:06:53
-            </li>
-        
-        <li>
-            <strong>Link:</strong> https://besthao.cn/2018/09/28/Hive元数据结构/
-        </li>
-        <li>
-            <strong>
-                License:
-            </strong>
-            
-
-            
-                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
-            
-        </li>
-    </ul>
 </div>
-
-		</div>
-		
-
-		
-		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-			
-			<li class="tag-item mx-0.5">
-				<a href="/tags/Hive/">#Hive</a>&nbsp;
-			</li>
-			
-		</ul>
-		
-
-		
-
-		
-		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2018/09/29/Hive%E9%85%8D%E7%BD%AEMySQL-metastore/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Hive配置MySQL metastore</span>
-						<span class="post-nav-item">Prev posts</span>
-					</span>
-				</a>
-			</div>
-			
-			
-			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2018/09/21/Mac%E4%B8%AD%E6%9B%B4%E6%8D%A2JDK%E7%89%88%E6%9C%AC/">
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Mac中更换JDK版本</span>
-						<span class="post-nav-item">Next posts</span>
-					</span>
-					<span class="right arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-right"></i>
-					</span>
-				</a>
-			</div>
-			
-		</div>
-		
-
-
-		
-		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-			<div class="comments-container mt-10 w-full ">
-    <div id="comment-anchor" class="w-full h-2.5"></div>
-    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
-        Comments
-    </div>
-    
-
-        
-            
-
-
-        
-    
-</div>
-
-		</div>
-		
-	</div>
 
 	
-	<div class="toc-content-container">
-		<div class="post-toc-wrap">
-	<div class="post-toc">
-		<div class="toc-title">On this page</div>
-		<div class="page-title">Hive元数据结构</div>
-		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%98%E5%82%A8Hive%E7%89%88%E6%9C%AC%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8%EF%BC%88VERSION%EF%BC%89"><span class="nav-text">1. 存储Hive版本的元数据表（VERSION）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Hive%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8%EF%BC%88DBS%E3%80%81DATABASE-PARAMS%EF%BC%89"><span class="nav-text">2. Hive数据库相关的元数据表（DBS、DATABASE_PARAMS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Hive%E8%A1%A8%E5%92%8C%E8%A7%86%E5%9B%BE%E7%9B%B8%E5%85%B3%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-text">3. Hive表和视图相关的元数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Hive%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E4%BF%A1%E6%81%AF%E7%9B%B8%E5%85%B3%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-text">4.	Hive文件存储信息相关的元数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Hive%E8%A1%A8%E5%AD%97%E6%AE%B5%E7%9B%B8%E5%85%B3%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-text">5. Hive表字段相关的元数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Hive%E8%A1%A8%E5%88%86%E5%8C%BA%E7%9B%B8%E5%85%B3%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-text">6. Hive表分区相关的元数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%85%B6%E4%BB%96%E4%B8%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-text">7. 其他不常用的元数据表</span></a></li></ol>
 
+	<div class="page-template-content markdown-body">
+		
+
+		
+	</div>
+
+	<div class="page-template-comments">
+		
 	</div>
 </div>
-	</div>
-	
+
+<div class="paginator">
+	<span class="page-number current">1</span>
 </div>
+  
 			</div>
 
 			
@@ -1299,26 +556,6 @@
 		</div>
 	</div>
 
-	
-	<div class="post-tools">
-		<div class="post-tools-container">
-	<ul class="article-tools-list">
-		<!-- TOC aside toggle -->
-		
-		<li class="right-bottom-tools page-aside-toggle">
-			<i class="fa-regular fa-outdent"></i>
-		</li>
-		
-
-		<!-- go comment -->
-		
-		<li class="go-comment">
-			<i class="fa-regular fa-comments"></i>
-		</li>
-		
-	</ul>
-</div>
-	</div>
 	
 
 	<div class="right-side-tools-container">
@@ -1401,7 +638,6 @@
         containers: ["#swup"],
     });
 </script>
-
 
 
 
