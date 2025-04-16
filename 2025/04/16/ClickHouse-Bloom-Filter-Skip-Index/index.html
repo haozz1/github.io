@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="hao">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/04/16/clickhouse-bloom-filter-skip-index/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="🔍 ClickHouse Bloom Filter Skip Index">
+<meta property="og:url" content="http://example.com/2025/04/16/ClickHouse-Bloom-Filter-Skip-Index/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-04-16T10:21:10.000Z">
+<meta property="article:modified_time" content="2025-04-16T10:33:19.652Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="clickhouse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            🔍 ClickHouse Bloom Filter Skip Index | haozz
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"看见","subtitle":{"text":["探索","记录","分享"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":100,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/haozz1","instagram":"https://www.instagram.com/haozi_3/","weibo":"https://www.weibo.com/u/2164511885"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","lrcType":false,"audios":[{"name":"一路向北","artist":"周杰伦","url":"/img/ylxb.mp3","cover":"/img/ylxb.jpeg"},{"name":"Imagine","artist":"John Lennon","url":"/img/Imagine.mp3","cover":"/img/imagine.jpg"},{"name":"Coloratura","artist":"Coldplay","url":"/img/Coloratura-Coldplay.mp3","cover":"/img/color.jpg"},{"name":"七里香","artist":"周杰伦","url":"/img/七里香.mp3","cover":"/img/qlx.jpg"},{"name":"蝴蝶","artist":"陶喆","url":"/img/蝴蝶.mp3","cover":"/img/hudie.jpg"},{"name":"特别的人","artist":"方大同","url":"/img/特别的人.mp3","cover":"/img/wxsj.png"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-solid fa-house"},"Archives":{"path":"/archives","icon":"fa-solid fa-book"},"Moments":{"icon":"fa-solid fa-planet-ringed","path":"/moment"},"About":{"icon":"fa-solid fa-user-astronaut","submenus":{"Me":"/about","Friends":"/friends"}},"AI":{"icon":"fa-solid fa-rocket","submenus":{"chatGPT":"https://chatgpt.com/","deepseek":"https://chat.deepseek.com/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"woho!!","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/img/%E9%AD%94%E9%AC%BC.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                haozz
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-solid fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-solid fa-book fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/moment"
+                                        >
+                                    <i class="fa-solid fa-planet-ringed fa-fw"></i>
+                                    MOMENTS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-user-astronaut fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-rocket fa-fw"></i>
+                                    AI
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chatgpt.com/">
+                                                    CHATGPT
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://chat.deepseek.com/">
+                                                    DEEPSEEK
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-solid fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-solid fa-book fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/moment"
+                        >
+                            <span>
+                                MOMENTS
+                            </span>
+                            
+                                <i class="fa-solid fa-planet-ringed fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-AI"
+                        >
+                            <span>
+                                AI
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-AI">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chatgpt.com/">CHATGPT</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://chat.deepseek.com/">DEEPSEEK</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://www.ilscipio.com/wp-content/uploads/2022/07/clickhouse-logo_freelogovectors.net_.png" alt="🔍 ClickHouse Bloom Filter Skip Index" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">🔍 ClickHouse Bloom Filter Skip Index</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/img/myname.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">hao</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-04-16 18:21:10</span>
+        <span class="mobile">2025-04-16 18:21:10</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-04-16 18:33:19</span>
+            <span class="mobile">2025-04-16 18:33:19</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Backend/">Backend</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Backend/clickhouse/">clickhouse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/clickhouse/">clickhouse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="📌-什么是-Bloom-Filter-Skip-Index？"><a href="#📌-什么是-Bloom-Filter-Skip-Index？" class="headerlink" title="📌 什么是 Bloom Filter Skip Index？"></a>📌 什么是 Bloom Filter Skip Index？</h2><p>Bloom Filter Skip Index 是 ClickHouse 中的一种 <strong>数据跳过索引机制</strong>，不是传统的 B+ Tree 类型索引。它通过在每个数据块（granule）中为指定字段建立布隆过滤器，在查询时先判断是否“<strong>可能包含目标值</strong>”，从而跳过不相关的数据块，实现显著加速。</p>
+<p><strong>适合用于：</strong></p>
+<ul>
+<li>查询中经常出现 <code>=</code>, <code>IN</code>, <code>LIKE</code> 等条件的字段</li>
+<li>高基数（unique 值很多）字段，如 email、UUID、session_id</li>
+<li>大宽表或日志型表，查询字段较分散</li>
+</ul>
+<hr>
+<h2 id="⚙️-Bloom-Filter-索引工作机制"><a href="#⚙️-Bloom-Filter-索引工作机制" class="headerlink" title="⚙️ Bloom Filter 索引工作机制"></a>⚙️ Bloom Filter 索引工作机制</h2><h3 id="✅-插入阶段（建索引-写入）"><a href="#✅-插入阶段（建索引-写入）" class="headerlink" title="✅ 插入阶段（建索引 + 写入）"></a>✅ 插入阶段（建索引 + 写入）</h3><ol>
+<li>ClickHouse 将表数据分成 granule（颗粒），每个 granule 默认约 8192 行。</li>
+<li>每个 granule 对于被索引的字段，建立一个布隆过滤器：<ul>
+<li>使用多种哈希函数对字段值进行哈希</li>
+<li>把对应的 bit 位设置为 1</li>
+</ul>
+</li>
+<li>所有布隆过滤器信息写入 <code>.idx</code> 索引文件，与数据文件并存。</li>
+</ol>
+<h3 id="✅-查询阶段（跳过扫描）"><a href="#✅-查询阶段（跳过扫描）" class="headerlink" title="✅ 查询阶段（跳过扫描）"></a>✅ 查询阶段（跳过扫描）</h3><ol>
+<li>查询来临时，ClickHouse对查询条件（如 <code>email = &#39;alice@example.com&#39;</code>）执行相同的哈希操作。</li>
+<li>然后逐块读取 Bloom Filter 判断：<ul>
+<li>如果所有对应 bit 位都是 1 → 可能有 → 读取数据块进一步判断</li>
+<li>如果有任意 bit 位是 0 → 一定没有 → 跳过该 granule</li>
+</ul>
+</li>
+</ol>
+<p>这一步完成时，ClickHouse 就跳过了大量与查询无关的数据块，极大减少磁盘 IO 和 CPU 解压计算。</p>
+<hr>
+<h2 id="🔢-参数详解"><a href="#🔢-参数详解" class="headerlink" title="🔢 参数详解"></a>🔢 参数详解</h2><h3 id="1-bloom-filter-x"><a href="#1-bloom-filter-x" class="headerlink" title="1. bloom_filter(x)"></a>1. <code>bloom_filter(x)</code></h3><p>表示布隆过滤器允许的最大误判率。例如：</p>
+<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INDEX idx_email email TYPE bloom_filter(<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>0.01</code> ➜ 表示误判率为 1%</li>
+<li>误判率越低 ➜ 索引越大，跳过精度越高，insert 写入开销略高</li>
+<li>ClickHouse 会自动计算：<ul>
+<li>位图长度（bit array size）</li>
+<li>使用的哈希函数个数（通常 3~7 个）</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-GRANULARITY"><a href="#2-GRANULARITY" class="headerlink" title="2. GRANULARITY"></a>2. <code>GRANULARITY</code></h3><p>控制每多少个 granule 建一个布隆索引（最小为 1）：</p>
+<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANULARITY <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>1</code> 表示每个 granule 都建一个索引</li>
+<li><code>4</code> 表示每 4 个 granule 共享一个索引</li>
+</ul>
+<p>🌟 粒度越小，跳过越精细，Bloom Filter 越多；粒度越大，索引越小但误判率更高。</p>
+<hr>
+<h2 id="❓❓❓-常见问题-回答整理"><a href="#❓❓❓-常见问题-回答整理" class="headerlink" title="❓❓❓ 常见问题 &amp; 回答整理"></a>❓❓❓ 常见问题 &amp; 回答整理</h2><h3 id="❓-Bloom-Filter-是怎么判断是否“包含某个值”的？"><a href="#❓-Bloom-Filter-是怎么判断是否“包含某个值”的？" class="headerlink" title="❓ Bloom Filter 是怎么判断是否“包含某个值”的？"></a>❓ Bloom Filter 是怎么判断是否“包含某个值”的？</h3><p>布隆过滤器不存储原始值，只通过哈希函数记录 bit 位。</p>
+<p>例如 <code>alice@example.com</code>：</p>
+<ul>
+<li>会被多个哈希函数处理 → 变成几个 bit 位（如 1129、4073、7217）</li>
+<li>这些位在索引中被置为 1</li>
+<li>查询时用相同哈希函数检查这些位：<ul>
+<li>全是 1：可能存在（不确定）</li>
+<li>有 0：一定不存在 → 跳过该块 ✅</li>
+</ul>
+</li>
+</ul>
+<h3 id="❓-Bloom-Filter-中的哈希函数是怎么工作的？"><a href="#❓-Bloom-Filter-中的哈希函数是怎么工作的？" class="headerlink" title="❓ Bloom Filter 中的哈希函数是怎么工作的？"></a>❓ Bloom Filter 中的哈希函数是怎么工作的？</h3><p>✅ Bloom Filter 并不真的用 N 个完全不同的哈希函数！<br>而是使用两个基础哈希函数（通常来自 MurmurHash3），通过如下公式派将一个值映射到多个 bit 位位置：<br>这是 <a class="link"   target="_blank" rel="noopener" href="https://www.eecs.harvard.edu/~michaelm/postscripts/rsa2008.pdf" >Kirsch and Mitzenmacher<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 提出的经典优化：</p>
+<blockquote>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">H(i, x) = h1(x) + i * h2(x) mod m</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>h1(x)</code> 和 <code>h2(x)</code> 是基础哈希函数（来自 MurmurHash3）</li>
+<li><code>i</code> 是第几个函数（0～k-1）</li>
+<li><code>m</code> 是 bit array 的大小（通常是 2^13 &#x3D; 8192）</li>
+<li>最终得到 k 个 bit 位置</li>
+</ul>
+</blockquote>
+<p>ClickHouse 源码实现是：</p>
+<ul>
+<li>使用 MurmurHash3（快速 + 高熵 + 分布均匀）</li>
+<li>默认取 2 个基础 hash 值（比如 h1 和 h2）</li>
+<li>然后用上面那个公式生成多个位置</li>
+</ul>
+<p>比如设置了：</p>
+<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bloom_filter(<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure></div>
+<p>ClickHouse 内部会根据你的目标误判率自动算出要几个 hash：</p>
+<ul>
+<li>1% 误判率时，通常是 6～7 个 hash 函数</li>
+<li>0.1% 误判率时，可能会上到 9～10 个</li>
+</ul>
+<p>这些不是单独函数，而是从 h1, h2 推导的派生位置，真正底层实现是在 C++ 代码里算出来的。<br>这样只需两次哈希计算就能派生出多个位置，大大降低计算成本，同时保留高效的分布特性。</p>
+<h3 id="❓-会不会误判？（误把不存在的数据块当成可能有）"><a href="#❓-会不会误判？（误把不存在的数据块当成可能有）" class="headerlink" title="❓ 会不会误判？（误把不存在的数据块当成可能有）"></a>❓ 会不会误判？（误把不存在的数据块当成可能有）</h3><p>是的，这是 Bloom Filter 的设计特点：</p>
+<ul>
+<li><strong>False Positive（假阳性）</strong> 是允许的</li>
+<li>它永远不会出现 False Negative（即漏掉真正的数据）</li>
+</ul>
+<p>误判率可通过 <code>bloom_filter(0.01)</code> 控制，但数据块越大、插入越多，bit 被重复置 1 的概率也越大 ➜ 误判率升高</p>
+<h3 id="❓-插入数据量越来越大时，ClickHouse-会自动扩展-Bloom-Filter-吗？"><a href="#❓-插入数据量越来越大时，ClickHouse-会自动扩展-Bloom-Filter-吗？" class="headerlink" title="❓ 插入数据量越来越大时，ClickHouse 会自动扩展 Bloom Filter 吗？"></a>❓ 插入数据量越来越大时，ClickHouse 会自动扩展 Bloom Filter 吗？</h3><p><strong>不会！</strong></p>
+<ul>
+<li>每个 granule 的 Bloom Filter 是<strong>固定配置</strong>，建表时的参数定死：bit 位大小、哈希函数个数</li>
+<li>数据多了只是产生更多的 granule，每个都按原配置建索引</li>
+<li>想调整参数，只能重建表 or 重写数据（如 <code>OPTIMIZE FINAL</code>）</li>
+</ul>
+<h3 id="❓-GRANULARITY-设置对误判的影响？"><a href="#❓-GRANULARITY-设置对误判的影响？" class="headerlink" title="❓ GRANULARITY 设置对误判的影响？"></a>❓ <code>GRANULARITY</code> 设置对误判的影响？</h3><ul>
+<li><code>GRANULARITY 1</code>：每 8192 行就建一个索引，跳过粒度细，误判率低</li>
+<li><code>GRANULARITY 4</code>：每 32768 行一个索引，跳过效果变差，误判率升高，但索引文件更小</li>
+</ul>
+<p>选择时应根据<strong>查询频率</strong> + <strong>字段基数</strong>来权衡性能与空间</p>
+<h3 id="❓-为什么有时候明明-x-结果还是加载了很多数据块？"><a href="#❓-为什么有时候明明-x-结果还是加载了很多数据块？" class="headerlink" title="❓ 为什么有时候明明 = &#39;x&#39; 结果还是加载了很多数据块？"></a>❓ 为什么有时候明明 <code>= &#39;x&#39;</code> 结果还是加载了很多数据块？</h3><p>可能是布隆过滤器判断“可能存在”但其实是误判（bit 位刚好都被其他值设置过了）</p>
+<hr>
+<h2 id="✅-使用建议"><a href="#✅-使用建议" class="headerlink" title="✅ 使用建议"></a>✅ 使用建议</h2><table>
+<thead>
+<tr>
+<th align="left">字段特征</th>
+<th align="left">是否适合建 Bloom Filter 索引</th>
+<th align="left">推荐设置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">高基数（email, UUID, token）</td>
+<td align="left">✅ 是</td>
+<td align="left"><code>bloom_filter(0.01) GRANULARITY 1</code></td>
+</tr>
+<tr>
+<td align="left">低基数（gender, status）</td>
+<td align="left">❌ 否</td>
+<td align="left">不推荐，几乎全部误判</td>
+</tr>
+<tr>
+<td align="left">查询常用字段</td>
+<td align="left">✅ 是</td>
+<td align="left">精度越高，跳过效果越明显</td>
+</tr>
+<tr>
+<td align="left">数据量巨大</td>
+<td align="left">✅ 是</td>
+<td align="left">可以配合分区和 TTL 控制 granule 数量</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="📌-总结一句话"><a href="#📌-总结一句话" class="headerlink" title="📌 总结一句话"></a>📌 总结一句话</h2><blockquote>
+<p><strong>Bloom Filter Skip Index 是 ClickHouse 中提升查询性能的重要武器，适用于高基数、频繁被查的字段，通过设置合理的误判率和 granularity，可在大数据量场景下显著提升查询速度。</strong></p>
+</blockquote>
+<hr>
+<h2 id="📎-后续可做（选项）"><a href="#📎-后续可做（选项）" class="headerlink" title="📎 后续可做（选项）"></a>📎 后续可做（选项）</h2><ul>
+<li>构建“索引策略推荐器”：根据字段类型 + 基数 + 查询频率智能推荐是否建索引</li>
+<li>编写 Python 脚本演示 Bloom Filter bit 位变化 + 查询误判过程</li>
+<li>建立实验对比不同配置对查询耗时和误判率的影响</li>
+</ul>
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/clickhouse/">#clickhouse</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2022/09/24/%E8%AE%B0/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">探索 记录 分享</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">🔍 ClickHouse Bloom Filter Skip Index</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8C-%E4%BB%80%E4%B9%88%E6%98%AF-Bloom-Filter-Skip-Index%EF%BC%9F"><span class="nav-text">📌 什么是 Bloom Filter Skip Index？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Bloom-Filter-%E7%B4%A2%E5%BC%95%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-text">⚙️ Bloom Filter 索引工作机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%8F%92%E5%85%A5%E9%98%B6%E6%AE%B5%EF%BC%88%E5%BB%BA%E7%B4%A2%E5%BC%95-%E5%86%99%E5%85%A5%EF%BC%89"><span class="nav-text">✅ 插入阶段（建索引 + 写入）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%9F%A5%E8%AF%A2%E9%98%B6%E6%AE%B5%EF%BC%88%E8%B7%B3%E8%BF%87%E6%89%AB%E6%8F%8F%EF%BC%89"><span class="nav-text">✅ 查询阶段（跳过扫描）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%A2-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="nav-text">🔢 参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-bloom-filter-x"><span class="nav-text">1. bloom_filter(x)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-GRANULARITY"><span class="nav-text">2. GRANULARITY</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9D%93%E2%9D%93%E2%9D%93-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-%E5%9B%9E%E7%AD%94%E6%95%B4%E7%90%86"><span class="nav-text">❓❓❓ 常见问题 &amp; 回答整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%93-Bloom-Filter-%E6%98%AF%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E2%80%9C%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%80%BC%E2%80%9D%E7%9A%84%EF%BC%9F"><span class="nav-text">❓ Bloom Filter 是怎么判断是否“包含某个值”的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%93-Bloom-Filter-%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="nav-text">❓ Bloom Filter 中的哈希函数是怎么工作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%93-%E4%BC%9A%E4%B8%8D%E4%BC%9A%E8%AF%AF%E5%88%A4%EF%BC%9F%EF%BC%88%E8%AF%AF%E6%8A%8A%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%9D%97%E5%BD%93%E6%88%90%E5%8F%AF%E8%83%BD%E6%9C%89%EF%BC%89"><span class="nav-text">❓ 会不会误判？（误把不存在的数据块当成可能有）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%93-%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E8%B6%8A%E6%9D%A5%E8%B6%8A%E5%A4%A7%E6%97%B6%EF%BC%8CClickHouse-%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95-Bloom-Filter-%E5%90%97%EF%BC%9F"><span class="nav-text">❓ 插入数据量越来越大时，ClickHouse 会自动扩展 Bloom Filter 吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%93-GRANULARITY-%E8%AE%BE%E7%BD%AE%E5%AF%B9%E8%AF%AF%E5%88%A4%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-text">❓ GRANULARITY 设置对误判的影响？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E6%98%8E%E6%98%8E-x-%E7%BB%93%E6%9E%9C%E8%BF%98%E6%98%AF%E5%8A%A0%E8%BD%BD%E4%BA%86%E5%BE%88%E5%A4%9A%E6%95%B0%E6%8D%AE%E5%9D%97%EF%BC%9F"><span class="nav-text">❓ 为什么有时候明明 &#x3D; &#39;x&#39; 结果还是加载了很多数据块？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="nav-text">✅ 使用建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8C-%E6%80%BB%E7%BB%93%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-text">📌 总结一句话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8E-%E5%90%8E%E7%BB%AD%E5%8F%AF%E5%81%9A%EF%BC%88%E9%80%89%E9%A1%B9%EF%BC%89"><span class="nav-text">📎 后续可做（选项）</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">hao</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        32 posts in total
+                    </span>
+                    
+                        <span>
+                            112.3k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>
