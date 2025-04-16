@@ -745,6 +745,99 @@
 
                 
                     <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
+                        <a href="/2025/04/16/ClickHouse-Bloom-Filter-Skip-Index/">
+                            <img src="https://www.ilscipio.com/wp-content/uploads/2022/07/clickhouse-logo_freelogovectors.net_.png" alt="🔍 ClickHouse Bloom Filter Skip Index" class="w-full h-full object-cover dark:brightness-75 transition-all" />
+                        </a>
+                    </div>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                    <h3 class="home-article-title">
+                        <a href="/2025/04/16/ClickHouse-Bloom-Filter-Skip-Index/">
+                            🔍 ClickHouse Bloom Filter Skip Index
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            📌 什么是 Bloom Filter Skip Index？Bloom Filter Skip Index 是 ClickHouse 中的一种 数据跳过索引机制，不是传统的 B+ Tree 类型索引。它通过在每个数据块（granule）中为指定字段建立布隆过滤器，在查询时先判断是否“可能包含目标值”，从而跳过不相关的数据块，实现显著加速。
+适合用于：
+
+查询中经常出现 =, IN, LIK...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Apr 16 2025 18:21:10 GMT+0800">
+                
+                    2025-04-16
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Backend/">Backend</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Backend/clickhouse/">clickhouse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/clickhouse/">clickhouse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/04/16/ClickHouse-Bloom-Filter-Skip-Index/">Read more<span class="seo-reader-text">🔍 ClickHouse Bloom Filter Skip Index</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+                    <div class="absolute top-[12px] right-[12px] text-[0.7rem] text-third-text-color rounded-medium bg-background-color-transparent-15 py-[2px] px-[10px] border border-border-color z-1 hover:text-first-text-color cursor-default">
+                        <i class="fa-regular fa-thumbtack mr-[3px] text-[0.65rem]"></i>Sticky
+                    </div>
+                
+
+                
+                    
+                
+
+                
+                    <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
                         <a href="/2021/05/02/%E5%A4%A9%E5%AE%AB/">
                             <img src="https://th.bing.com/th/id/R.2c4a2204a3730eebf0547c611b38e467?rik=Wr0%2fDvwh8inMfQ&riu=http%3a%2f%2fscitech.people.com.cn%2fmediafile%2f200705%2f14%2fP200705141118261867931068.jpg&ehk=Pnc4l21z%2fsiXfPJzZEoKaFrhTFREbWiRsgt4vh9P40s%3d&risl=&pid=ImgRaw&r=0" alt="天宫" class="w-full h-full object-cover dark:brightness-75 transition-all" />
                         </a>
@@ -1452,97 +1545,6 @@
     </div>
 
     <a href="/2018/12/12/oracle%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">Read more<span class="seo-reader-text">oracle的导入导出</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-                    <div class="absolute top-[12px] right-[12px] text-[0.7rem] text-third-text-color rounded-medium bg-background-color-transparent-15 py-[2px] px-[10px] border border-border-color z-1 hover:text-first-text-color cursor-default">
-                        <i class="fa-regular fa-thumbtack mr-[3px] text-[0.65rem]"></i>Sticky
-                    </div>
-                
-
-                
-                    
-                
-
-                
-                    <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
-                        <a href="/2019/07/23/oracle%E6%8A%80%E5%B7%A7/">
-                            <img src="https://www.crossjoin.pt/wp-content/uploads/2019/08/ImagemArtigo-Site-1.jpg" alt="oracle技巧" class="w-full h-full object-cover dark:brightness-75 transition-all" />
-                        </a>
-                    </div>
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                    <h3 class="home-article-title">
-                        <a href="/2019/07/23/oracle%E6%8A%80%E5%B7%A7/">
-                            oracle技巧
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            1. python3 中的cx_Oraclecx_Oracle 模块是没法直接通过pip install的,要想使用,需要配置好几个东西,此处默认已经安装了python3(离线的话需要配置好yum和pip源)
-1. oracle instantclientoracle官网下载地址官网下载需要注册,我把我用到的 instantclient-basic-linux.x64-12.1.0.2.0....
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Jul 23 2019 11:17:03 GMT+0800">
-                
-                    2019-07-23
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Database/">Database</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/Database/oracle/">oracle</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/oracle/">oracle</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/07/23/oracle%E6%8A%80%E5%B7%A7/">Read more<span class="seo-reader-text">oracle技巧</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
